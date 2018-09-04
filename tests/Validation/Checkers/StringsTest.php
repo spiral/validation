@@ -9,7 +9,6 @@
 namespace Spiral\Validation\Tests\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Core\Container;
 use Spiral\Validation\Checkers\StringChecker;
 
 class StringsTest extends TestCase
@@ -79,7 +78,6 @@ class StringsTest extends TestCase
         $this->assertFalse($checker->range([], 0, 2));
     }
 
-    //Test basic forwarding
     public function testRegexp()
     {
         $checker = new StringChecker();

@@ -18,7 +18,7 @@ class Validator implements ValidatorInterface
     /**
      * Provides checkers, rules and conditions access.
      *
-     * @var ValidationsInterface
+     * @var ValidationInterface
      */
     private $provider;
 
@@ -56,12 +56,12 @@ class Validator implements ValidatorInterface
     private $registeredErrors;
 
     /**
-     * @param array|\ArrayAccess   $data
-     * @param array                $rules
-     * @param mixed                $context
-     * @param ValidationsInterface $provider
+     * @param array|\ArrayAccess  $data
+     * @param array               $rules
+     * @param mixed               $context
+     * @param ValidationInterface $provider
      */
-    public function __construct($data, array $rules, $context, ValidationsInterface $provider)
+    public function __construct($data, array $rules, $context, ValidationInterface $provider)
     {
         $this->provider = $provider;
         $this->data = $data;

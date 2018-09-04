@@ -8,7 +8,9 @@
 
 namespace Spiral\Validation;
 
-class ValidationProvider
+use Spiral\Models\DataEntity;
+
+class ValidatesEntity extends DataEntity
 {
 
 }

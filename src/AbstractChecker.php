@@ -29,31 +29,34 @@ abstract class AbstractChecker implements CheckerInterface
     /**
      * {@inheritdoc}
      */
-    public function withValidator(ValidatorInterface $validator): CheckerInterface
-    {
-        $checker = clone $this;
-        $checker->validator = $validator;
+    public function check(
+        ValidatorInterface $validator,
+        string $method,
+        $value,
+        array $arguments = []
+    ): bool {
 
-        return $checker;
+        try {
+            $this->validator = $validator;
+
+            array_unshift($arguments, $value);
+
+            return call_user_func_array([$this, $method], $arguments);
+
+        } finally {
+            $this->validator = null;
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function check(string $method, $value, array $arguments = []): bool
-    {
-        array_unshift($arguments, $value);
-        return call_user_func_array([$this, $method], $arguments);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function errorMessage(string $method, $value, array $arguments = []): string
+    public function getMessage(string $method, $value, array $arguments = []): string
     {
         $messages = static::MESSAGES;
         if (isset($messages[$method])) {
             array_unshift($arguments, $value);
+
             return $this->say(static::MESSAGES[$method], $arguments);
         }
 

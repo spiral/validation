@@ -11,6 +11,9 @@ namespace Spiral\Validation;
 
 use Spiral\Validation\Exceptions\ValidationException;
 
+/**
+ * Singular validation state (with data, context and rules encapsulated).
+ */
 interface ValidatorInterface
 {
     /**
@@ -45,6 +48,7 @@ interface ValidatorInterface
      *
      * @param string $field
      * @param string $error
+     *
      * @return ValidatorInterface
      */
     public function registerError(string $field, string $error): ValidatorInterface;

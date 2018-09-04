@@ -11,39 +11,25 @@ namespace Spiral\Validation;
 /**
  * Represents options to describe singular validation rule.
  */
-final class Rule
+class Rule
 {
     /**
      * Default validation message for custom rules.
      */
     const DEFAULT_MESSAGE = '[[Condition "{condition}" does not meet.]]';
 
-    public function getFunction(): callable
+    public function isRequired(): bool
     {
-        return 'in_array';
+
     }
 
-    public function getArguments(): array
+    public function validates($value): bool
     {
-        return [];
+        return true;
     }
 
-    public function getMessage(): ?string
+    public function getMessage($value): ?string
     {
         return null;
     }
-
-    /**
-     * @return ConditionInterface[]
-     */
-    public function getConditions(): array
-    {
-        return [];
-    }
-
-    public static function parse($rule): Rule
-    {
-        return new Rule();
-    }
-
 }

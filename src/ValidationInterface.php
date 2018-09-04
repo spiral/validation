@@ -13,5 +13,15 @@ namespace Spiral\Validation;
  */
 interface ValidationInterface
 {
-    public function createValidator($data, array $rules): ValidatorInterface;
+    /**
+     * Create validator for given parameters.
+     *
+     * @param array|\ArrayAccess $data    Target validation data.
+     * @param array              $rules   List of associated validation rules (see Rule).
+     * @param mixed              $context Validation context (available for checkers and validation
+     *                                    methods but is not validated).
+     *
+     * @return ValidatorInterface
+     */
+    public function createValidator($data, array $rules, $context = null): ValidatorInterface;
 }

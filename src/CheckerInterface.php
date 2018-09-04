@@ -13,34 +13,34 @@ use Spiral\Validation\Exceptions\CheckerException;
 interface CheckerInterface
 {
     /**
-     * Version of checker with active local validator.
-     *
-     * @param ValidatorInterface $validator
-     * @return CheckerInterface
-     */
-    public function withValidator(ValidatorInterface $validator): CheckerInterface;
-
-    /**
      * Check value using checker method.
      *
-     * @param string $method
-     * @param mixed  $value
-     * @param array  $arguments
+     * @param ValidatorInterface $validator
+     * @param string             $method
+     * @param mixed              $value
+     * @param array              $arguments
+     *
      * @return bool
      *
      * @throws CheckerException
      */
-    public function check(string $method, $value, array $arguments = []): bool;
+    public function check(
+        ValidatorInterface $validator,
+        string $method,
+        $value,
+        array $arguments = []
+    ): bool;
 
     /**
-     * Return default error message for checker condition.
+     * Return error message associated with check method.
      *
      * @param string $method
      * @param mixed  $value
      * @param array  $arguments
+     *
      * @return string
      *
      * @throws CheckerException
      */
-    public function errorMessage(string $method, $value, array $arguments = []): string;
+    public function getMessage(string $method, $value, array $arguments = []): string;
 }

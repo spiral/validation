@@ -10,7 +10,7 @@ namespace Spiral\Validation;
 
 use Spiral\Core\Container\SingletonInterface;
 
-class ValidationManager implements ValidationInterface, SingletonInterface
+class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
 
 }

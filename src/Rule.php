@@ -18,6 +18,8 @@ class Rule
      */
     const DEFAULT_MESSAGE = '[[Condition "{condition}" does not meet.]]';
 
+
+
     public function isRequired(): bool
     {
 

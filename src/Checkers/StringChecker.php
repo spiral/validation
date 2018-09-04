@@ -8,6 +8,7 @@
 
 namespace Spiral\Validation\Checkers;
 
+use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 
 /**
@@ -15,7 +16,7 @@ use Spiral\Validation\AbstractChecker;
  *
  * @inherit-messages
  */
-class StringChecker extends AbstractChecker
+class StringChecker extends AbstractChecker implements SingletonInterface
 {
     /**
      * {@inheritdoc}

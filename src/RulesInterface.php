@@ -19,6 +19,8 @@ interface RulesInterface
      * @param mixed $schema
      *
      * @return RuleInterface[]
+     *
+     * @throws \Spiral\Validation\Exceptions\ValidationException
      */
     public function getRules($schema): array;
 }

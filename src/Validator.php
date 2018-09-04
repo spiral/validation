@@ -113,6 +113,8 @@ class Validator implements ValidatorInterface
 
     /**
      * Validate data over given rules and context.
+     *
+     * @throws \Spiral\Validation\Exceptions\ValidationException
      */
     protected function validate()
     {
@@ -124,8 +126,8 @@ class Validator implements ValidatorInterface
 
             foreach ($this->provider->getRules($rules) as $rule) {
                 if ($this->hasError($field) || !$rule->isRequired($value)) {
-                    // value has errored or validation rule does not require validation (for example
-                    // if value is empty), stop validation
+                    // value has errored or validation rule does not require validation
+                    // (for example if value is empty), stop validation
                     break;
                 }
 

@@ -6,9 +6,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation;
+namespace Spiral\Validation\Exceptions;
 
-interface ConditionInterface
+class RuleException extends ValidationException
 {
-    public function isMet(): bool;
+
 }

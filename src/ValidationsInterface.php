@@ -11,7 +11,7 @@ namespace Spiral\Validation;
 /**
  * Creates validators with given rules and data.
  */
-interface ValidatorsInterface
+interface ValidationsInterface
 {
     public function createValidator($data, array $rules): ValidatorInterface;
 }

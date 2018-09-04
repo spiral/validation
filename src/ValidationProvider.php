@@ -8,7 +8,7 @@
 
 namespace Spiral\Validation;
 
-interface ConditionInterface
+class ValidationProvider
 {
-    public function isMet(): bool;
+
 }

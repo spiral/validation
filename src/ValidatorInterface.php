@@ -45,7 +45,7 @@ interface ValidatorInterface
      *
      * @param string $field
      * @param string $error
-     * @return self
+     * @return ValidatorInterface
      */
     public function registerError(string $field, string $error): ValidatorInterface;
 
@@ -53,11 +53,13 @@ interface ValidatorInterface
      * List of errors associated with parent field, every field should have only one error assigned.
      *
      * @return array
+     *
+     * @throws ValidationException
      */
     public function getErrors(): array;
 
     /**
-     * Reset validation state.
+     * Reset validation state including registered errors.
      */
-    public function resetErrors();
+    public function resetState();
 }

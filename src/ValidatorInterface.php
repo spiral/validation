@@ -40,13 +40,6 @@ interface ValidatorInterface
     public function isValid(): bool;
 
     /**
-     * List of errors associated with parent field, every field should have only one error assigned.
-     *
-     * @return array
-     */
-    public function getErrors(): array;
-
-    /**
      * Register outer validation error. Registered error persists until context data are changed
      * or flushRegistered method not called.
      *
@@ -54,7 +47,14 @@ interface ValidatorInterface
      * @param string $error
      * @return self
      */
-    public function addError(string $field, string $error): ValidatorInterface;
+    public function registerError(string $field, string $error): ValidatorInterface;
+
+    /**
+     * List of errors associated with parent field, every field should have only one error assigned.
+     *
+     * @return array
+     */
+    public function getErrors(): array;
 
     /**
      * Reset validation state.

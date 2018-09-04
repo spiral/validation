@@ -123,17 +123,21 @@ class Validator implements ValidatorInterface
             $value = $this->getValue($field);
 
             foreach ($this->provider->getRules($rules) as $rule) {
-                if ($this->hasError($field) || !$rule->isRequired()) {
+                if ($this->hasError($field) || !$rule->isRequired($value)) {
+                    // value has errored or validation rule does not require validation (for example
+                    // if value is empty), stop validation
                     break;
                 }
 
                 foreach ($rule->getConditions() as $condition) {
                     if (!$condition->isMet($this, $field, $value)) {
+                        // condition is not met, skipping validation
                         break 2;
                     }
                 }
 
                 if (!$rule->validates($this, $field, $value)) {
+                    // got error, jump to next field
                     $this->errors[$field] = $rule->getMessage($value);
                     break;
                 }

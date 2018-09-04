@@ -11,9 +11,18 @@ namespace Spiral\Validation;
 interface RuleInterface
 {
     /**
+     * Check if value validation is required (for example some rules would not accept empty values
+     * as this must be clearly stated by the rule).
+     *
+     * Example:
+     * ["notEmpty", "email"] // fails on empty
+     * ["email"]             // passed empty values
+     *
+     * @param mixed $value
+     *
      * @return bool
      */
-    public function isRequired(): bool;
+    public function isRequired($value): bool;
 
     /**
      * Conditions associated with the rule.

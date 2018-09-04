@@ -112,6 +112,17 @@ class Validator implements ValidatorInterface
     }
 
     /**
+     * Destruct the service.
+     */
+    public function __destruct()
+    {
+        $this->data = null;
+        $this->rules = [];
+        $this->provider = null;
+        $this->resetState();
+    }
+
+    /**
      * Validate data over given rules and context.
      *
      * @throws \Spiral\Validation\Exceptions\ValidationException
@@ -124,11 +135,13 @@ class Validator implements ValidatorInterface
 
             $value = $this->getValue($field);
 
-            foreach ($this->provider->getRules($rules) as $rule) {
-                if ($this->hasError($field) || !$rule->isRequired($value)) {
-                    // value has errored or validation rule does not require validation
-                    // (for example if value is empty), stop validation
+            foreach ($this->provider->getRules(is_array($rules) ? $rules : [$rules]) as $rule) {
+                if ($this->hasError($field)) {
                     break;
+                }
+
+                if (!$rule->isRequired($value)) {
+                    continue;
                 }
 
                 foreach ($rule->getConditions() as $condition) {

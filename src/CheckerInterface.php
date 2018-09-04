@@ -13,22 +13,36 @@ use Spiral\Validation\Exceptions\CheckerException;
 interface CheckerInterface
 {
     /**
+     * Return true if validation is required for given method. Used to skip validation for empty
+     * values.
+     *
+     * @param string $method
+     * @param mixed  $value
+     * @param array  $args
+     *
+     * @return bool
+     */
+    public function isRequired(string $method, $value, array $args): bool;
+
+    /**
      * Check value using checker method.
      *
-     * @param ValidatorInterface $validator
+     * @param ValidatorInterface $v
      * @param string             $method
+     * @param string             $field
      * @param mixed              $value
-     * @param array              $arguments
+     * @param array              $args
      *
      * @return bool
      *
      * @throws CheckerException
      */
     public function check(
-        ValidatorInterface $validator,
+        ValidatorInterface $v,
         string $method,
+        string $field,
         $value,
-        array $arguments = []
+        array $args = []
     ): bool;
 
     /**

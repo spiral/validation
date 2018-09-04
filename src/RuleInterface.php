@@ -32,13 +32,13 @@ interface RuleInterface
     public function getConditions(): array;
 
     /**
-     * @param ValidatorInterface $validator
+     * @param ValidatorInterface $v
      * @param string             $field
      * @param mixed              $value
      *
      * @return bool
      */
-    public function validates(ValidatorInterface $validator, string $field, $value): bool;
+    public function validates(ValidatorInterface $v, string $field, $value): bool;
 
     /**
      * Get validation error message.

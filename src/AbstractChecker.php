@@ -30,18 +30,19 @@ abstract class AbstractChecker implements CheckerInterface
      * {@inheritdoc}
      */
     public function check(
-        ValidatorInterface $validator,
+        ValidatorInterface $v,
         string $method,
+        string $field,
         $value,
-        array $arguments = []
+        array $args = []
     ): bool {
 
         try {
-            $this->validator = $validator;
+            $this->validator = $v;
 
-            array_unshift($arguments, $value);
+            array_unshift($args, $value);
 
-            return call_user_func_array([$this, $method], $arguments);
+            return call_user_func_array([$this, $method], $args);
 
         } finally {
             $this->validator = null;

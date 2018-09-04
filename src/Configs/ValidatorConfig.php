@@ -30,13 +30,23 @@ class ValidatorConfig extends InjectableConfig
     /**
      * @param string $name
      *
+     * @return bool
+     */
+    public function hasChecker(string $name): bool
+    {
+        return isset($this->config['checkers'][$name]);
+    }
+
+    /**
+     * @param string $name
+     *
      * @return Autowire
      *
      * @throws ValidationException
      */
     public function getChecker(string $name): Autowire
     {
-        if (!isset($this->config['checkers'][$name])) {
+        if (!$this->hasChecker($name)) {
             throw new ValidationException("Undefined checker {$name}.");
         }
 

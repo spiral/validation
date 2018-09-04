@@ -23,8 +23,29 @@ abstract class AbstractChecker implements CheckerInterface
      */
     const MESSAGES = [];
 
+    /**
+     * List of check rules to be used for any value, including empty.
+     */
+    const ON_EMPTY = [];
+
     /** @var ValidatorInterface */
     private $validator = null;
+
+    /**
+     * @param string $method
+     * @param mixed  $value
+     * @param array  $args
+     *
+     * @return bool
+     */
+    public function isRequired(string $method, $value, array $args): bool
+    {
+        if (!empty($value)) {
+            return true;
+        }
+
+        return in_array($method, static::ON_EMPTY);
+    }
 
     /**
      * {@inheritdoc}

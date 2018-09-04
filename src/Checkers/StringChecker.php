@@ -32,7 +32,7 @@ class StringChecker extends AbstractChecker implements SingletonInterface
     /**
      * Check string using regexp.
      *
-     * @param string $value
+     * @param mixed  $value
      * @param string $expression
      *
      * @return bool
@@ -58,8 +58,8 @@ class StringChecker extends AbstractChecker implements SingletonInterface
     /**
      * Check if string length is longer or equal that specified value.
      *
-     * @param string $value
-     * @param int    $length
+     * @param mixed $value
+     * @param int   $length
      *
      * @return bool
      */
@@ -71,8 +71,8 @@ class StringChecker extends AbstractChecker implements SingletonInterface
     /**
      * Check if string length are equal to specified value.
      *
-     * @param string $value
-     * @param int    $length
+     * @param mixed $value
+     * @param int   $length
      *
      * @return bool
      */
@@ -84,9 +84,9 @@ class StringChecker extends AbstractChecker implements SingletonInterface
     /**
      * Check if string length are fits in specified range.
      *
-     * @param string $value
-     * @param int    $min
-     * @param int    $max
+     * @param mixed $value
+     * @param int   $min
+     * @param int   $max
      *
      * @return bool
      */

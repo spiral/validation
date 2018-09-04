@@ -1,4 +1,4 @@
-Nested validation, Checkers, Validation Conditions
+Nested validation, Checkers, Conditional Validation
 ================================
 [![Latest Stable Version](https://poser.pugx.org/spiral/validation/version)](https://packagist.org/packages/spiral/validation)
 [![Build Status](https://travis-ci.org/spiral/validation.svg?branch=master)](https://travis-ci.org/spiral/validation)

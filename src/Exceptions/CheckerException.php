@@ -10,5 +10,4 @@ namespace Spiral\Validation\Exceptions;
 
 class CheckerException extends ValidationException
 {
-
 }

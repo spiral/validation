@@ -48,4 +48,67 @@ class CallableTest extends BaseTest
             ]
         ]);
     }
+
+    public function testDefaultMessage()
+    {
+        $v = $this->validation->validate([
+            'i' => 'third'
+        ], [
+            'i' => [
+                ['in_array', ['value', 'other']]
+            ]
+        ]);
+
+        $this->assertSame('Condition `in_array` does not meet.', $v->getErrors()['i']);
+    }
+
+    public function testDefaultMessageStatic()
+    {
+        $v = $this->validation->validate([
+            'i' => 'third'
+        ], [
+            'i' => [
+                [[self::class, 'check']]
+            ]
+        ]);
+
+        $this->assertSame(
+            'Condition `Spiral\Validation\Tests\CallableTest::check` does not meet.',
+            $v->getErrors()['i']
+        );
+    }
+
+    public function testDefaultMessageRuntime()
+    {
+        $v = $this->validation->validate([
+            'i' => 'third'
+        ], [
+            'i' => [
+                [[$this, 'check']]
+            ]
+        ]);
+
+        $this->assertSame(
+            'Condition `Spiral\Validation\Tests\CallableTest::check` does not meet.',
+            $v->getErrors()['i']
+        );
+    }
+
+    public function testDefaultMethodClosure()
+    {
+        $v = $this->validation->validate([
+            'i' => 'third'
+        ], [
+            'i' => function () {
+                return false;
+            }
+        ]);
+
+        $this->assertSame('Condition `~user-defined~` does not meet.', $v->getErrors()['i']);
+    }
+
+    public static function check($value)
+    {
+        return false;
+    }
 }

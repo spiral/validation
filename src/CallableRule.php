@@ -9,6 +9,7 @@
 namespace Spiral\Validation;
 
 use Spiral\Translator\Traits\TranslatorTrait;
+use Spiral\Translator\Translator;
 
 /**
  * Represents options to describe singular validation rule.
@@ -20,7 +21,7 @@ class CallableRule implements RuleInterface
     /**
      * Default validation message for custom rules.
      */
-    const DEFAULT_MESSAGE = '[[Condition "{condition}" does not meet.]]';
+    const DEFAULT_MESSAGE = '[[Condition `{name}` does not meet.]]';
 
     /** @var callable */
     private $check;
@@ -40,8 +41,12 @@ class CallableRule implements RuleInterface
      * @param array       $args
      * @param null|string $message
      */
-    public function __construct(callable $check, array $conditions, array $args, ?string $message)
-    {
+    public function __construct(
+        callable $check,
+        array $conditions = [],
+        array $args = [],
+        ?string $message = null
+    ) {
         $this->check = $check;
         $this->conditions = $conditions;
         $this->args = $args;
@@ -82,9 +87,24 @@ class CallableRule implements RuleInterface
      */
     public function getMessage(string $field, $value): string
     {
-        return $this->say(
-            $this->message ?? static::DEFAULT_MESSAGE,
-            array_merge([$value, $field], $this->args)
-        );
+        if (!empty($this->message)) {
+            return Translator::interpolate(
+                $this->message,
+                array_merge([$value, $field], $this->args)
+            );
+        }
+
+        $name = $this->check;
+        if (is_array($name) && isset($name[0]) && isset($name[1])) {
+            $name = sprintf(
+                "%s::%s",
+                is_object($name[0]) ? get_class($name[0]) : $name,
+                $name[1]
+            );
+        } elseif (!is_string($name)) {
+            $name = '~user-defined~';
+        }
+
+        return $this->say(static::DEFAULT_MESSAGE, ['name' => $name]);
     }
 }

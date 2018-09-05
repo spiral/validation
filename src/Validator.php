@@ -25,10 +25,10 @@ class Validator implements ValidatorInterface
     private $rules;
 
     /** @var array */
-    private $errors;
+    private $errors = [];
 
     /** @var array */
-    private $userErrors;
+    private $userErrors = [];
 
     /**
      * @param array|\ArrayAccess $data

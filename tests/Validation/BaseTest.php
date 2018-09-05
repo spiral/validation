@@ -12,30 +12,37 @@ use PHPUnit\Framework\TestCase;
 use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
 use Spiral\Validation\Bootloaders\ValidationBootloader;
+use Spiral\Validation\Checkers\AddressChecker;
+use Spiral\Validation\Checkers\TypeChecker;
 use Spiral\Validation\Configs\ValidatorConfig;
 use Spiral\Validation\ValidationInterface;
-use Spiral\Validation\ValidatorInterface;
 
 abstract class BaseTest extends TestCase
 {
     const CONFIG = [
-        'aliases'  => [],
-        'checkers' => [],
+        'checkers' => [
+            'type'    => TypeChecker::class,
+            'address' => AddressChecker::class,
+        ],
+        'aliases'  => [
+            'notEmpty' => 'type::notEmpty',
+            'email'    => 'address::email',
+            'url'      => 'address::url',
+        ],
     ];
 
-    protected function makeValidator($data, array $rules, $context = null): ValidatorInterface
+    /**
+     * @var ValidationInterface
+     */
+    protected $validation;
+
+    public function setUp()
     {
         $container = new Container();
-        $bootloader = new BootloadManager($container);
-        $bootloader->bootload([ValidationBootloader::class]);
+        (new BootloadManager($container))->bootload([ValidationBootloader::class]);
 
         $container->bind(ValidatorConfig::class, new ValidatorConfig(static::CONFIG));
 
-        /**
-         * @var ValidationInterface $provider
-         */
-        $provider = $container->get(ValidationInterface::class);
-
-        return $provider->validate($data, $rules, $context);
+        $this->validation = $container->get(ValidationInterface::class);
     }
 }

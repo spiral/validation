@@ -23,8 +23,8 @@ class ValidatorConfig extends InjectableConfig
      * @var array
      */
     protected $config = [
-        'aliases'  => [],
         'checkers' => [],
+        'aliases'  => [],
     ];
 
     /**

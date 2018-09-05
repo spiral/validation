@@ -23,8 +23,9 @@ class ValidatorConfig extends InjectableConfig
      * @var array
      */
     protected $config = [
-        'checkers' => [],
-        'aliases'  => [],
+        'checkers'   => [],
+        'conditions' => [],
+        'aliases'    => [],
     ];
 
     /**
@@ -38,6 +39,8 @@ class ValidatorConfig extends InjectableConfig
     }
 
     /**
+     * @todo AutowireTrait
+     *
      * @param string $name
      *
      * @return Autowire
@@ -53,7 +56,6 @@ class ValidatorConfig extends InjectableConfig
         if (is_string($this->config['checkers'][$name])) {
             return new Autowire($this->config['checkers'][$name]);
         }
-
 
         if (isset($this->config['checkers'][$name]['class'])) {
             return new Autowire(

@@ -39,7 +39,7 @@ class ValidatorConfig extends InjectableConfig
     }
 
     /**
-     * @todo AutowireTrait
+     * @todo AutowireTrait or Autowire::parse
      *
      * @param string $name
      *

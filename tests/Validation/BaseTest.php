@@ -36,6 +36,6 @@ abstract class BaseTest extends TestCase
          */
         $provider = $container->get(ValidationInterface::class);
 
-        return $provider->createValidator($data, $rules, $context);
+        return $provider->validate($data, $rules, $context);
     }
 }

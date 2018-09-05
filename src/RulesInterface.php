@@ -16,11 +16,11 @@ interface RulesInterface
     /**
      * Parse rule definition into array of rules.
      *
-     * @param array $rules
+     * @param array|string $rules
      *
      * @return RuleInterface[]
      *
      * @throws \Spiral\Validation\Exceptions\ValidationException
      */
-    public function getRules(array $rules): array;
+    public function getRules($rules): array;
 }

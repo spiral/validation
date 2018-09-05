@@ -34,6 +34,15 @@ interface ValidatorInterface
     public function getContext();
 
     /**
+     * Register outer validation error. Registered error persists until context data are changed
+     * or flushRegistered method not called.
+     *
+     * @param string $field
+     * @param string $error
+     */
+    public function registerError(string $field, string $error);
+
+    /**
      * Check if context data valid accordingly to provided rules.
      *
      * @return bool
@@ -43,17 +52,6 @@ interface ValidatorInterface
     public function isValid(): bool;
 
     /**
-     * Register outer validation error. Registered error persists until context data are changed
-     * or flushRegistered method not called.
-     *
-     * @param string $field
-     * @param string $error
-     *
-     * @return ValidatorInterface
-     */
-    public function registerError(string $field, string $error): ValidatorInterface;
-
-    /**
      * List of errors associated with parent field, every field should have only one error assigned.
      *
      * @return array
@@ -61,9 +59,4 @@ interface ValidatorInterface
      * @throws ValidationException
      */
     public function getErrors(): array;
-
-    /**
-     * Reset validation state including registered errors.
-     */
-    public function resetState();
 }

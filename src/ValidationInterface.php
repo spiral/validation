@@ -23,5 +23,5 @@ interface ValidationInterface
      *
      * @return ValidatorInterface
      */
-    public function createValidator($data, array $rules, $context = null): ValidatorInterface;
+    public function validate($data, array $rules, $context = null): ValidatorInterface;
 }

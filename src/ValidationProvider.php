@@ -48,7 +48,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      *
      * @return ValidatorInterface
      */
-    public function createValidator($data, array $rules, $context = null): ValidatorInterface
+    public function validate($data, array $rules, $context = null): ValidatorInterface
     {
         return new Validator($data, $rules, $context, $this);
     }
@@ -66,8 +66,11 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      *
      * Attention, for performance reasons method would cache all defined rules.
      */
-    public function getRules(array $rules): array
+    public function getRules($rules): array
     {
+        // todo: support additional syntaxes
+        $rules = is_array($rules) ? $rules : [$rules];
+
         $result = [];
         foreach ($rules as $rule) {
             $id = json_encode($rule);

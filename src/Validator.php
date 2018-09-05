@@ -73,11 +73,9 @@ class Validator implements ValidatorInterface
     /**
      * @inheritdoc
      */
-    public function registerError(string $field, string $error): ValidatorInterface
+    public function registerError(string $field, string $error)
     {
         $this->userErrors[$field] = $error;
-
-        return $this;
     }
 
     /**
@@ -103,7 +101,7 @@ class Validator implements ValidatorInterface
     }
 
     /**
-     * @inheritdoc
+     * Reset user and validation errors.
      */
     public function resetState()
     {
@@ -140,7 +138,7 @@ class Validator implements ValidatorInterface
 
             $value = $this->getValue($field);
 
-            foreach ($this->provider->getRules(is_array($rules) ? $rules : [$rules]) as $rule) {
+            foreach ($this->provider->getRules($rules) as $rule) {
                 if (isset($this->errors[$field]) || isset($this->userErrors[$field])) {
                     break;
                 }

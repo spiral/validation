@@ -11,7 +11,7 @@ namespace Spiral\Validation\Tests\Checkers;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checkers\TypeChecker;
 
-class TypeCheckerTest extends TestCase
+class TypesTest extends TestCase
 {
     public function testNotNull()
     {

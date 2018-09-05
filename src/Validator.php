@@ -38,10 +38,10 @@ class Validator implements ValidatorInterface
      */
     public function __construct($data, array $rules, $context, RulesInterface $provider)
     {
-        $this->provider = $provider;
         $this->data = $data;
         $this->rules = $rules;
         $this->context = $context;
+        $this->provider = $provider;
     }
 
     /**

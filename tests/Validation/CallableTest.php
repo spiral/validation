@@ -120,6 +120,20 @@ class CallableTest extends BaseTest
         $this->assertSame('The condition `~user-defined~` was not met.', $v->getErrors()['i']);
     }
 
+    public function testCustomMessage()
+    {
+        $v = $this->validation->validate([
+            'i' => 'third'
+        ], [
+            'i' => [
+                ['notEmpty'],
+                ['in_array', ['value', 'other'], 'msg' => 'error']
+            ]
+        ]);
+
+        $this->assertSame('error', $v->getErrors()['i']);
+    }
+
     public function testCheckerDefault()
     {
         $validator = $this->validation->validate(

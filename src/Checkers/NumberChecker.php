@@ -20,9 +20,9 @@ class NumberChecker extends AbstractChecker implements SingletonInterface
      * {@inheritdoc}
      */
     const MESSAGES = [
-        'range'  => '[[Your value should be in range of {0}-{1}.]]',
-        'higher' => '[[Your value should be higher than {0}.]]',
-        'lower'  => '[[Your value should be lower than {0}.]]',
+        'range'  => '[[Your value should be in range of {1}-{2}.]]',
+        'higher' => '[[Your value should be higher than {1}.]]',
+        'lower'  => '[[Your value should be lower than {1}.]]',
     ];
 
     /**

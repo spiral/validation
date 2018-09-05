@@ -76,7 +76,7 @@ abstract class AbstractChecker implements CheckerInterface
             return $this->say(static::MESSAGES[$method], $arguments);
         }
 
-        return '';
+        return 'Condition does not met.';
     }
 
     /**

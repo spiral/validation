@@ -50,6 +50,27 @@ class FileTest extends BaseTest
         ]);
     }
 
+    public function testFakeUpload()
+    {
+        $this->assertValid([
+            'a' => ['tmp_name' => __FILE__]
+        ], [
+            'a' => ['file:exists']
+        ]);
+
+        $this->assertFail('a', [
+            'a' => ['tmp_name' => __FILE__]
+        ], [
+            'a' => ['file:uploaded']
+        ]);
+
+        $this->assertValid([
+            'a' => ['tmp_name' => __FILE__, 'uploaded' => true]
+        ], [
+            'a' => ['file:uploaded']
+        ]);
+    }
+
     public function testExistsStream()
     {
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);

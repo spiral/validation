@@ -12,9 +12,7 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 
 /**
- * Validations can't be fitted to any other checker.
- *
- * You must define error message for match method by yourself.
+ * @inherit-messages
  */
 class MixedChecker extends AbstractChecker implements SingletonInterface
 {

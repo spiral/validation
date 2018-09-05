@@ -12,7 +12,7 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 
 /**
- * Scalar number validations.
+ * @inherit-messages
  */
 class NumberChecker extends AbstractChecker implements SingletonInterface
 {

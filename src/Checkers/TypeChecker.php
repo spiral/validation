@@ -12,6 +12,9 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 use Spiral\Validation\Checkers\Traits\NotEmptyTrait;
 
+/**
+ * @inherit-messages
+ */
 class TypeChecker extends AbstractChecker implements SingletonInterface
 {
     use NotEmptyTrait;

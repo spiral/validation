@@ -23,6 +23,11 @@ abstract class AbstractChecker implements CheckerInterface
     const MESSAGES = [];
 
     /**
+     * Default error message if no other messages are found.
+     */
+    const DEFAULT_MESSAGE = '[[Condition `{method}` does not meet.]]';
+
+    /**
      * List of methods which are allowed to handle empty values.
      */
     const ON_EMPTY = [];
@@ -76,7 +81,7 @@ abstract class AbstractChecker implements CheckerInterface
             return $this->say(static::MESSAGES[$method], $arguments);
         }
 
-        return 'Condition does not met.';
+        return $this->say(static::DEFAULT_MESSAGE, compact('method'));
     }
 
     /**

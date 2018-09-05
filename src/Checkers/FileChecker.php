@@ -14,6 +14,9 @@ use Spiral\Files\FilesInterface;
 use Spiral\Validation\AbstractChecker;
 use Spiral\Validation\Checkers\Traits\FileTrait;
 
+/**
+ * @inherit-messages
+ */
 class FileChecker extends AbstractChecker implements SingletonInterface
 {
     use FileTrait;

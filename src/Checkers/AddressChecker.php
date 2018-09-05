@@ -12,7 +12,7 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 
 /**
- * Validate different addresses: email, url and etc.
+ * @inherit-messages
  */
 class AddressChecker extends AbstractChecker implements SingletonInterface
 {

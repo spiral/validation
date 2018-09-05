@@ -12,8 +12,6 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 
 /**
- * String validations.
- *
  * @inherit-messages
  */
 class StringChecker extends AbstractChecker implements SingletonInterface

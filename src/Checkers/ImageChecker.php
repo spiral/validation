@@ -16,7 +16,7 @@ use Spiral\Validation\AbstractChecker;
 use Spiral\Validation\Checkers\Traits\FileTrait;
 
 /**
- * Image based validations.
+ * @inherit-messages
  */
 class ImageChecker extends AbstractChecker implements SingletonInterface
 {

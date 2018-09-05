@@ -25,6 +25,7 @@ class EmptyTest extends BaseTest
     {
         $validator = $this->validation->validate([], ['name' => ['type::notEmpty']]);
         $this->assertFalse($validator->isValid());
+        $this->assertSame(['name' => 'This value is required.'], $validator->getErrors());
 
         $validator = $this->validation->validate(['name' => null], ['name' => ['type::notEmpty']]);
         $this->assertFalse($validator->isValid());
@@ -40,6 +41,7 @@ class EmptyTest extends BaseTest
     {
         $validator = $this->validation->validate([], ['name' => 'notEmpty']);
         $this->assertFalse($validator->isValid());
+        $this->assertSame(['name' => 'This value is required.'], $validator->getErrors());
 
         $validator = $this->validation->validate(['name' => null], ['name' => 'notEmpty']);
         $this->assertFalse($validator->isValid());

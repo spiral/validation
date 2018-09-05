@@ -9,7 +9,6 @@
 namespace Spiral\Validation;
 
 use Spiral\Translator\Traits\TranslatorTrait;
-use Spiral\Validation\Exceptions\CheckerException;
 
 /**
  * @inherit-messages
@@ -81,16 +80,10 @@ abstract class AbstractChecker implements CheckerInterface
     }
 
     /**
-     * Currently active validator instance.
-     *
      * @return ValidatorInterface
      */
     protected function getValidator(): ValidatorInterface
     {
-        if (empty($this->validator)) {
-            throw new CheckerException("Unable to receive associated checker validator");
-        }
-
         return $this->validator;
     }
 }

@@ -136,11 +136,11 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
     /**
      * Fetch validation rule arguments from rule definition.
      *
-     * @param array $rule
+     * @param mixed $rule
      *
      * @return array
      */
-    private function fetchArgs(array $rule): array
+    private function fetchArgs($rule): array
     {
         if (!is_array($rule)) {
             return [];
@@ -163,7 +163,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      * Fetch error message from rule definition or use default message. Method will check "message"
      * and "error" properties of definition.
      *
-     * @param array $rule
+     * @param mixed $rule
      *
      * @return string
      */

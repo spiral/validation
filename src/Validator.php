@@ -156,7 +156,7 @@ class Validator implements ValidatorInterface
 
                 if (!$rule->validate($this, $field, $value)) {
                     // got error, jump to next field
-                    $this->errors[$field] = $rule->getMessage($value);
+                    $this->errors[$field] = $rule->getMessage($field, $value);
                     break;
                 }
             }

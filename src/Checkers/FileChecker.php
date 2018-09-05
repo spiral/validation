@@ -32,6 +32,11 @@ class FileChecker extends AbstractChecker implements SingletonInterface
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    const ON_EMPTY = ['exists', 'uploaded'];
+
+    /**
      * @param FilesInterface $files
      */
     public function __construct(FilesInterface $files)

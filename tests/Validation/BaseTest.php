@@ -13,6 +13,7 @@ use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
 use Spiral\Validation\Bootloaders\ValidationBootloader;
 use Spiral\Validation\Checkers\AddressChecker;
+use Spiral\Validation\Checkers\FileChecker;
 use Spiral\Validation\Checkers\TypeChecker;
 use Spiral\Validation\Configs\ValidatorConfig;
 use Spiral\Validation\ValidationInterface;
@@ -21,6 +22,7 @@ abstract class BaseTest extends TestCase
 {
     const CONFIG = [
         'checkers' => [
+            'file'    => FileChecker::class,
             'type'    => TypeChecker::class,
             'address' => AddressChecker::class,
         ],
@@ -36,13 +38,34 @@ abstract class BaseTest extends TestCase
      */
     protected $validation;
 
+    /**
+     * @var Container
+     */
+    protected $container;
+
     public function setUp()
     {
-        $container = new Container();
-        (new BootloadManager($container))->bootload([ValidationBootloader::class]);
+        $this->container = new Container();
+        (new BootloadManager($this->container))->bootload([ValidationBootloader::class]);
 
-        $container->bind(ValidatorConfig::class, new ValidatorConfig(static::CONFIG));
+        $this->container->bind(ValidatorConfig::class, new ValidatorConfig(static::CONFIG));
 
-        $this->validation = $container->get(ValidationInterface::class);
+        $this->validation = $this->container->get(ValidationInterface::class);
+    }
+
+    protected function assertValid(array $data, array $rules)
+    {
+        $this->assertTrue(
+            $this->validation->validate($data, $rules)->isValid(),
+            'Validation FAILED'
+        );
+    }
+
+    protected function assertFail(string $error, array $data, array $rules)
+    {
+        $validator = $this->validation->validate($data, $rules);
+
+        $this->assertFalse($validator->isValid(), 'Validation PASSED');
+        $this->assertArrayHasKey($error, $validator->getErrors());
     }
 }

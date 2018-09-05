@@ -22,7 +22,7 @@ interface CheckerInterface
      *
      * @return bool
      */
-    public function isRequired(string $method, $value, array $args): bool;
+    public function ignoreEmpty(string $method, $value, array $args): bool;
 
     /**
      * Check value using checker method.

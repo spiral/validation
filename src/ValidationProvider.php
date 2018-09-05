@@ -16,7 +16,7 @@ use Spiral\Validation\Configs\ValidatorConfig;
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
     const ARGUMENTS = ['args', 'params', 'arguments', 'parameters'];
-    const MESSAGES  = ['message', 'msg', 'error', 'err'];
+    const MESSAGES = ['message', 'msg', 'error', 'err'];
 
     /** @var ValidatorConfig */
     private $config;
@@ -95,19 +95,21 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                 if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
                     $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
 
-                    $result[] = new CheckerRule(
+                    $result[] = $this->rules[$id] = new CheckerRule(
                         $check[0],
                         $check[1],
                         [],
                         $this->fetchArgs($rule),
                         $this->fetchMessage($rule)
                     );
+
+                    continue;
                 }
 
                 $check[0] = is_object($check[0]) ? $check[0] : $this->factory->get($check[0]);
             }
 
-            $result[] = new CallableRule(
+            $result[] = $this->rules[$id] = new CallableRule(
                 $check,
                 [],
                 $this->fetchArgs($rule),

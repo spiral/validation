@@ -140,18 +140,18 @@ class Validator implements ValidatorInterface
                     break;
                 }
 
-                if (!$rule->isRequired($value)) {
+                if ($rule->ignoreEmpty($value)) {
                     continue;
                 }
 
                 foreach ($rule->getConditions() as $condition) {
                     if (!$condition->isMet($this, $field, $value)) {
                         // condition is not met, skipping validation
-                        break 2;
+                        continue 2;
                     }
                 }
 
-                if (!$rule->validates($this, $field, $value)) {
+                if (!$rule->validate($this, $field, $value)) {
                     // got error, jump to next field
                     $this->errors[$field] = $rule->getMessage($value);
                     break;

@@ -53,9 +53,9 @@ class CallableRule implements RuleInterface
      *
      * Attention: callable conditions are required for non empty values only.
      */
-    public function isRequired($value): bool
+    public function ignoreEmpty($value): bool
     {
-        return !empty($value);
+        return empty($value);
     }
 
     /**
@@ -69,7 +69,7 @@ class CallableRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function validates(ValidatorInterface $v, string $field, $value): bool
+    public function validate(ValidatorInterface $v, string $field, $value): bool
     {
         $args = $this->args;
         array_unshift($args, $value);

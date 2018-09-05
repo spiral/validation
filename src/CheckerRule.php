@@ -51,9 +51,9 @@ class CheckerRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function isRequired($value): bool
+    public function ignoreEmpty($value): bool
     {
-        return $this->checker->isRequired($this->method, $value, $this->args);
+        return $this->checker->ignoreEmpty($this->method, $value, $this->args);
     }
 
     /**
@@ -67,7 +67,7 @@ class CheckerRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function validates(ValidatorInterface $v, string $field, $value): bool
+    public function validate(ValidatorInterface $v, string $field, $value): bool
     {
         return $this->checker->check($v, $this->method, $field, $value, $this->args);
     }

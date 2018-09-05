@@ -32,19 +32,15 @@ abstract class AbstractChecker implements CheckerInterface
     private $validator = null;
 
     /**
-     * @param string $method
-     * @param mixed  $value
-     * @param array  $args
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function isRequired(string $method, $value, array $args): bool
+    public function ignoreEmpty(string $method, $value, array $args): bool
     {
         if (!empty($value)) {
-            return true;
+            return false;
         }
 
-        return in_array($method, static::ON_EMPTY);
+        return !in_array($method, static::ON_EMPTY);
     }
 
     /**

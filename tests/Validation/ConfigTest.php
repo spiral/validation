@@ -77,4 +77,18 @@ class ConfigTest extends TestCase
 
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
     }
+
+    /**
+     * @expectedException \Spiral\Validation\Exceptions\ValidationException
+     */
+    public function testInvalid()
+    {
+        $config = new ValidatorConfig([
+            'checkers' => [
+                'checker' => []
+            ]
+        ]);
+
+        $config->getChecker('checker');
+    }
 }

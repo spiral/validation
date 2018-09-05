@@ -49,6 +49,7 @@ interface CheckerInterface
      * Return error message associated with check method.
      *
      * @param string $method
+     * @param string $field
      * @param mixed  $value
      * @param array  $arguments
      *
@@ -56,5 +57,5 @@ interface CheckerInterface
      *
      * @throws CheckerException
      */
-    public function getMessage(string $method, $value, array $arguments = []): string;
+    public function getMessage(string $method, string $field, $value, array $arguments = []): string;
 }

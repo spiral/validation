@@ -80,11 +80,11 @@ class CallableRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function getMessage($value): string
+    public function getMessage(string $field, $value): string
     {
         return $this->say(
             $this->message ?? static::DEFAULT_MESSAGE,
-            array_merge([$value], $this->args)
+            array_merge([$value, $field], $this->args)
         );
     }
 }

@@ -42,9 +42,10 @@ interface RuleInterface
     /**
      * Get validation error message.
      *
-     * @param mixed $value
+     * @param string $field
+     * @param mixed  $value
      *
      * @return string
      */
-    public function getMessage($value): string;
+    public function getMessage(string $field, $value): string;
 }

@@ -75,12 +75,12 @@ class CheckerRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function getMessage($value): string
+    public function getMessage(string $field, $value): string
     {
         if (!empty($this->message)) {
-            return Translator::interpolate($this->message, array_merge([$value], $this->args));
+            return Translator::interpolate($this->message, array_merge([$value, $field], $this->args));
         }
 
-        return $this->checker->getMessage($this->method, $value, $this->args);
+        return $this->checker->getMessage($this->method, $field, $value, $this->args);
     }
 }

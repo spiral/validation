@@ -81,6 +81,12 @@ class ImageTest extends BaseTest
         ], [
             'i' => ['image:valid']
         ]);
+
+        $this->assertFail('i', [
+            'i' => [$file]
+        ], [
+            'i' => ['image:valid']
+        ]);
     }
 
     public function testSmaller()

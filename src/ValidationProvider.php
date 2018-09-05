@@ -16,7 +16,7 @@ use Spiral\Validation\Configs\ValidatorConfig;
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
     const ARGUMENTS = ['args', 'params', 'arguments', 'parameters'];
-    const MESSAGES = ['message', 'msg', 'error', 'err'];
+    const MESSAGES  = ['message', 'msg', 'error', 'err'];
 
     /** @var ValidatorConfig */
     private $config;
@@ -66,16 +66,15 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      *
      * Attention, for performance reasons method would cache all defined rules.
      */
-    public function getRules($rules): array
+    public function getRules($rules): \Generator
     {
         // todo: support additional syntaxes
         $rules = is_array($rules) ? $rules : [$rules];
 
-        $result = [];
         foreach ($rules as $rule) {
             $id = json_encode($rule);
             if (isset($this->rules[$id])) {
-                $result[] = $this->rules[$id];
+                yield $this->rules[$id];
                 continue;
             }
 
@@ -98,7 +97,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                 if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
                     $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
 
-                    $result[] = $this->rules[$id] = new CheckerRule(
+                    yield $this->rules[$id] = new CheckerRule(
                         $check[0],
                         $check[1],
                         [],
@@ -112,7 +111,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                 $check[0] = is_object($check[0]) ? $check[0] : $this->factory->get($check[0]);
             }
 
-            $result[] = $this->rules[$id] = new CallableRule(
+            yield $this->rules[$id] = new CallableRule(
                 $check,
                 [],
                 $this->fetchArgs($rule),
@@ -120,7 +119,6 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
             );
         }
 
-        return $result;
     }
 
     /**

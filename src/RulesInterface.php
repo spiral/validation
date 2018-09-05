@@ -18,9 +18,9 @@ interface RulesInterface
      *
      * @param array|string $rules
      *
-     * @return RuleInterface[]
+     * @return \Generator<RuleInterface[]>
      *
      * @throws \Spiral\Validation\Exceptions\ValidationException
      */
-    public function getRules($rules): array;
+    public function getRules($rules): \Generator;
 }

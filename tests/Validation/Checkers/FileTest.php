@@ -1,11 +1,12 @@
 <?php
 /**
- * spiral
+ * Spiral Framework.
  *
- * @author    Wolfy-J
+ * @license   MIT
+ * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tests\Validation\Checkers;
+namespace Spiral\Validation\Tests\Checkers;
 
 use Spiral\Files\Files;
 use Spiral\Files\FilesInterface;

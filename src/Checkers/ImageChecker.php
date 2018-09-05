@@ -25,8 +25,8 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
     /**
      * Getimagesize constants.
      */
-    const WIDTH = 0;
-    const HEIGHT = 1;
+    const WIDTH      = 0;
+    const HEIGHT     = 1;
     const IMAGE_TYPE = 2;
 
     /**
@@ -38,6 +38,11 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
         'smaller' => '[[Image size should not exceed {1}x{2}px.]]',
         'bigger'  => '[[The image dimensions should be at least {1}x{2}px.]]',
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    const ON_EMPTY = ['type', 'valid'];
 
     /**
      * Known image types.
@@ -70,6 +75,8 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
     public function __construct(FilesInterface $files)
     {
         $this->files = $files;
+
+
     }
 
     /**
@@ -158,7 +165,12 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
     protected function imageData($file)
     {
         try {
-            return getimagesize($this->resolveFilename($file));
+            $filename = $this->resolveFilename($file);
+            if (empty($filename)) {
+                return false;
+            }
+
+            return getimagesize($filename);
         } catch (\Exception $e) {
             //We can simply invalidate image if system can't read it
         }

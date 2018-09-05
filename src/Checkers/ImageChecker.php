@@ -164,17 +164,11 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
      */
     protected function imageData($file)
     {
-        try {
-            $filename = $this->resolveFilename($file);
-            if (empty($filename)) {
-                return false;
-            }
-
-            return getimagesize($filename);
-        } catch (\Exception $e) {
-            //We can simply invalidate image if system can't read it
+        $filename = $this->resolveFilename($file);
+        if (empty($filename)) {
+            return false;
         }
 
-        return false;
+        return getimagesize($filename);
     }
 }

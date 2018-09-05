@@ -43,7 +43,10 @@ trait FileTrait
         }
 
         if (is_array($file)) {
-            //Temp filename.
+            if (!isset($file['tmp_name'])) {
+                return null;
+            }
+
             $file = $file['tmp_name'];
         }
 

@@ -25,7 +25,7 @@ abstract class AbstractChecker implements CheckerInterface
     /**
      * Default error message if no other messages are found.
      */
-    const DEFAULT_MESSAGE = '[[Condition `{method}` does not met.]]';
+    const DEFAULT_MESSAGE = '[[Condition `{method}` was not met.]]';
 
     /**
      * List of methods which are allowed to handle empty values.

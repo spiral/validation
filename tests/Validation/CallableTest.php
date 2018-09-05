@@ -72,7 +72,7 @@ class CallableTest extends BaseTest
             ]
         ]);
 
-        $this->assertSame('Condition `in_array` does not met.', $v->getErrors()['i']);
+        $this->assertSame('Condition `in_array` was not met.', $v->getErrors()['i']);
     }
 
     public function testDefaultMessageStatic()
@@ -86,7 +86,7 @@ class CallableTest extends BaseTest
         ]);
 
         $this->assertSame(
-            'Condition `Spiral\Validation\Tests\CallableTest::check` does not met.',
+            'Condition `Spiral\Validation\Tests\CallableTest::check` was not met.',
             $v->getErrors()['i']
         );
     }
@@ -102,7 +102,7 @@ class CallableTest extends BaseTest
         ]);
 
         $this->assertSame(
-            'Condition `Spiral\Validation\Tests\CallableTest::check` does not met.',
+            'Condition `Spiral\Validation\Tests\CallableTest::check` was not met.',
             $v->getErrors()['i']
         );
     }
@@ -117,7 +117,7 @@ class CallableTest extends BaseTest
             }
         ]);
 
-        $this->assertSame('Condition `~user-defined~` does not met.', $v->getErrors()['i']);
+        $this->assertSame('Condition `~user-defined~` was not met.', $v->getErrors()['i']);
     }
 
     public function testCheckerDefault()
@@ -127,7 +127,7 @@ class CallableTest extends BaseTest
             ['i' => 'test:test']
         );
 
-        $this->assertSame(['i' => 'Condition `test` does not met.'], $validator->getErrors());
+        $this->assertSame(['i' => 'Condition `test` was not met.'], $validator->getErrors());
     }
 
     public static function check($value)

@@ -21,7 +21,7 @@ class CallableRule implements RuleInterface
     /**
      * Default validation message for custom rules.
      */
-    const DEFAULT_MESSAGE = '[[Condition `{name}` does not meet.]]';
+    const DEFAULT_MESSAGE = '[[Condition `{name}` does not met.]]';
 
     /** @var callable */
     private $check;

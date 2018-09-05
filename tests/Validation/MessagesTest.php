@@ -8,6 +8,8 @@
 
 namespace Spiral\Validation\Tests;
 
+use Spiral\Validation\AbstractChecker;
+
 class MessagesTest extends BaseTest
 {
     public function testDefault()

@@ -129,6 +129,11 @@ class Validator implements ValidatorInterface
      */
     protected function validate()
     {
+        if (!empty($this->errors)) {
+            // already validated
+            return;
+        }
+
         $this->errors = [];
 
         foreach ($this->rules as $field => $rules) {
@@ -136,7 +141,7 @@ class Validator implements ValidatorInterface
             $value = $this->getValue($field);
 
             foreach ($this->provider->getRules(is_array($rules) ? $rules : [$rules]) as $rule) {
-                if ($this->hasError($field)) {
+                if (isset($this->errors[$field]) || isset($this->userErrors[$field])) {
                     break;
                 }
 

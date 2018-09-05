@@ -50,7 +50,18 @@ class ValidatorConfig extends InjectableConfig
             throw new ValidationException("Undefined checker {$name}.");
         }
 
-        // todo: more options
-        return new Autowire($this->config['checkers'][$name]);
+        if (is_string($this->config['checkers'][$name])) {
+            return new Autowire($this->config['checkers'][$name]);
+        }
+
+
+        if (isset($this->config['checkers'][$name]['class'])) {
+            return new Autowire(
+                $this->config['checkers'][$name]['class'],
+                $this->config['checkers'][$name]['options'] ?? []
+            );
+        }
+
+        throw new ValidationException("Invalid checker definition for `{$name}`.");
     }
 }

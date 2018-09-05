@@ -24,7 +24,7 @@ abstract class AbstractChecker implements CheckerInterface
     const MESSAGES = [];
 
     /**
-     * List of check rules to be used for any value, including empty.
+     * List of methods which are allowed to handle empty values.
      */
     const ON_EMPTY = [];
 

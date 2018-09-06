@@ -71,7 +71,9 @@ class Validator implements ValidatorInterface
     }
 
     /**
-     * @inheritdoc
+     * @deprecated
+     * @param string $field
+     * @param string $error
      */
     public function registerError(string $field, string $error)
     {

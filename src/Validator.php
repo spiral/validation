@@ -27,9 +27,6 @@ class Validator implements ValidatorInterface
     /** @var array */
     private $errors = [];
 
-    /** @var array */
-    private $userErrors = [];
-
     /**
      * @param array|\ArrayAccess $data
      * @param array              $rules
@@ -71,23 +68,13 @@ class Validator implements ValidatorInterface
     }
 
     /**
-     * @deprecated
-     * @param string $field
-     * @param string $error
-     */
-    public function registerError(string $field, string $error)
-    {
-        $this->userErrors[$field] = $error;
-    }
-
-    /**
      * @inheritdoc
      */
     public function getErrors(): array
     {
         $this->validate();
 
-        return $this->userErrors + $this->errors;
+        return $this->errors;
     }
 
     /**
@@ -103,15 +90,6 @@ class Validator implements ValidatorInterface
     }
 
     /**
-     * Reset user and validation errors.
-     */
-    public function resetState()
-    {
-        $this->errors = [];
-        $this->userErrors = [];
-    }
-
-    /**
      * Destruct the service.
      */
     public function __destruct()
@@ -119,7 +97,7 @@ class Validator implements ValidatorInterface
         $this->data = null;
         $this->rules = [];
         $this->provider = null;
-        $this->resetState();
+        $this->errors = [];
     }
 
     /**
@@ -141,7 +119,7 @@ class Validator implements ValidatorInterface
             $value = $this->getValue($field);
 
             foreach ($this->provider->getRules($rules) as $rule) {
-                if (isset($this->errors[$field]) || isset($this->userErrors[$field])) {
+                if (isset($this->errors[$field])) {
                     break;
                 }
 

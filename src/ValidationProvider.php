@@ -74,6 +74,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         foreach ($rules as $rule) {
             if ($rule instanceof \Closure) {
                 yield new CallableRule($rule);
+                continue;
             }
 
             $id = json_encode($rule);

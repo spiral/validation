@@ -12,44 +12,44 @@ class EmptyTest extends BaseTest
 {
     public function testNoRules()
     {
-        $validator = $this->validation->validate([], []);
-        $this->assertTrue($validator->isValid());
-        $this->assertSame([], $validator->getErrors());
+        $result = $this->validation->validate([], []);
+        $this->assertTrue($result->isValid());
+        $this->assertSame([], $result->getErrors());
 
-        $validator = $this->validation->validate(['email' => 'user@example.com'], []);
-        $this->assertTrue($validator->isValid());
-        $this->assertSame([], $validator->getErrors());
+        $result = $this->validation->validate(['email' => 'user@example.com'], []);
+        $this->assertTrue($result->isValid());
+        $this->assertSame([], $result->getErrors());
     }
 
     public function testNotEmpty()
     {
-        $validator = $this->validation->validate([], ['name' => ['type::notEmpty']]);
-        $this->assertFalse($validator->isValid());
-        $this->assertSame(['name' => 'This value is required.'], $validator->getErrors());
+        $result = $this->validation->validate([], ['name' => ['type::notEmpty']]);
+        $this->assertFalse($result->isValid());
+        $this->assertSame(['name' => 'This value is required.'], $result->getErrors());
 
-        $validator = $this->validation->validate(['name' => null], ['name' => ['type::notEmpty']]);
-        $this->assertFalse($validator->isValid());
+        $result = $this->validation->validate(['name' => null], ['name' => ['type::notEmpty']]);
+        $this->assertFalse($result->isValid());
 
-        $validator = $this->validation->validate(['name' => ''], ['name' => ['type::notEmpty']]);
-        $this->assertFalse($validator->isValid());
+        $result = $this->validation->validate(['name' => ''], ['name' => ['type::notEmpty']]);
+        $this->assertFalse($result->isValid());
 
-        $validator = $this->validation->validate(['name' => 'John Doe'], ['name' => ['type::notEmpty']]);
-        $this->assertTrue($validator->isValid());
+        $result = $this->validation->validate(['name' => 'John Doe'], ['name' => ['type::notEmpty']]);
+        $this->assertTrue($result->isValid());
     }
 
     public function testNotEmptyShorter()
     {
-        $validator = $this->validation->validate([], ['name' => 'notEmpty']);
-        $this->assertFalse($validator->isValid());
-        $this->assertSame(['name' => 'This value is required.'], $validator->getErrors());
+        $result = $this->validation->validate([], ['name' => 'notEmpty']);
+        $this->assertFalse($result->isValid());
+        $this->assertSame(['name' => 'This value is required.'], $result->getErrors());
 
-        $validator = $this->validation->validate(['name' => null], ['name' => 'notEmpty']);
-        $this->assertFalse($validator->isValid());
+        $result = $this->validation->validate(['name' => null], ['name' => 'notEmpty']);
+        $this->assertFalse($result->isValid());
 
-        $validator = $this->validation->validate(['name' => ''], ['name' => 'notEmpty']);
-        $this->assertFalse($validator->isValid());
+        $result = $this->validation->validate(['name' => ''], ['name' => 'notEmpty']);
+        $this->assertFalse($result->isValid());
 
-        $validator = $this->validation->validate(['name' => 'John Doe'], ['name' => 'notEmpty']);
-        $this->assertTrue($validator->isValid());
+        $result = $this->validation->validate(['name' => 'John Doe'], ['name' => 'notEmpty']);
+        $this->assertTrue($result->isValid());
     }
 }

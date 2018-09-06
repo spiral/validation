@@ -34,15 +34,6 @@ interface ValidatorInterface
     public function getContext();
 
     /**
-     * Register outer validation error. Registered error persists until context data are changed
-     * or flushRegistered method not called.
-     *
-     * @param string $field
-     * @param string $error
-     */
-    public function registerError(string $field, string $error);
-
-    /**
      * Check if context data valid accordingly to provided rules.
      *
      * @return bool

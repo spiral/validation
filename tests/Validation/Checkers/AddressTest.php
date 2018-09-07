@@ -46,4 +46,11 @@ class AddressTest extends TestCase
         $this->assertFalse($checker->url('ht:domain.com', false));
         $this->assertFalse($checker->url('javascript://domain.com', false));
     }
+
+    public function testUri()
+    {
+        $checker = new AddressChecker();
+
+        $this->assertTrue($checker->uri('https://john.doe:pwd@www.example.com:123/forum/questions/?tag=networking&order=newest#top'));
+    }
 }

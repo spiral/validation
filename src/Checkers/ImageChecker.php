@@ -42,7 +42,7 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const ON_EMPTY = ['type', 'valid'];
+    const ALLOW_EMPTY_VALUES = ['type', 'valid'];
 
     /**
      * Known image types.
@@ -75,8 +75,6 @@ class ImageChecker extends AbstractChecker implements SingletonInterface
     public function __construct(FilesInterface $files)
     {
         $this->files = $files;
-
-
     }
 
     /**

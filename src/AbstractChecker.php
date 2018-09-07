@@ -30,7 +30,7 @@ abstract class AbstractChecker implements CheckerInterface
     /**
      * List of methods which are allowed to handle empty values.
      */
-    const ON_EMPTY = [];
+    const ALLOW_EMPTY_VALUES = [];
 
     /** @var ValidatorInterface */
     private $validator = null;
@@ -44,7 +44,7 @@ abstract class AbstractChecker implements CheckerInterface
             return false;
         }
 
-        return !in_array($method, static::ON_EMPTY);
+        return !in_array($method, static::ALLOW_EMPTY_VALUES);
     }
 
     /**

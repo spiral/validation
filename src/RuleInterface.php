@@ -26,9 +26,9 @@ interface RuleInterface
     /**
      * Conditions associated with the rule.
      *
-     * @return ConditionInterface[]
+     * @return \Generator|ConditionInterface[]
      */
-    public function getConditions(): array;
+    public function getConditions(): \Generator;
 
     /**
      * @param ValidatorInterface $v

@@ -18,7 +18,7 @@ class CheckerRule implements RuleInterface
     /** @var string */
     private $method;
 
-    /** @var ConditionInterface[] */
+    /** @var \SplObjectStorage */
     private $conditions;
 
     /** @var array */
@@ -28,16 +28,16 @@ class CheckerRule implements RuleInterface
     private $message;
 
     /**
-     * @param CheckerInterface $checker
-     * @param string           $method
-     * @param array            $conditions
-     * @param array            $args
-     * @param null|string      $message
+     * @param CheckerInterface  $checker
+     * @param string            $method
+     * @param \SplObjectStorage $conditions
+     * @param array             $args
+     * @param null|string       $message
      */
     public function __construct(
         CheckerInterface $checker,
         string $method,
-        array $conditions,
+        \SplObjectStorage $conditions,
         array $args,
         ?string $message
     ) {
@@ -59,9 +59,12 @@ class CheckerRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function getConditions(): array
+    public function getConditions(): \Generator
     {
-        return $this->conditions;
+        /** @var ConditionInterface $condition */
+        foreach ($this->conditions as $condition) {
+            yield $condition->withOptions($this->conditions->offsetGet($condition));
+        }
     }
 
     /**

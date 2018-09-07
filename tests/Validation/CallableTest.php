@@ -16,7 +16,7 @@ class CallableTest extends BaseTest
     const CONFIG = [
         'checkers' => [
             'type' => TypeChecker::class,
-            'test' => TestChecher::class,
+            'test' => TestChecker::class,
         ],
         'aliases'  => [
             'notEmpty' => 'type::notEmpty',
@@ -144,13 +144,47 @@ class CallableTest extends BaseTest
         $this->assertSame(['i' => 'The condition `test` was not met.'], $validator->getErrors());
     }
 
+    public function testCheckerByCallableClass()
+    {
+        $validator = $this->validation->validate(
+            [
+                'i' => 'value'
+            ],
+            [
+                'i' => [
+                    [
+                        [TestChecker::class, 'test'],
+                        'err' => 'ERROR'
+                    ]
+                ]
+            ]
+        );
+
+        $this->assertSame(['i' => 'ERROR'], $validator->getErrors());
+    }
+
+    public function testCheckerByCallableObject()
+    {
+        $checker = new TestChecker();
+        $validator = $this->validation->validate(
+            ['i' => 'value'],
+            [
+                'i' => [
+                    [[$checker, 'test'], 'err' => 'ERROR']
+                ]
+            ]
+        );
+
+        $this->assertSame(['i' => 'ERROR'], $validator->getErrors());
+    }
+
     public static function check($value)
     {
         return false;
     }
 }
 
-class TestChecher extends AbstractChecker
+class TestChecker extends AbstractChecker
 {
     public function test()
     {

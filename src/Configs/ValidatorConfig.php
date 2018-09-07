@@ -39,6 +39,16 @@ class ValidatorConfig extends InjectableConfig
     }
 
     /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasCondition(string $name): bool
+    {
+        return isset($this->config['conditions'][$name]);
+    }
+
+    /**
      * @todo AutowireTrait or Autowire::parse
      *
      * @param string $name
@@ -53,17 +63,52 @@ class ValidatorConfig extends InjectableConfig
             throw new ValidationException("Undefined checker {$name}.");
         }
 
-        if (is_string($this->config['checkers'][$name])) {
-            return new Autowire($this->config['checkers'][$name]);
-        }
-
-        if (isset($this->config['checkers'][$name]['class'])) {
-            return new Autowire(
-                $this->config['checkers'][$name]['class'],
-                $this->config['checkers'][$name]['options'] ?? []
-            );
+        $instance = $this->wire('checkers', $name);
+        if (!empty($instance)) {
+            return $instance;
         }
 
         throw new ValidationException("Invalid checker definition for `{$name}`.");
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Autowire
+     */
+    public function getCondition(string $name): Autowire
+    {
+        if (!$this->hasCondition($name)) {
+            throw new ValidationException("Undefined condition {$name}.");
+        }
+
+        $instance = $this->wire('conditions', $name);
+        if (!empty($instance)) {
+            return $instance;
+        }
+
+        throw new ValidationException("Invalid condition definition for `{$name}`.");
+    }
+
+    /**
+     * @param string $section
+     * @param string $name
+     *
+     * @return null|Autowire
+     */
+    private function wire(string $section, string $name): ?Autowire
+    {
+        if (is_string($this->config[$section][$name])) {
+            return new Autowire($this->config[$section][$name]);
+        }
+
+        if (isset($this->config[$section][$name]['class'])) {
+            return new Autowire(
+                $this->config[$section][$name]['class'],
+                $this->config[$section][$name]['options'] ?? []
+            );
+        }
+
+        return null;
     }
 }

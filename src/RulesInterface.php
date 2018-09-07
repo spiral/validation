@@ -18,7 +18,7 @@ interface RulesInterface
      *
      * @param array|string $rules
      *
-     * @return \Generator<RuleInterface[]>
+     * @return \Generator|RuleInterface[]
      *
      * @throws \Spiral\Validation\Exceptions\ValidationException
      */

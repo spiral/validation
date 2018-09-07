@@ -8,21 +8,30 @@
 
 namespace Spiral\Validation;
 
-use Psr\Container\ContainerInterface;
+use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\Configs\ValidatorConfig;
+use Spiral\Validation\Parsers\ConditionsParser;
+use Spiral\Validation\Parsers\DefaultRulesParser;
 
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
-    const ARGUMENTS = ['args', 'params', 'arguments', 'parameters'];
-    const MESSAGES  = ['message', 'msg', 'error', 'err'];
+    const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
+    const MESSAGES   = ['message', 'msg', 'error', 'err'];
+    const CONDITIONS = ['if', 'condition', 'conditions', 'where'];
 
     /** @var ValidatorConfig */
     private $config;
 
-    /** @var ContainerInterface */
+    /** @var FactoryInterface */
     private $factory;
+
+    /** @var ConditionsParser */
+    private $conditions;
+
+    /** @var RulesParserInterface */
+    private $rulesParser;
 
     /**
      * Rules cache.
@@ -32,13 +41,17 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
     private $rules = [];
 
     /**
-     * @param ValidatorConfig  $config
-     * @param FactoryInterface $factory
+     * @param ValidatorConfig    $config
+     * @param FactoryInterface   $factory
+     * @param ConditionsParser   $conditions
+     * @param DefaultRulesParser $rulesParser
      */
-    public function __construct(ValidatorConfig $config, FactoryInterface $factory)
+    public function __construct(ValidatorConfig $config, FactoryInterface $factory, ConditionsParser $conditions, DefaultRulesParser $rulesParser)
     {
         $this->config = $config;
         $this->factory = $factory;
+        $this->conditions = $conditions;
+        $this->rulesParser = $rulesParser;
     }
 
     /**
@@ -68,35 +81,19 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      */
     public function getRules($rules): \Generator
     {
-        // todo: support additional syntaxes
-        $rules = is_array($rules) ? $rules : [$rules];
-
-        foreach ($rules as $rule) {
+        foreach ($this->rulesParser->parse($rules) as $rule) {
             if ($rule instanceof \Closure) {
                 yield new CallableRule($rule);
                 continue;
             }
 
-            $id = json_encode($rule);
+            $id = $this->getID($rule);
             if (isset($this->rules[$id])) {
                 yield $this->rules[$id];
                 continue;
             }
 
-            if (is_string($rule)) {
-                $check = $rule;
-            } else {
-                $check = $rule[0];
-            }
-
-            if (is_string($check)) {
-                $check = $this->config->resolveAlias($check);
-                if (strpos($check, ':') !== false) {
-                    $check = explode(':', str_replace('::', ':', $check));
-                }
-            }
-
-            // todo: getConditions
+            $check = $this->getChecker($rule);
 
             if (is_array($check)) {
                 if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
@@ -105,7 +102,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                     yield $this->rules[$id] = new CheckerRule(
                         $check[0],
                         $check[1],
-                        [],
+                        $this->fetchConditions($rule),
                         $this->fetchArgs($rule),
                         $this->fetchMessage($rule)
                     );
@@ -113,17 +110,18 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                     continue;
                 }
 
-                $check[0] = is_object($check[0]) ? $check[0] : $this->factory->get($check[0]);
+                if (!is_object($check[0])) {
+                    $check[0] = (new Autowire($check[0]))->resolve($this->factory);
+                }
             }
 
             yield $this->rules[$id] = new CallableRule(
                 $check,
-                [],
+                $this->fetchConditions($rule),
                 $this->fetchArgs($rule),
                 $this->fetchMessage($rule)
             );
         }
-
     }
 
     /**
@@ -134,6 +132,39 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         $this->config = null;
         $this->factory = null;
         $this->resetCache();
+    }
+
+    /**
+     * @param $rule
+     *
+     * @return string
+     */
+    protected function getID($rule): string
+    {
+        return json_encode($rule);
+    }
+
+    /**
+     * @param $rule
+     *
+     * @return array|string
+     */
+    protected function getChecker($rule)
+    {
+        if (is_string($rule)) {
+            $check = $rule;
+        } else {
+            $check = $rule[0];
+        }
+
+        if (is_string($check)) {
+            $check = $this->config->resolveAlias($check);
+            if (strpos($check, ':') !== false) {
+                $check = explode(':', str_replace('::', ':', $check));
+            }
+        }
+
+        return $check;
     }
 
     /**
@@ -183,5 +214,25 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         }
 
         return null;
+    }
+
+    /**
+     * Fetch validation conditions from rule definition.
+     *
+     * @param $rule
+     *
+     * @return \SplObjectStorage
+     */
+    private function fetchConditions($rule): \SplObjectStorage
+    {
+        if (is_array($rule)) {
+            foreach (self::CONDITIONS as $index) {
+                if (isset($rule[$index])) {
+                    return $this->conditions->parse($rule[$index]);
+                }
+            }
+        }
+
+        return $this->conditions->parse([]);
     }
 }

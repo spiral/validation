@@ -36,14 +36,14 @@ class CallableRule implements RuleInterface
     private $message;
 
     /**
-     * @param callable    $check
-     * @param array       $conditions
-     * @param array       $args
-     * @param null|string $message
+     * @param callable          $check
+     * @param \SplObjectStorage $conditions
+     * @param array             $args
+     * @param null|string       $message
      */
     public function __construct(
         callable $check,
-        array $conditions = [],
+        \SplObjectStorage $conditions = null,
         array $args = [],
         ?string $message = null
     ) {
@@ -66,9 +66,16 @@ class CallableRule implements RuleInterface
     /**
      * @inheritdoc
      */
-    public function getConditions(): array
+    public function getConditions(): \Generator
     {
-        return $this->conditions;
+        if (empty($this->conditions)) {
+            return;
+        }
+
+        /** @var ConditionInterface $condition */
+        foreach ($this->conditions as $condition) {
+            yield $condition->withOptions($this->conditions->offsetGet($condition));
+        }
     }
 
     /**

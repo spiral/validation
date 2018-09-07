@@ -26,7 +26,7 @@ class CallableRule implements RuleInterface
     /** @var callable */
     private $check;
 
-    /** @var ConditionInterface[] */
+    /** @var \SplObjectStorage|ConditionInterface[] */
     private $conditions;
 
     /** @var array */
@@ -72,7 +72,6 @@ class CallableRule implements RuleInterface
             return;
         }
 
-        /** @var ConditionInterface $condition */
         foreach ($this->conditions as $condition) {
             yield $condition->withOptions($this->conditions->offsetGet($condition));
         }

@@ -5,9 +5,9 @@ namespace Spiral\Validation\Checkers\ValuesChecker;
 interface RegistryInterface
 {
     /**
-     * @param string $column
+     * @param null|string $column
      *
      * @return array
      */
-    public function populate(string $column): array;
+    public function populate(?string $column = null): array;
 }

@@ -13,35 +13,45 @@ class ValuesTest extends BaseTest
     {
         $checker = new ValuesChecker($this->container->get(FactoryInterface::class));
 
-        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+        $mock = $this->mockValidator();
         $mock->method('getValue')->with('fields')->will($this->returnValue([1, 2, 3]));
 
-        $this->assertTrue($checker->check($mock, 'any', 'holder', 'fields'));
+        $this->assertTrue($checker->check($mock, 'any', '', 'fields'));
 
-        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+        $mock = $this->mockValidator();
         $mock->method('getValue')->with('fields')->will($this->returnValue([]));
-        $this->assertFalse($checker->check($mock, 'any', 'holder', 'fields'));
+        $this->assertFalse($checker->check($mock, 'any', '', 'fields'));
 
-        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+        $mock = $this->mockValidator();
         $mock->method('getValue')->with('fields')->will($this->returnValue(null));
-        $this->assertFalse($checker->check($mock, 'any', 'holder', 'fields'));
+        $this->assertFalse($checker->check($mock, 'any', '', 'fields'));
     }
 
-    //Failed mock to test registry
-//    public function testAllowed()
-//    {
-//        $checker = new ValuesChecker($this->container->get(FactoryInterface::class));
-//
-//        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
-//        $mock->method('getValue')->with('fields')->will($this->returnValue([1, 2, 3]));
-//
-//        $this->assertTrue($checker->check($mock, 'allowed', '', '', ['fields', Registry::class, 'column']));
-//    }
+    public function testAllowed()
+    {
+        $checker = new ValuesChecker($this->container->get(FactoryInterface::class));
+
+        $mock = $this->mockValidator();
+        $mock->method('getValue')->with('fields')->will($this->returnValue([1, 2, 3]));
+        $this->assertTrue($checker->check($mock, 'allowed', 'fields', 'fields', [Registry::class, 'column']));
+
+        $mock = $this->mockValidator();
+        $mock->method('getValue')->with('fields')->will($this->returnValue([1, 2, 6]));
+        $this->assertFalse($checker->check($mock, 'allowed', 'fields', 'fields', [Registry::class, 'column']));
+    }
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    private function mockValidator()
+    {
+        return $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+    }
 }
 
 class Registry implements ValuesChecker\RegistryInterface
 {
-    public function populate(string $column): array
+    public function populate(?string $column = null): array
     {
         return [1, 2, 3, 4, 5];
     }

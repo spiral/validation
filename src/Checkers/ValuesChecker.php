@@ -2,13 +2,23 @@
 
 namespace Spiral\Validation\Checkers;
 
-use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\AbstractChecker;
 
 class ValuesChecker extends AbstractChecker implements SingletonInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    const MESSAGES = [
+        'any'     => '[[At least one value is required.]]',
+        'allowed' => '[[The selection contains unexpected value.]]'
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     const ALLOW_EMPTY_VALUES = ['any', 'allowed'];
 
     /** @var FactoryInterface */
@@ -74,6 +84,6 @@ class ValuesChecker extends AbstractChecker implements SingletonInterface
      */
     private function getRegistry(string $class): ValuesChecker\RegistryInterface
     {
-        return (new Autowire($class))->resolve($this->factory);
+        return $this->factory->make($class);
     }
 }

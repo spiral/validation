@@ -15,6 +15,7 @@ use Spiral\Validation\Bootloaders\ValidationBootloader;
 use Spiral\Validation\Checkers\AddressChecker;
 use Spiral\Validation\Checkers\FileChecker;
 use Spiral\Validation\Checkers\ImageChecker;
+use Spiral\Validation\Checkers\StringChecker;
 use Spiral\Validation\Checkers\TypeChecker;
 use Spiral\Validation\Configs\ValidatorConfig;
 use Spiral\Validation\ValidationInterface;
@@ -27,6 +28,7 @@ abstract class BaseTest extends TestCase
             'image'   => ImageChecker::class,
             'type'    => TypeChecker::class,
             'address' => AddressChecker::class,
+            'string'  => StringChecker::class
         ],
         'aliases'  => [
             'notEmpty' => 'type::notEmpty',

@@ -20,10 +20,10 @@ class StringChecker extends AbstractChecker implements SingletonInterface
      * {@inheritdoc}
      */
     const MESSAGES = [
-        'regexp'  => '[[Your value does not match required pattern.]]',
+        'regexp'  => '[[Value does not match required pattern.]]',
         'shorter' => '[[Enter text shorter or equal to {1}.]]',
-        'longer'  => '[[Your text must be longer or equal to {1}.]]',
-        'length'  => '[[Your text length must be exactly equal to {1}.]]',
+        'longer'  => '[[Text must be longer or equal to {1}.]]',
+        'length'  => '[[Text length must be exactly equal to {1}.]]',
         'range'   => '[[Text length should be in range of {1}-{2}.]]',
     ];
 

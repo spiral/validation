@@ -57,7 +57,7 @@ class ValidatorConfig extends InjectableConfig
     public function getChecker(string $name): Autowire
     {
         if (!$this->hasChecker($name)) {
-            throw new ValidationException("Undefined checker {$name}.");
+            throw new ValidationException("Undefined checker `{$name}``.");
         }
 
         $instance = $this->wire('checkers', $name);
@@ -84,7 +84,7 @@ class ValidatorConfig extends InjectableConfig
     public function getCondition(string $name): Autowire
     {
         if (!$this->hasCondition($name)) {
-            throw new ValidationException("Undefined condition {$name}.");
+            throw new ValidationException("Undefined condition `{$name}``.");
         }
 
         $instance = $this->wire('conditions', $name);

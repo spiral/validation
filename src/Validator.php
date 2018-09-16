@@ -119,10 +119,6 @@ class Validator implements ValidatorInterface
             $value = $this->getValue($field);
 
             foreach ($this->provider->getRules($rules) as $rule) {
-                if (isset($this->errors[$field])) {
-                    break;
-                }
-
                 if ($rule->ignoreEmpty($value) && empty($rule->hasConditions())) {
                     continue;
                 }

@@ -43,26 +43,5 @@ class ErrorsTest extends BaseTest
             'Must be a valid email address.',
             $validator->getErrors()['name']
         );
-
-        /**
-         * @var Validator $validator
-         */
-        $validator = $this->validation->validate(
-            [
-                'name' => 'other@domain.com'
-            ],
-            [
-                'name' => [
-                    'notEmpty',
-                    'email',
-                    ['string::regexp', '/^email@domain\.com$/']
-                ]
-            ]
-        );
-
-        $this->assertSame(
-            'Value does not match required pattern.',
-            $validator->getErrors()['name']
-        );
     }
 }

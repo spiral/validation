@@ -1,4 +1,10 @@
 <?php
+/**
+ * Spiral Framework.
+ *
+ * @license   MIT
+ * @author    Anton Titov (Wolfy-J)
+ */
 
 namespace Spiral\Validation\Tests;
 
@@ -15,7 +21,7 @@ use Spiral\Validation\Conditions\WithoutAnyCondition;
 use Spiral\Validation\RulesInterface;
 use Spiral\Validation\ValidatorInterface;
 
-class ConditionTest extends BaseTest
+class ConditionsTest extends BaseTest
 {
     const CONFIG = [
         'checkers'   => [

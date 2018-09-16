@@ -25,5 +25,10 @@
     "psr-4": {
       "Spiral\\Validation\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Spiral\\Validation\\Tests\\": "tests/Validation/"
+    }
   }
 }

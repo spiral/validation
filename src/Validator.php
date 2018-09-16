@@ -123,7 +123,7 @@ class Validator implements ValidatorInterface
                     break;
                 }
 
-                if ($rule->ignoreEmpty($value)) {
+                if ($rule->ignoreEmpty($value) && empty($rule->hasConditions())) {
                     continue;
                 }
 

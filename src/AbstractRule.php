@@ -27,6 +27,14 @@ abstract class AbstractRule implements RuleInterface
     /**
      * @inheritdoc
      */
+    public function hasConditions(): bool
+    {
+        return !empty($this->conditions);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getConditions(): \Generator
     {
         if (empty($this->conditions)) {

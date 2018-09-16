@@ -30,6 +30,11 @@ interface RuleInterface
     public function withConditions(\SplObjectStorage $conditions = null): RuleInterface;
 
     /**
+     * @return bool
+     */
+    public function hasConditions(): bool;
+
+    /**
      * Conditions associated with the rule.
      *
      * @return \Generator|ConditionInterface[]

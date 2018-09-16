@@ -19,14 +19,12 @@ interface ConditionInterface
      * @param ValidatorInterface $validator
      * @param string             $field
      * @param mixed              $value
-     *
      * @return bool
      */
     public function isMet(ValidatorInterface $validator, string $field, $value): bool;
 
     /**
      * @param null|array $options
-     *
      * @return ConditionInterface
      */
     public function withOptions(?array $options): ConditionInterface;

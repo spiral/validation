@@ -2,7 +2,7 @@
 
 namespace Spiral\Validation\Tests;
 
-use Spiral\Validation\Condition;
+use Spiral\Validation\AbstractCondition;
 use Spiral\Validation\RulesInterface;
 use Spiral\Validation\ValidatorInterface;
 
@@ -35,14 +35,14 @@ class ConditionTest extends BaseTest
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => TestCondition::class
+                'if' => TestAbstractCondition::class
             ]
         ]);
 
         foreach ($rules as $rule) {
             $count = 0;
             foreach ($rule->getConditions() as $condition) {
-                $this->assertInstanceOf(TestCondition::class, $condition);
+                $this->assertInstanceOf(TestAbstractCondition::class, $condition);
                 $count++;
             }
 
@@ -56,7 +56,7 @@ class ConditionTest extends BaseTest
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => [PayloadCondition::class => 'j']
+                'if' => [PayloadAbstractCondition::class => 'j']
             ]
         ]);
 
@@ -79,7 +79,7 @@ class ConditionTest extends BaseTest
     }
 }
 
-class TestCondition extends Condition
+class TestAbstractCondition extends AbstractCondition
 {
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {
@@ -87,7 +87,7 @@ class TestCondition extends Condition
     }
 }
 
-class PayloadCondition extends Condition
+class PayloadAbstractCondition extends AbstractCondition
 {
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {

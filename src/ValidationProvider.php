@@ -8,6 +8,7 @@
 
 namespace Spiral\Validation;
 
+use Psr\Container\ContainerExceptionInterface;
 use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
@@ -85,32 +86,10 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                 continue;
             }
 
-            $check = $this->config->mapFunction($this->parser->parseCheck($rule));
-
-            if (is_array($check)) {
-                if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
-                    $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
-
-                    yield $this->rules[$id] = (new CheckerRule(
-                        $check[0],
-                        $check[1],
-                        $this->parser->parseArgs($rule),
-                        $this->parser->parseMessage($rule)
-                    ))->withConditions($this->parser->parseConditions($rule));
-
-                    continue;
-                }
-
-                if (!is_object($check[0])) {
-                    $check[0] = (new Autowire($check[0]))->resolve($this->factory);
-                }
-            }
-
-            yield $this->rules[$id] = (new CallableRule(
-                $check,
-                $this->parser->parseArgs($rule),
-                $this->parser->parseMessage($rule)
-            ))->withConditions($this->parser->parseConditions($rule));
+            yield $this->rules[$id] = $this->makeRule(
+                $this->config->mapFunction($this->parser->parseCheck($rule)),
+                $rule
+            )->withConditions($this->parser->parseConditions($rule));
         }
     }
 
@@ -122,5 +101,40 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         $this->config = null;
         $this->factory = null;
         $this->resetCache();
+    }
+
+    /**
+     * Construct rule object.
+     *
+     * @param mixed $check
+     * @param mixed $rule
+     * @return RuleInterface
+     *
+     * @throws ContainerExceptionInterface
+     */
+    protected function makeRule($check, $rule): RuleInterface
+    {
+        if (is_array($check)) {
+            if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
+                $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
+
+                return (new CheckerRule(
+                    $check[0],
+                    $check[1],
+                    $this->parser->parseArgs($rule),
+                    $this->parser->parseMessage($rule)
+                ));
+            }
+
+            if (!is_object($check[0])) {
+                $check[0] = (new Autowire($check[0]))->resolve($this->factory);
+            }
+        }
+
+        return (new CallableRule(
+            $check,
+            $this->parser->parseArgs($rule),
+            $this->parser->parseMessage($rule)
+        ));
     }
 }

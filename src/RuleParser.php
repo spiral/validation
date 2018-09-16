@@ -6,29 +6,18 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Parsers;
+namespace Spiral\Validation;
 
 use Spiral\Validation\Exceptions\ParserException;
-use Spiral\Validation\ParserInterface;
 
+/**
+ * Parses rule definitions.
+ */
 class RuleParser implements ParserInterface
 {
     const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
     const MESSAGES   = ['message', 'msg', 'error', 'err'];
     const CONDITIONS = ['if', 'condition', 'conditions', 'where'];
-
-    /** @var ConditionParser */
-    private $conditionParser;
-
-    /**
-     * RuleParser constructor.
-     *
-     * @param ConditionParser $conditionParser
-     */
-    public function __construct(ConditionParser $conditionParser)
-    {
-        $this->conditionParser = $conditionParser;
-    }
 
     /**
      * @inheritdoc
@@ -112,18 +101,24 @@ class RuleParser implements ParserInterface
     /**
      * @inheritdoc
      */
-    public function parseConditions($chunk): \SplObjectStorage
+    public function parseConditions($chunk): array
     {
-        if (is_array($chunk)) {
-            foreach (self::CONDITIONS as $index) {
-                if (isset($chunk[$index])) {
-                    // todo: do something else
-                    return $this->conditionParser->parse($chunk[$index]);
+        foreach (self::CONDITIONS as $index) {
+            if (isset($chunk[$index])) {
+                $conditions = [];
+                foreach ((array)$chunk[$index] as $key => $value) {
+                    if (is_numeric($key)) {
+                        $conditions[$value] = [];
+                    } else {
+                        $conditions[$key] = (array)$value;
+                    }
                 }
+
+                return $conditions;
             }
         }
 
-        return $this->conditionParser->parse([]);
+        return [];
     }
 
     /**

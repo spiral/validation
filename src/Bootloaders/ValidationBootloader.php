@@ -10,7 +10,7 @@ namespace Spiral\Validation\Bootloaders;
 
 use Spiral\Core\Bootloaders\Bootloader;
 use Spiral\Validation\ParserInterface;
-use Spiral\Validation\Parsers\RuleParser;
+use Spiral\Validation\RuleParser;
 use Spiral\Validation\RulesInterface;
 use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidationProvider;

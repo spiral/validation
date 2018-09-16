@@ -58,13 +58,12 @@ interface ParserInterface
     public function parseMessage($chunk): ?string;
 
     /**
-     * Fetch validation conditions in a form of SplStack where key is callable function or
-     * condition name and value is condition options.
+     * Parse validation conditions in a form of array [conditionClass => options].
      *
      * @param mixed $chunk
-     * @return \SplStack
+     * @return array
      *
      * @throws ParserException
      */
-    public function parseConditions($chunk);
+    public function parseConditions($chunk): array;
 }

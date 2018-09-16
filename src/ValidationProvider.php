@@ -60,14 +60,6 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
     }
 
     /**
-     * Reset rules cache.
-     */
-    public function resetCache()
-    {
-        $this->rules = [];
-    }
-
-    /**
      * @inheritdoc
      *
      * Attention, for performance reasons method would cache all defined rules.
@@ -86,11 +78,24 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                 continue;
             }
 
-            yield $this->rules[$id] = $this->makeRule(
-                $this->config->mapFunction($this->parser->parseCheck($rule)),
+            $function = $this->parser->parseCheck($rule);
+            $conditions = $this->parser->parseConditions($rule);
+
+            $check = $this->makeRule(
+                $this->config->mapFunction($function),
                 $rule
-            )->withConditions($this->parser->parseConditions($rule));
+            );
+
+            yield $this->rules[$id] = $check->withConditions($this->makeConditions($conditions));
         }
+    }
+
+    /**
+     * Reset rules cache.
+     */
+    public function resetCache()
+    {
+        $this->rules = [];
     }
 
     /**
@@ -132,5 +137,31 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         }
 
         return new CallableRule($check, $args, $message);
+    }
+
+    /**
+     * @param array $conditions
+     * @return \SplObjectStorage
+     *
+     * @throws ContainerExceptionInterface
+     */
+    protected function makeConditions(array $conditions): ?\SplObjectStorage
+    {
+        if (empty($conditions)) {
+            return null;
+        }
+
+        $storage = new \SplObjectStorage();
+        foreach ($conditions as $condition => $options) {
+            if ($this->config->hasCondition($condition)) {
+                $autowire = $this->config->getCondition($condition);
+            } else {
+                $autowire = new Autowire($condition);
+            }
+
+            $storage->attach($autowire->resolve($this->factory), $options);
+        }
+
+        return $storage;
     }
 }

@@ -27,7 +27,7 @@ interface RuleInterface
      * @param \SplObjectStorage $conditions
      * @return RuleInterface
      */
-    public function withConditions(\SplObjectStorage $conditions): RuleInterface;
+    public function withConditions(\SplObjectStorage $conditions = null): RuleInterface;
 
     /**
      * Conditions associated with the rule.

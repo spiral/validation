@@ -60,7 +60,6 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
     }
 
-
     /**
      * @expectedException \Spiral\Validation\Exceptions\ValidationException
      */

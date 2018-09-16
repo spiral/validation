@@ -92,6 +92,8 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
 
     /**
      * Reset rules cache.
+     *
+     * @codeCoverageIgnore
      */
     public function resetCache()
     {
@@ -100,6 +102,8 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
 
     /**
      * Destruct the service.
+     *
+     * @codeCoverageIgnore
      */
     public function __destruct()
     {

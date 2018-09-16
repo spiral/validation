@@ -27,17 +27,17 @@ class FileTest extends BaseTest
 
     public function testExists()
     {
-        $this->assertFail('a', [], [
+        $this->assertNotValid('a', [], [
             'a' => ['file:exists']
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => null
         ], [
             'a' => ['file:exists']
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => []
         ], [
             'a' => ['file:exists']
@@ -58,7 +58,7 @@ class FileTest extends BaseTest
             'a' => ['file:exists']
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => ['tmp_name' => __FILE__]
         ], [
             'a' => ['file:uploaded']
@@ -83,7 +83,7 @@ class FileTest extends BaseTest
 
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 1);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => $uploaded
         ], [
             'a' => ['file:exists']
@@ -92,23 +92,23 @@ class FileTest extends BaseTest
 
     public function testUploaded()
     {
-        $this->assertFail('a', [], [
+        $this->assertNotValid('a', [], [
             'a' => ['file:uploaded']
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => null
         ], [
             'a' => ['file:uploaded']
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => []
         ], [
             'a' => ['file:uploaded']
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => __FILE__
         ], [
             'a' => ['file:uploaded']
@@ -127,7 +127,7 @@ class FileTest extends BaseTest
 
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 1);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => $uploaded
         ], [
             'a' => ['file:uploaded']
@@ -136,7 +136,7 @@ class FileTest extends BaseTest
 
     public function testSize()
     {
-        $this->assertFail('a', [], [
+        $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
                 ['file:size', 1] //1Kb
@@ -182,7 +182,7 @@ class FileTest extends BaseTest
         );
 
         clearstatcache();
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => $tmpFile
         ], [
             'a' => [
@@ -194,7 +194,7 @@ class FileTest extends BaseTest
 
     public function testSizeStream()
     {
-        $this->assertFail('a', [], [
+        $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
                 ['file:size', 1] //1Kb
@@ -240,7 +240,7 @@ class FileTest extends BaseTest
         );
 
         clearstatcache();
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0)
         ], [
             'a' => [
@@ -256,7 +256,7 @@ class FileTest extends BaseTest
         );
 
         clearstatcache();
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => new UploadedFile($tmpFile, filesize($tmpFile), 1)
         ], [
             'a' => [
@@ -267,7 +267,7 @@ class FileTest extends BaseTest
 
     public function testExtension()
     {
-        $this->assertFail('a', [], [
+        $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
                 ['file:extension', 1] //1Kb
@@ -283,7 +283,7 @@ class FileTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => __FILE__
         ], [
             'a' => [
@@ -295,7 +295,7 @@ class FileTest extends BaseTest
 
     public function testExtensionUploaded()
     {
-        $this->assertFail('a', [], [
+        $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
                 ['file:extension', 1] //1Kb
@@ -313,7 +313,7 @@ class FileTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('a', [
+        $this->assertNotValid('a', [
             'a' => $uploaded
         ], [
             'a' => [

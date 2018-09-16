@@ -33,7 +33,7 @@ class CallableTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => 'third'
         ], [
             'i' => [
@@ -52,7 +52,7 @@ class CallableTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => null
         ], [
             'i' => [

@@ -158,7 +158,7 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         $storage = new \SplObjectStorage();
         foreach ($conditions as $condition => $options) {
             $condition = $this->config->resolveAlias($condition);
-            
+
             if ($this->config->hasCondition($condition)) {
                 $autowire = $this->config->getCondition($condition);
             } else {

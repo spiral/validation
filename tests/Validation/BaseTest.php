@@ -65,7 +65,7 @@ abstract class BaseTest extends TestCase
         );
     }
 
-    protected function assertFail(string $error, array $data, array $rules)
+    protected function assertNotValid(string $error, array $data, array $rules)
     {
         $validator = $this->validation->validate($data, $rules);
 

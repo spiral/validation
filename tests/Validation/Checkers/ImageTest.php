@@ -40,19 +40,19 @@ class ImageTest extends BaseTest
             'i' => [['image:type', 'jpeg']]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => $file
         ], [
             'i' => [['image:type', 'png']]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => null
         ], [
             'i' => ['image:valid']
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => []
         ], [
             'i' => ['image:valid']
@@ -76,13 +76,13 @@ class ImageTest extends BaseTest
 
         $file = __DIR__ . '/fixtures/hack.jpg';
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => $file
         ], [
             'i' => ['image:valid']
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => [$file]
         ], [
             'i' => ['image:valid']
@@ -101,7 +101,7 @@ class ImageTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => $file
         ], [
             'i' => [
@@ -110,7 +110,7 @@ class ImageTest extends BaseTest
         ]);
 
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => __DIR__ . '/fixtures/hack.jpg'
         ], [
             'i' => [
@@ -131,7 +131,7 @@ class ImageTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => $file
         ], [
             'i' => [
@@ -139,7 +139,7 @@ class ImageTest extends BaseTest
             ]
         ]);
 
-        $this->assertFail('i', [
+        $this->assertNotValid('i', [
             'i' => __DIR__ . '/fixtures/hack.jpg'
         ], [
             'i' => [

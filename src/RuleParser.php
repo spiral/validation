@@ -17,7 +17,7 @@ class RuleParser implements ParserInterface
 {
     const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
     const MESSAGES   = ['message', 'msg', 'error', 'err'];
-    const CONDITIONS = ['if', 'condition', 'conditions', 'where'];
+    const CONDITIONS = ['if', 'condition', 'conditions', 'where', 'when'];
 
     /**
      * @inheritdoc
@@ -73,11 +73,12 @@ class RuleParser implements ParserInterface
             }
         }
 
-        foreach (self::MESSAGES as $index) {
-            unset($chunk[0], $chunk[$index], $chunk[$index]);
+        unset($chunk[0]);
+        foreach (array_merge(self::MESSAGES, self::CONDITIONS) as $index) {
+            unset($chunk[$index]);
         }
 
-        return array_values($chunk);
+        return $chunk;
     }
 
     /**

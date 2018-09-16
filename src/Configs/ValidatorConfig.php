@@ -30,7 +30,6 @@ class ValidatorConfig extends InjectableConfig
 
     /**
      * @param string $name
-     *
      * @return bool
      */
     public function hasChecker(string $name): bool
@@ -40,19 +39,6 @@ class ValidatorConfig extends InjectableConfig
 
     /**
      * @param string $name
-     *
-     * @return bool
-     */
-    public function hasCondition(string $name): bool
-    {
-        return isset($this->config['conditions'][$name]);
-    }
-
-    /**
-     * @todo AutowireTrait or Autowire::parse
-     *
-     * @param string $name
-     *
      * @return Autowire
      *
      * @throws ValidationException
@@ -73,7 +59,15 @@ class ValidatorConfig extends InjectableConfig
 
     /**
      * @param string $name
-     *
+     * @return bool
+     */
+    public function hasCondition(string $name): bool
+    {
+        return isset($this->config['conditions'][$name]);
+    }
+
+    /**
+     * @param string $name
      * @return Autowire
      */
     public function getCondition(string $name): Autowire
@@ -93,7 +87,6 @@ class ValidatorConfig extends InjectableConfig
     /**
      * @param string $section
      * @param string $name
-     *
      * @return null|Autowire
      */
     private function wire(string $section, string $name): ?Autowire

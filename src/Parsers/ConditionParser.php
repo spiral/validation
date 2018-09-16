@@ -1,4 +1,10 @@
 <?php
+/**
+ * Spiral Framework.
+ *
+ * @license   MIT
+ * @author    Anton Titov (Wolfy-J)
+ */
 
 namespace Spiral\Validation\Parsers;
 
@@ -6,8 +12,10 @@ use Spiral\Core\Container\Autowire;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\Configs\ValidatorConfig;
 
-class ConditionsParser
+class ConditionParser
 {
+    const CONDITIONS = ['if', 'condition', 'conditions', 'where'];
+
     /** @var ValidatorConfig */
     private $config;
 

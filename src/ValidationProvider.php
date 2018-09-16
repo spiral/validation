@@ -12,8 +12,8 @@ use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\Configs\ValidatorConfig;
-use Spiral\Validation\Parsers\ConditionsParser;
-use Spiral\Validation\Parsers\DefaultRulesParser;
+use Spiral\Validation\Parsers\ConditionParser;
+use Spiral\Validation\Parsers\RuleParser;
 
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
@@ -27,27 +27,27 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
     /** @var FactoryInterface */
     private $factory;
 
-    /** @var ConditionsParser */
+    /** @var ConditionParser */
     private $conditions;
 
-    /** @var RulesParserInterface */
+    /** @var RuleParser */
     private $rulesParser;
 
-    /**
-     * Rules cache.
-     *
-     * @var RuleInterface[]
-     */
+    /** @var RuleInterface[] */
     private $rules = [];
 
     /**
-     * @param ValidatorConfig    $config
-     * @param FactoryInterface   $factory
-     * @param ConditionsParser   $conditions
-     * @param DefaultRulesParser $rulesParser
+     * @param ValidatorConfig  $config
+     * @param FactoryInterface $factory
+     * @param ConditionParser  $conditions
+     * @param RuleParser       $rulesParser
      */
-    public function __construct(ValidatorConfig $config, FactoryInterface $factory, ConditionsParser $conditions, DefaultRulesParser $rulesParser)
-    {
+    public function __construct(
+        ValidatorConfig $config,
+        FactoryInterface $factory,
+        ConditionParser $conditions,
+        RuleParser $rulesParser
+    ) {
         $this->config = $config;
         $this->factory = $factory;
         $this->conditions = $conditions;

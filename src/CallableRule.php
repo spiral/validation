@@ -26,7 +26,7 @@ class CallableRule implements RuleInterface
     /** @var callable */
     private $check;
 
-    /** @var \SplObjectStorage|ConditionInterface[] */
+    /** @var \SplObjectStorage|null|ConditionInterface[] */
     private $conditions;
 
     /** @var array */
@@ -36,10 +36,10 @@ class CallableRule implements RuleInterface
     private $message;
 
     /**
-     * @param callable          $check
-     * @param \SplObjectStorage $conditions
-     * @param array             $args
-     * @param null|string       $message
+     * @param callable               $check
+     * @param \SplObjectStorage|null $conditions
+     * @param array                  $args
+     * @param null|string            $message
      */
     public function __construct(
         callable $check,

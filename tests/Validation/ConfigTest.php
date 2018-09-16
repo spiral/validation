@@ -77,7 +77,7 @@ class ConfigTest extends TestCase
     /**
      * @expectedException \Spiral\Validation\Exceptions\ValidationException
      */
-    public function getConditionException()
+    public function testGetConditionException()
     {
         $config = new ValidatorConfig([
             'conditions' => [

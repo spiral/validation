@@ -84,7 +84,7 @@ class ValidatorConfig extends InjectableConfig
     public function getCondition(string $name): Autowire
     {
         if (!$this->hasCondition($name)) {
-            throw new ValidationException("Undefined condition `{$name}``.");
+            throw new ValidationException("Undefined condition `{$name}`.");
         }
 
         $instance = $this->wire('conditions', $name);

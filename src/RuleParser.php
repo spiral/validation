@@ -45,7 +45,7 @@ class RuleParser implements ParserInterface
             $function = str_replace('::', ':', $chunk);
         } else {
             if (!is_array($chunk) || !isset($chunk[0])) {
-                throw new ParserException("Validation chunk does not define any check function");
+                throw new ParserException("Validation rule does not define any check.");
             }
 
             $function = $chunk[0];

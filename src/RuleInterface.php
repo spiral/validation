@@ -24,6 +24,12 @@ interface RuleInterface
     public function ignoreEmpty($value): bool;
 
     /**
+     * @param \SplObjectStorage $conditions
+     * @return RuleInterface
+     */
+    public function withConditions(\SplObjectStorage $conditions): RuleInterface;
+
+    /**
      * Conditions associated with the rule.
      *
      * @return \Generator|ConditionInterface[]

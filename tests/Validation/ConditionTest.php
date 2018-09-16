@@ -116,7 +116,10 @@ class PayloadCondition extends Condition
     {
         $payload = [];
         foreach ($this->options as $option) {
-            $payload[$option] = $validator->getValue($option, $validator->getContext()[$option] ?? null);
+            $payload[$option] = $validator->getValue(
+                $option,
+                $validator->getContext()[$option] ?? null
+            );
         }
 
         return $payload;

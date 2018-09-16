@@ -10,16 +10,13 @@ namespace Spiral\Validation;
 
 use Spiral\Translator\Translator;
 
-class CheckerRule implements RuleInterface
+class CheckerRule extends AbstractRule implements RuleInterface
 {
     /** @var CheckerInterface */
     private $checker;
 
     /** @var string */
     private $method;
-
-    /** @var \SplObjectStorage|ConditionInterface[]|null */
-    private $conditions;
 
     /** @var array */
     private $args = [];
@@ -28,22 +25,19 @@ class CheckerRule implements RuleInterface
     private $message;
 
     /**
-     * @param CheckerInterface  $checker
-     * @param string            $method
-     * @param \SplObjectStorage $conditions
-     * @param array             $args
-     * @param null|string       $message
+     * @param CheckerInterface $checker
+     * @param string           $method
+     * @param array            $args
+     * @param null|string      $message
      */
     public function __construct(
         CheckerInterface $checker,
         string $method,
-        \SplObjectStorage $conditions = null,
         array $args = [],
         ?string $message = null
     ) {
         $this->checker = $checker;
         $this->method = $method;
-        $this->conditions = $conditions;
         $this->args = $args;
         $this->message = $message;
     }
@@ -54,20 +48,6 @@ class CheckerRule implements RuleInterface
     public function ignoreEmpty($value): bool
     {
         return $this->checker->ignoreEmpty($this->method, $value, $this->args);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConditions(): \Generator
-    {
-        if (empty($this->conditions)) {
-            return;
-        }
-
-        foreach ($this->conditions as $condition) {
-            yield $condition->withOptions($this->conditions->offsetGet($condition));
-        }
     }
 
     /**

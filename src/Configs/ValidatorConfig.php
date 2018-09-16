@@ -29,6 +29,17 @@ class ValidatorConfig extends InjectableConfig
     ];
 
     /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        if (!empty($this->config['aliases'])) {
+            $this->config['aliases'] = $this->normalizeAliases($this->config['aliases']);
+        }
+    }
+
+    /**
      * @param string $name
      * @return bool
      */
@@ -85,6 +96,25 @@ class ValidatorConfig extends InjectableConfig
     }
 
     /**
+     * Return validation function or checker after applying all alias redirects.
+     *
+     * @param string|array $function
+     *
+     * @return array|string
+     */
+    public function mapFunction($function)
+    {
+        if (is_string($function)) {
+            $function = $this->resolveAlias($function);
+            if (strpos($function, ':') !== false) {
+                $function = explode(':', $function);
+            }
+        }
+
+        return $function;
+    }
+
+    /**
      * @param string $section
      * @param string $name
      * @return null|Autowire
@@ -103,5 +133,22 @@ class ValidatorConfig extends InjectableConfig
         }
 
         return null;
+    }
+
+    /**
+     * Normalize all defined aliases.
+     *
+     * @param array $aliases
+     * @return array
+     */
+    private function normalizeAliases(array $aliases): array
+    {
+        return array_map(function ($value) {
+            if (!is_string($value)) {
+                return $value;
+            }
+
+            return str_replace('::', ':', $value);
+        }, $aliases);
     }
 }

@@ -12,8 +12,6 @@ use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\Configs\ValidatorConfig;
-use Spiral\Validation\Parsers\ConditionParser;
-use Spiral\Validation\Parsers\RuleParser;
 
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
@@ -27,11 +25,8 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
     /** @var FactoryInterface */
     private $factory;
 
-    /** @var ConditionParser */
-    private $conditions;
-
-    /** @var RuleParser */
-    private $rulesParser;
+    /** @var ParserInterface */
+    private $parser;
 
     /** @var RuleInterface[] */
     private $rules = [];
@@ -39,19 +34,16 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
     /**
      * @param ValidatorConfig  $config
      * @param FactoryInterface $factory
-     * @param ConditionParser  $conditions
-     * @param RuleParser       $rulesParser
+     * @param ParserInterface  $parser
      */
     public function __construct(
         ValidatorConfig $config,
         FactoryInterface $factory,
-        ConditionParser $conditions,
-        RuleParser $rulesParser
+        ParserInterface $parser
     ) {
         $this->config = $config;
         $this->factory = $factory;
-        $this->conditions = $conditions;
-        $this->rulesParser = $rulesParser;
+        $this->parser = $parser;
     }
 
     /**
@@ -81,31 +73,30 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      */
     public function getRules($rules): \Generator
     {
-        foreach ($this->rulesParser->parse($rules) as $rule) {
-            if ($rule instanceof \Closure) {
+        foreach ($this->parser->split($rules) as $id => $rule) {
+            if (empty($id) || $rule instanceof \Closure) {
                 yield new CallableRule($rule);
                 continue;
             }
 
-            $id = $this->getID($rule);
+            // fetch from cache
             if (isset($this->rules[$id])) {
                 yield $this->rules[$id];
                 continue;
             }
 
-            $check = $this->getChecker($rule);
+            $check = $this->config->mapFunction($this->parser->parseCheck($rule));
 
             if (is_array($check)) {
                 if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
                     $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
 
-                    yield $this->rules[$id] = new CheckerRule(
+                    yield $this->rules[$id] = (new CheckerRule(
                         $check[0],
                         $check[1],
-                        $this->fetchConditions($rule),
-                        $this->fetchArgs($rule),
-                        $this->fetchMessage($rule)
-                    );
+                        $this->parser->parseArgs($rule),
+                        $this->parser->parseMessage($rule)
+                    ))->withConditions($this->parser->parseConditions($rule));
 
                     continue;
                 }
@@ -115,12 +106,11 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
                 }
             }
 
-            yield $this->rules[$id] = new CallableRule(
+            yield $this->rules[$id] = (new CallableRule(
                 $check,
-                $this->fetchConditions($rule),
-                $this->fetchArgs($rule),
-                $this->fetchMessage($rule)
-            );
+                $this->parser->parseArgs($rule),
+                $this->parser->parseMessage($rule)
+            ))->withConditions($this->parser->parseConditions($rule));
         }
     }
 
@@ -132,107 +122,5 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
         $this->config = null;
         $this->factory = null;
         $this->resetCache();
-    }
-
-    /**
-     * @param $rule
-     *
-     * @return string
-     */
-    protected function getID($rule): string
-    {
-        return json_encode($rule);
-    }
-
-    /**
-     * @param $rule
-     *
-     * @return array|string
-     */
-    protected function getChecker($rule)
-    {
-        if (is_string($rule)) {
-            $check = $rule;
-        } else {
-            $check = $rule[0];
-        }
-
-        if (is_string($check)) {
-            $check = $this->config->resolveAlias($check);
-            if (strpos($check, ':') !== false) {
-                $check = explode(':', str_replace('::', ':', $check));
-            }
-        }
-
-        return $check;
-    }
-
-    /**
-     * Fetch validation rule arguments from rule definition.
-     *
-     * @param mixed $rule
-     *
-     * @return array
-     */
-    private function fetchArgs($rule): array
-    {
-        if (!is_array($rule)) {
-            return [];
-        }
-
-        foreach (self::ARGUMENTS as $index) {
-            if (isset($rule[$index])) {
-                return $rule[$index];
-            }
-        }
-
-        foreach (self::MESSAGES as $index) {
-            unset($rule[0], $rule[$index], $rule[$index]);
-        }
-
-        return array_values($rule);
-    }
-
-    /**
-     * Fetch error message from rule definition or use default message. Method will check "message"
-     * and "error" properties of definition.
-     *
-     * @param mixed $rule
-     *
-     * @return string
-     */
-    private function fetchMessage($rule): ?string
-    {
-        if (!is_array($rule)) {
-            return null;
-        }
-
-        foreach (self::MESSAGES as $index) {
-            if (isset($rule[$index])) {
-                return $rule[$index];
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Fetch validation conditions from rule definition.
-     *
-     * @param $rule
-     *
-     * @return \SplObjectStorage
-     */
-    private function fetchConditions($rule): \SplObjectStorage
-    {
-        if (is_array($rule)) {
-            foreach (self::CONDITIONS as $index) {
-                if (isset($rule[$index])) {
-                    return $this->conditions->parse($rule[$index]);
-                }
-            }
-        }
-
-        return $this->conditions->parse([]);
     }
 }

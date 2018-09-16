@@ -14,7 +14,7 @@ use Spiral\Translator\Translator;
 /**
  * Represents options to describe singular validation rule.
  */
-class CallableRule implements RuleInterface
+class CallableRule extends AbstractRule implements RuleInterface
 {
     use TranslatorTrait;
 
@@ -26,9 +26,6 @@ class CallableRule implements RuleInterface
     /** @var callable */
     private $check;
 
-    /** @var \SplObjectStorage|null|ConditionInterface[] */
-    private $conditions;
-
     /** @var array */
     private $args = [];
 
@@ -36,19 +33,13 @@ class CallableRule implements RuleInterface
     private $message;
 
     /**
-     * @param callable               $check
-     * @param \SplObjectStorage|null $conditions
-     * @param array                  $args
-     * @param null|string            $message
+     * @param callable    $check
+     * @param array       $args
+     * @param null|string $message
      */
-    public function __construct(
-        callable $check,
-        \SplObjectStorage $conditions = null,
-        array $args = [],
-        ?string $message = null
-    ) {
+    public function __construct(callable $check, array $args = [], ?string $message = null)
+    {
         $this->check = $check;
-        $this->conditions = $conditions;
         $this->args = $args;
         $this->message = $message;
     }
@@ -61,20 +52,6 @@ class CallableRule implements RuleInterface
     public function ignoreEmpty($value): bool
     {
         return empty($value);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConditions(): \Generator
-    {
-        if (empty($this->conditions)) {
-            return;
-        }
-
-        foreach ($this->conditions as $condition) {
-            yield $condition->withOptions($this->conditions->offsetGet($condition));
-        }
     }
 
     /**

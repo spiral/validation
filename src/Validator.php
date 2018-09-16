@@ -8,8 +8,6 @@
 
 namespace Spiral\Validation;
 
-use Spiral\Models\AccessorInterface;
-
 class Validator implements ValidatorInterface
 {
     /** @var RulesInterface */
@@ -48,7 +46,11 @@ class Validator implements ValidatorInterface
     {
         $value = isset($this->data[$field]) ? $this->data[$field] : $default;
 
-        return ($value instanceof AccessorInterface) ? $value->packValue() : $value;
+        if (is_object($value) && method_exists($value, 'packValue')) {
+            return $value->packValue();
+        }
+
+        return $value;
     }
 
     /**

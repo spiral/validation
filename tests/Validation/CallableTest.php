@@ -42,6 +42,25 @@ class CallableTest extends BaseTest
         ]);
     }
 
+    public function testInArrayAccessor()
+    {
+        $this->assertValid([
+            'i' => new Value('value')
+        ], [
+            'i' => [
+                ['in_array', ['value', 'other']]
+            ]
+        ]);
+
+        $this->assertNotValid('i', [
+            'i' => new Value('third')
+        ], [
+            'i' => [
+                ['in_array', ['value', 'other']]
+            ]
+        ]);
+    }
+
     public function testEmptyInArray()
     {
         $this->assertValid([
@@ -189,5 +208,20 @@ class TestChecker extends AbstractChecker
     public function test()
     {
         return false;
+    }
+}
+
+class Value
+{
+    private $value;
+
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
+
+    public function packValue()
+    {
+        return $this->value;
     }
 }

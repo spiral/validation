@@ -114,27 +114,23 @@ class ValidationProvider implements ValidationInterface, RulesInterface, Singlet
      */
     protected function makeRule($check, $rule): RuleInterface
     {
-        if (is_array($check)) {
-            if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
-                $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
+        $args = $this->parser->parseArgs($rule);
+        $message = $this->parser->parseMessage($rule);
 
-                return (new CheckerRule(
-                    $check[0],
-                    $check[1],
-                    $this->parser->parseArgs($rule),
-                    $this->parser->parseMessage($rule)
-                ));
-            }
-
-            if (!is_object($check[0])) {
-                $check[0] = (new Autowire($check[0]))->resolve($this->factory);
-            }
+        if (!is_array($check)) {
+            return new CallableRule($check, $args, $message);
         }
 
-        return (new CallableRule(
-            $check,
-            $this->parser->parseArgs($rule),
-            $this->parser->parseMessage($rule)
-        ));
+        if (is_string($check[0]) && $this->config->hasChecker($check[0])) {
+            $check[0] = $this->config->getChecker($check[0])->resolve($this->factory);
+
+            return new CheckerRule($check[0], $check[1], $args, $message);
+        }
+
+        if (!is_object($check[0])) {
+            $check[0] = (new Autowire($check[0]))->resolve($this->factory);
+        }
+
+        return new CallableRule($check, $args, $message);
     }
 }

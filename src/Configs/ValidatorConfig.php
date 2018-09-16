@@ -144,10 +144,6 @@ class ValidatorConfig extends InjectableConfig
     private function normalizeAliases(array $aliases): array
     {
         return array_map(function ($value) {
-            if (!is_string($value)) {
-                return $value;
-            }
-
             return str_replace('::', ':', $value);
         }, $aliases);
     }

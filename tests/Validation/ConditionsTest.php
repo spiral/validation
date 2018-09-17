@@ -72,14 +72,14 @@ class ConditionsTest extends BaseTest
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => TestAbstractCondition::class
+                'if' => TestCondition::class
             ]
         ]);
 
         foreach ($rules as $rule) {
             $count = 0;
             foreach ($rule->getConditions() as $condition) {
-                $this->assertInstanceOf(TestAbstractCondition::class, $condition);
+                $this->assertInstanceOf(TestCondition::class, $condition);
                 $count++;
             }
 
@@ -93,7 +93,7 @@ class ConditionsTest extends BaseTest
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => [PayloadAbstractCondition::class => 'j']
+                'if' => [PayloadCondition::class => 'j']
             ]
         ]);
 
@@ -194,7 +194,7 @@ class ConditionsTest extends BaseTest
     }
 }
 
-class TestAbstractCondition extends AbstractCondition
+class TestCondition extends AbstractCondition
 {
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {
@@ -202,7 +202,7 @@ class TestAbstractCondition extends AbstractCondition
     }
 }
 
-class PayloadAbstractCondition extends AbstractCondition
+class PayloadCondition extends AbstractCondition
 {
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {

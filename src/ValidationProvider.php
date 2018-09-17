@@ -16,10 +16,6 @@ use Spiral\Validation\Configs\ValidatorConfig;
 
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
-    const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
-    const MESSAGES   = ['message', 'msg', 'error', 'err'];
-    const CONDITIONS = ['if', 'condition', 'conditions', 'where'];
-
     /** @var ValidatorConfig */
     private $config;
 

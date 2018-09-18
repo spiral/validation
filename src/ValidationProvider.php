@@ -12,7 +12,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
-use Spiral\Validation\Configs\ValidatorConfig;
+use Spiral\Validation\Config\ValidatorConfig;
 
 class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {

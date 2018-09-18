@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Checkers;
+namespace Spiral\Validation\Checker;
 
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;

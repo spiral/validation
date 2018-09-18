@@ -9,7 +9,7 @@
 namespace Spiral\Validation\Tests\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Validation\Checkers\MixedChecker;
+use Spiral\Validation\Checker\MixedChecker;
 use Spiral\Validation\ValidatorInterface;
 
 class MixedTest extends TestCase

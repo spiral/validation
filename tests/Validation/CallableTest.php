@@ -9,7 +9,7 @@
 namespace Spiral\Validation\Tests;
 
 use Spiral\Validation\AbstractChecker;
-use Spiral\Validation\Checkers\TypeChecker;
+use Spiral\Validation\Checker\TypeChecker;
 
 class CallableTest extends BaseTest
 {

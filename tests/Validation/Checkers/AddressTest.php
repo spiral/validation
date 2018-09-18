@@ -10,7 +10,7 @@ namespace Spiral\Tests\Validation\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container;
-use Spiral\Validation\Checkers\AddressChecker;
+use Spiral\Validation\Checker\AddressChecker;
 
 class AddressTest extends TestCase
 {

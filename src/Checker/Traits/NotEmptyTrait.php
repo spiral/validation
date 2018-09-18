@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Checkers\Traits;
+namespace Spiral\Validation\Checker\Traits;
 
 /**
  * Default not empty check, shared across checkers.

@@ -9,7 +9,7 @@
 namespace Spiral\Validation\Tests\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Validation\Checkers\NumberChecker;
+use Spiral\Validation\Checker\NumberChecker;
 
 class NumberTest extends TestCase
 {

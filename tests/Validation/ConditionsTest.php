@@ -9,15 +9,15 @@
 namespace Spiral\Validation\Tests;
 
 use Spiral\Validation\AbstractCondition;
-use Spiral\Validation\Checkers\AddressChecker;
-use Spiral\Validation\Checkers\FileChecker;
-use Spiral\Validation\Checkers\ImageChecker;
-use Spiral\Validation\Checkers\StringChecker;
-use Spiral\Validation\Checkers\TypeChecker;
-use Spiral\Validation\Conditions\WithAllCondition;
-use Spiral\Validation\Conditions\WithAnyCondition;
-use Spiral\Validation\Conditions\WithoutAllCondition;
-use Spiral\Validation\Conditions\WithoutAnyCondition;
+use Spiral\Validation\Checker\AddressChecker;
+use Spiral\Validation\Checker\FileChecker;
+use Spiral\Validation\Checker\ImageChecker;
+use Spiral\Validation\Checker\StringChecker;
+use Spiral\Validation\Checker\TypeChecker;
+use Spiral\Validation\Condition\WithAllCondition;
+use Spiral\Validation\Condition\WithAnyCondition;
+use Spiral\Validation\Condition\WithoutAllCondition;
+use Spiral\Validation\Condition\WithoutAnyCondition;
 use Spiral\Validation\RulesInterface;
 use Spiral\Validation\ValidatorInterface;
 
@@ -49,7 +49,7 @@ class ConditionsTest extends BaseTest
     protected $rules;
 
     /**
-     * @expectedException \Spiral\Core\Exceptions\Container\NotFoundException
+     * @expectedException \Spiral\Core\Exception\Container\NotFoundException
      */
     public function testUnknown()
     {

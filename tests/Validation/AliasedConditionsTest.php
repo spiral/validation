@@ -7,10 +7,10 @@
  */
 namespace Spiral\Validation\Tests;
 
-use Spiral\Validation\Conditions\WithAllCondition;
-use Spiral\Validation\Conditions\WithAnyCondition;
-use Spiral\Validation\Conditions\WithoutAllCondition;
-use Spiral\Validation\Conditions\WithoutAnyCondition;
+use Spiral\Validation\Condition\WithAllCondition;
+use Spiral\Validation\Condition\WithAnyCondition;
+use Spiral\Validation\Condition\WithoutAllCondition;
+use Spiral\Validation\Condition\WithoutAnyCondition;
 
 class AliasedConditionsTest extends BaseTest
 {

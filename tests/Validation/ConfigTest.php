@@ -10,7 +10,7 @@ namespace Spiral\Validation\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container\Autowire;
-use Spiral\Validation\Configs\ValidatorConfig;
+use Spiral\Validation\Config\ValidatorConfig;
 
 class ConfigTest extends TestCase
 {
@@ -61,7 +61,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @expectedException \Spiral\Validation\Exceptions\ValidationException
+     * @expectedException \Spiral\Validation\Exception\ValidationException
      */
     public function testGetCheckerException()
     {
@@ -75,7 +75,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @expectedException \Spiral\Validation\Exceptions\ValidationException
+     * @expectedException \Spiral\Validation\Exception\ValidationException
      */
     public function testGetConditionException()
     {
@@ -143,7 +143,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @expectedException \Spiral\Validation\Exceptions\ValidationException
+     * @expectedException \Spiral\Validation\Exception\ValidationException
      */
     public function testInvalid()
     {
@@ -157,7 +157,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @expectedException \Spiral\Validation\Exceptions\ValidationException
+     * @expectedException \Spiral\Validation\Exception\ValidationException
      */
     public function testInvalidCondition()
     {

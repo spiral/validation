@@ -8,7 +8,7 @@
 
 namespace Spiral\Validation;
 
-use Spiral\Validation\Exceptions\CheckerException;
+use Spiral\Validation\Exception\CheckerException;
 
 interface CheckerInterface
 {

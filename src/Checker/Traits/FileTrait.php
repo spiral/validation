@@ -5,12 +5,12 @@
  * @author    Wolfy-J
  */
 
-namespace Spiral\Validation\Checkers\Traits;
+namespace Spiral\Validation\Checker\Traits;
 
 use Psr\Http\Message\UploadedFileInterface;
 use Spiral\Files\FilesInterface;
-use Spiral\Files\Streams\StreamableInterface;
-use Spiral\Files\Streams\StreamWrapper;
+use Spiral\Files\Stream\StreamableInterface;
+use Spiral\Files\Stream\StreamWrapper;
 
 /**
  * Provides ability to get filename for uploaded file.

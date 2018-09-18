@@ -6,15 +6,15 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Conditions;
+namespace Spiral\Validation\Condition;
 
 use Spiral\Validation\AbstractCondition;
 use Spiral\Validation\ValidatorInterface;
 
 /**
- * Fires when any of required values are missing.
+ * Fires when any of listed values are not empty.
  */
-class WithoutAnyCondition extends AbstractCondition
+class WithAnyCondition extends AbstractCondition
 {
     /**
      * @param ValidatorInterface $validator
@@ -25,7 +25,7 @@ class WithoutAnyCondition extends AbstractCondition
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {
         foreach ($this->options as $field) {
-            if (empty($validator->getValue($field))) {
+            if (!empty($validator->getValue($field))) {
                 return true;
             }
         }

@@ -6,12 +6,12 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Configs;
+namespace Spiral\Validation\Config;
 
 use Spiral\Core\Container\Autowire;
 use Spiral\Core\InjectableConfig;
 use Spiral\Core\Traits\Config\AliasTrait;
-use Spiral\Validation\Exceptions\ValidationException;
+use Spiral\Validation\Exception\ValidationException;
 
 class ValidatorConfig extends InjectableConfig
 {

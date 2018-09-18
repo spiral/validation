@@ -6,11 +6,11 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Checkers;
+namespace Spiral\Validation\Checker;
 
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
-use Spiral\Validation\Checkers\Traits\NotEmptyTrait;
+use Spiral\Validation\Checker\Traits\NotEmptyTrait;
 
 /**
  * @inherit-messages

@@ -6,9 +6,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Bootloaders;
+namespace Spiral\Validation\Bootloader;
 
-use Spiral\Core\Bootloaders\Bootloader;
+use Spiral\Core\Bootloader\Bootloader;
 use Spiral\Validation\ParserInterface;
 use Spiral\Validation\RuleParser;
 use Spiral\Validation\RulesInterface;

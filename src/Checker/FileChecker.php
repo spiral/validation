@@ -6,13 +6,13 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Checkers;
+namespace Spiral\Validation\Checker;
 
 use Psr\Http\Message\UploadedFileInterface;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Files\FilesInterface;
 use Spiral\Validation\AbstractChecker;
-use Spiral\Validation\Checkers\Traits\FileTrait;
+use Spiral\Validation\Checker\Traits\FileTrait;
 
 /**
  * @inherit-messages

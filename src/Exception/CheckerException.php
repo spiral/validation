@@ -6,8 +6,8 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Exceptions;
+namespace Spiral\Validation\Exception;
 
-class ValidationException extends \RuntimeException
+class CheckerException extends ValidationException
 {
 }

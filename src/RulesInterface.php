@@ -20,7 +20,7 @@ interface RulesInterface
      *
      * @return \Generator|RuleInterface[]
      *
-     * @throws \Spiral\Validation\Exceptions\ValidationException
+     * @throws \Spiral\Validation\Exception\ValidationException
      */
     public function getRules($rules): \Generator;
 }

@@ -105,7 +105,7 @@ class Validator implements ValidatorInterface
     /**
      * Validate data over given rules and context.
      *
-     * @throws \Spiral\Validation\Exceptions\ValidationException
+     * @throws \Spiral\Validation\Exception\ValidationException
      */
     protected function validate()
     {

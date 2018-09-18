@@ -8,7 +8,7 @@
 
 namespace Spiral\Validation;
 
-use Spiral\Validation\Exceptions\ParserException;
+use Spiral\Validation\Exception\ParserException;
 
 /**
  * Parses rule definitions.

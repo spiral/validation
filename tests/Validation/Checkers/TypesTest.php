@@ -9,7 +9,7 @@
 namespace Spiral\Validation\Tests\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Validation\Checkers\TypeChecker;
+use Spiral\Validation\Checker\TypeChecker;
 
 class TypesTest extends TestCase
 {

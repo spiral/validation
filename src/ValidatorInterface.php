@@ -9,7 +9,7 @@
 namespace Spiral\Validation;
 
 
-use Spiral\Validation\Exceptions\ValidationException;
+use Spiral\Validation\Exception\ValidationException;
 
 /**
  * Singular validation state (with data, context and rules encapsulated).

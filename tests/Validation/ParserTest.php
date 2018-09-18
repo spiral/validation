@@ -26,7 +26,7 @@ class ParserTest extends BaseTest
     }
 
     /**
-     * @expectedException \Spiral\Validation\Exceptions\ParserException
+     * @expectedException \Spiral\Validation\Exception\ParserException
      */
     public function testParseError()
     {

@@ -6,15 +6,15 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Conditions;
+namespace Spiral\Validation\Condition;
 
 use Spiral\Validation\AbstractCondition;
 use Spiral\Validation\ValidatorInterface;
 
 /**
- * Fires when all of listed values are not empty.
+ * Fires when any of required values are missing.
  */
-class WithAllCondition extends AbstractCondition
+class WithoutAnyCondition extends AbstractCondition
 {
     /**
      * @param ValidatorInterface $validator
@@ -26,10 +26,10 @@ class WithAllCondition extends AbstractCondition
     {
         foreach ($this->options as $field) {
             if (empty($validator->getValue($field))) {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

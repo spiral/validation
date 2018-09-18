@@ -11,13 +11,13 @@ namespace Spiral\Validation\Tests;
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
-use Spiral\Validation\Bootloaders\ValidationBootloader;
-use Spiral\Validation\Checkers\AddressChecker;
-use Spiral\Validation\Checkers\FileChecker;
-use Spiral\Validation\Checkers\ImageChecker;
-use Spiral\Validation\Checkers\StringChecker;
-use Spiral\Validation\Checkers\TypeChecker;
-use Spiral\Validation\Configs\ValidatorConfig;
+use Spiral\Validation\Bootloader\ValidationBootloader;
+use Spiral\Validation\Checker\AddressChecker;
+use Spiral\Validation\Checker\FileChecker;
+use Spiral\Validation\Checker\ImageChecker;
+use Spiral\Validation\Checker\StringChecker;
+use Spiral\Validation\Checker\TypeChecker;
+use Spiral\Validation\Config\ValidatorConfig;
 use Spiral\Validation\ValidationInterface;
 
 abstract class BaseTest extends TestCase

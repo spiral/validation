@@ -9,7 +9,7 @@
 namespace Spiral\Validation\Tests\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Validation\Checkers\StringChecker;
+use Spiral\Validation\Checker\StringChecker;
 
 class StringsTest extends TestCase
 {

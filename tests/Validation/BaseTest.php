@@ -9,16 +9,18 @@
 namespace Spiral\Validation\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
-use Spiral\Validation\Bootloader\ValidationBootloader;
 use Spiral\Validation\Checker\AddressChecker;
 use Spiral\Validation\Checker\FileChecker;
 use Spiral\Validation\Checker\ImageChecker;
 use Spiral\Validation\Checker\StringChecker;
 use Spiral\Validation\Checker\TypeChecker;
 use Spiral\Validation\Config\ValidatorConfig;
+use Spiral\Validation\ParserInterface;
+use Spiral\Validation\RuleParser;
+use Spiral\Validation\RulesInterface;
 use Spiral\Validation\ValidationInterface;
+use Spiral\Validation\ValidationProvider;
 
 abstract class BaseTest extends TestCase
 {
@@ -50,7 +52,10 @@ abstract class BaseTest extends TestCase
     public function setUp()
     {
         $this->container = new Container();
-        (new BootloadManager($this->container))->bootload([ValidationBootloader::class]);
+
+        $this->container->bindSingleton(ValidationInterface::class, ValidationProvider::class);
+        $this->container->bindSingleton(RulesInterface::class, ValidationProvider::class);
+        $this->container->bindSingleton(ParserInterface::class, RuleParser::class);
 
         $this->container->bind(ValidatorConfig::class, new ValidatorConfig(static::CONFIG));
 

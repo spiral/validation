@@ -9,8 +9,8 @@ namespace Spiral\Validation\Checker\Traits;
 
 use Psr\Http\Message\UploadedFileInterface;
 use Spiral\Files\FilesInterface;
-use Spiral\Files\Stream\StreamableInterface;
-use Spiral\Files\Stream\StreamWrapper;
+use Spiral\Streams\StreamableInterface;
+use Spiral\Streams\StreamWrapper;
 
 /**
  * Provides ability to get filename for uploaded file.

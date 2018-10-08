@@ -11,7 +11,7 @@ namespace Spiral\Validation\Checker;
 use Psr\Http\Message\UploadedFileInterface;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Files\FilesInterface;
-use Spiral\Files\Streams\StreamableInterface;
+use Spiral\Streams\StreamableInterface;
 use Spiral\Validation\AbstractChecker;
 use Spiral\Validation\Checker\Traits\FileTrait;
 

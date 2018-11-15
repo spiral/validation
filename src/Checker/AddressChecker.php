@@ -72,11 +72,6 @@ class AddressChecker extends AbstractChecker implements SingletonInterface
             return (bool)filter_var($url, FILTER_VALIDATE_URL);
         }
 
-//        if ((bool)filter_var($url, FILTER_VALIDATE_URL)) {
-//            //Double checking http protocol presence
-//            return stripos($url, 'http://') === 0 || stripos($url, 'https://') === 0;
-//        }
-
         return false;
     }
 

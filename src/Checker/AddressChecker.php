@@ -43,24 +43,71 @@ class AddressChecker extends AbstractChecker implements SingletonInterface
      *
      * @link http://www.faqs.org/rfcs/rfc2396.html
      *
-     * @param string $url
-     * @param bool   $schemeRequired If true, this will require having a protocol definition.
+     * @param string      $url
+     * @param null|array  $schemas
+     * @param null|string $defaultSchema
      *
      * @return bool
      */
-    public function url(string $url, bool $schemeRequired = true): bool
+    public function url(string $url, ?array $schemas = null, ?string $defaultSchema = null): bool
     {
-        if (!$schemeRequired && stripos($url, '://') === false) {
-            //Allow urls without http schema
-            $url = 'http://' . $url;
+        //Add default schema if not presented
+        if (!$this->hasSchema($url) && !empty($defaultSchema)) {
+            $defaultSchema = $this->trimSchema($defaultSchema);
+            if (!empty($defaultSchema)) {
+                $url = "$defaultSchema://{$this->trimURL($url)}";
+            }
         }
 
-        if ((bool)filter_var($url, FILTER_VALIDATE_URL)) {
-            //Double checking http protocol presence
-            return stripos($url, 'http://') === 0 || stripos($url, 'https://') === 0;
+        if (empty($schemas)) {
+            return (bool)filter_var($url, FILTER_VALIDATE_URL);
         }
+
+        foreach ($schemas as $schema) {
+            $schema = $this->trimSchema($schema);
+            if (empty($schema) || mb_stripos($url, "$schema://") === false) {
+                continue;
+            }
+
+            return (bool)filter_var($url, FILTER_VALIDATE_URL);
+        }
+
+//        if ((bool)filter_var($url, FILTER_VALIDATE_URL)) {
+//            //Double checking http protocol presence
+//            return stripos($url, 'http://') === 0 || stripos($url, 'https://') === 0;
+//        }
 
         return false;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return bool
+     */
+    private function hasSchema(string $url): bool
+    {
+        return mb_stripos($url, '://') !== false;
+    }
+
+    /**
+     * @param string $schema
+     *
+     * @return string
+     */
+    private function trimSchema(string $schema): string
+    {
+        return preg_replace('/^([a-z]+):\/\/$/i', '$1', $schema);
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    private function trimURL(string $url): string
+    {
+        return preg_replace('/^\/\/(.*)$/i', '$1', $url);
     }
 
     /**

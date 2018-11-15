@@ -65,7 +65,7 @@ class AddressChecker extends AbstractChecker implements SingletonInterface
 
         foreach ($schemas as $schema) {
             $schema = $this->trimSchema($schema);
-            if (empty($schema) || mb_stripos($url, "$schema://") === false) {
+            if (empty($schema) || !$this->containsSchema($url, $schema)) {
                 continue;
             }
 
@@ -93,6 +93,17 @@ class AddressChecker extends AbstractChecker implements SingletonInterface
     private function trimSchema(string $schema): string
     {
         return preg_replace('/^([a-z]+):\/\/$/i', '$1', $schema);
+    }
+
+    /**
+     * @param string $url
+     * @param string $schema
+     *
+     * @return bool
+     */
+    private function containsSchema(string $url, string $schema): bool
+    {
+        return mb_stripos($url, "$schema://") === 0;
     }
 
     /**

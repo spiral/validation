@@ -38,6 +38,8 @@ class AddressTest extends TestCase
 
         //Schema mismatch
         $this->assertFalse($checker->url('http://domain.com', ['https']));
+        $this->assertFalse($checker->url('http://domain.com', ['']));
+        $this->assertFalse($checker->url('hhttp://domain.com', ['http']));
         //Invalid required schema
         $this->assertFalse($checker->url('http://domain.com', ['http:/']));
     }

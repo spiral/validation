@@ -5,12 +5,13 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation;
 
 use Spiral\Translator\Translator;
 
-class CheckerRule extends AbstractRule implements RuleInterface
+final class CheckerRule extends AbstractRule implements RuleInterface
 {
     /** @var CheckerInterface */
     private $checker;

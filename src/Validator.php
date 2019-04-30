@@ -5,10 +5,11 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation;
 
-class Validator implements ValidatorInterface
+final class Validator implements ValidatorInterface
 {
     /** @var RulesInterface */
     private $provider;

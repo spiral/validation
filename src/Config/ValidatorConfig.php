@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation\Config;
 
@@ -13,7 +14,7 @@ use Spiral\Core\InjectableConfig;
 use Spiral\Core\Traits\Config\AliasTrait;
 use Spiral\Validation\Exception\ValidationException;
 
-class ValidatorConfig extends InjectableConfig
+final class ValidatorConfig extends InjectableConfig
 {
     use AliasTrait;
 

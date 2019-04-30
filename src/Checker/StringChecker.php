@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
 
@@ -14,7 +15,7 @@ use Spiral\Validation\AbstractChecker;
 /**
  * @inherit-messages
  */
-class StringChecker extends AbstractChecker implements SingletonInterface
+final class StringChecker extends AbstractChecker implements SingletonInterface
 {
     /**
      * {@inheritdoc}

@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation;
 
@@ -13,7 +14,7 @@ use Spiral\Validation\Exception\ParserException;
 /**
  * Parses rule definitions.
  */
-class RuleParser implements ParserInterface
+final class RuleParser implements ParserInterface
 {
     const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
     const MESSAGES   = ['message', 'msg', 'error', 'err'];

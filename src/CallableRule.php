@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation;
 
@@ -14,7 +15,7 @@ use Spiral\Translator\Translator;
 /**
  * Represents options to describe singular validation rule.
  */
-class CallableRule extends AbstractRule implements RuleInterface
+final class CallableRule extends AbstractRule implements RuleInterface
 {
     use TranslatorTrait;
 

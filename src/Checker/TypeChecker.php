@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
 
@@ -15,7 +16,7 @@ use Spiral\Validation\Checker\Traits\NotEmptyTrait;
 /**
  * @inherit-messages
  */
-class TypeChecker extends AbstractChecker implements SingletonInterface
+final class TypeChecker extends AbstractChecker implements SingletonInterface
 {
     use NotEmptyTrait;
 

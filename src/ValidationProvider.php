@@ -5,42 +5,44 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation;
 
 use Psr\Container\ContainerExceptionInterface;
+use Spiral\Core\Container;
 use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\Config\ValidatorConfig;
 
-class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
+final class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
     /** @var ValidatorConfig */
     private $config;
 
-    /** @var FactoryInterface */
-    private $factory;
-
     /** @var ParserInterface */
     private $parser;
+
+    /** @var FactoryInterface */
+    private $factory;
 
     /** @var RuleInterface[] */
     private $rules = [];
 
     /**
-     * @param ValidatorConfig  $config
+     * @param ValidatorConfig $config
+     * @param ParserInterface $parser
      * @param FactoryInterface $factory
-     * @param ParserInterface  $parser
      */
     public function __construct(
         ValidatorConfig $config,
-        FactoryInterface $factory,
-        ParserInterface $parser
+        ParserInterface $parser = null,
+        FactoryInterface $factory = null
     ) {
         $this->config = $config;
-        $this->factory = $factory;
-        $this->parser = $parser;
+        $this->parser = $parser ?? new RuleParser();
+        $this->factory = $factory ?? new Container();
     }
 
     /**

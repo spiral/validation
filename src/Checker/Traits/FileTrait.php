@@ -1,9 +1,12 @@
 <?php
 /**
- * Spiral Framework, Core Components
+ * Spiral Framework.
  *
- * @author    Wolfy-J
+ * @license   MIT
+ * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
+
 
 namespace Spiral\Validation\Checker\Traits;
 
@@ -39,7 +42,7 @@ trait FileTrait
             ($file instanceof UploadedFileInterface && $file->getError() === 0)
             || $file instanceof StreamableInterface
         ) {
-            return StreamWrapper::localFilename($file->getStream());
+            return StreamWrapper::getFilename($file->getStream());
         }
 
         if (is_array($file)) {

@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation\Condition;
 
@@ -14,7 +15,7 @@ use Spiral\Validation\ValidatorInterface;
 /**
  * Fires when any of required values are missing.
  */
-class WithoutAnyCondition extends AbstractCondition
+final class WithoutAnyCondition extends AbstractCondition
 {
     /**
      * @param ValidatorInterface $validator

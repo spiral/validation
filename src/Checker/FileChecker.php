@@ -5,6 +5,7 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
 
@@ -17,7 +18,7 @@ use Spiral\Validation\Checker\Traits\FileTrait;
 /**
  * @inherit-messages
  */
-class FileChecker extends AbstractChecker implements SingletonInterface
+final class FileChecker extends AbstractChecker implements SingletonInterface
 {
     use FileTrait;
 

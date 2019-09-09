@@ -10,6 +10,8 @@ namespace Spiral\Validation\Tests;
 
 use Spiral\Validation\AbstractChecker;
 use Spiral\Validation\Checker\TypeChecker;
+use Spiral\Validation\Tests\Fixtures\TestChecker;
+use Spiral\Validation\Tests\Fixtures\Value;
 
 class CallableTest extends BaseTest
 {
@@ -200,28 +202,5 @@ class CallableTest extends BaseTest
     public static function check($value)
     {
         return false;
-    }
-}
-
-class TestChecker extends AbstractChecker
-{
-    public function test()
-    {
-        return false;
-    }
-}
-
-class Value
-{
-    private $value;
-
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
-
-    public function packValue()
-    {
-        return $this->value;
     }
 }

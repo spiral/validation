@@ -12,5 +12,4 @@ namespace Spiral\Validation\Exception;
 
 class ParserException extends ValidationException
 {
-
 }

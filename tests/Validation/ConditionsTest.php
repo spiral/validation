@@ -19,6 +19,8 @@ use Spiral\Validation\Condition\WithAnyCondition;
 use Spiral\Validation\Condition\WithoutAllCondition;
 use Spiral\Validation\Condition\WithoutAnyCondition;
 use Spiral\Validation\RulesInterface;
+use Spiral\Validation\Tests\Fixtures\PayloadCondition;
+use Spiral\Validation\Tests\Fixtures\TestCondition;
 use Spiral\Validation\ValidatorInterface;
 
 class ConditionsTest extends BaseTest
@@ -191,52 +193,5 @@ class ConditionsTest extends BaseTest
     {
         parent::setUp();
         $this->rules = $this->container->get(RulesInterface::class);
-    }
-}
-
-class TestCondition extends AbstractCondition
-{
-    public function isMet(ValidatorInterface $validator, string $field, $value): bool
-    {
-        return true;
-    }
-}
-
-class PayloadCondition extends AbstractCondition
-{
-    public function isMet(ValidatorInterface $validator, string $field, $value): bool
-    {
-        $payload = $this->getPayload($validator)['j'];
-        switch ($field) {
-            case 'i':
-                return $value === $payload - 1;
-
-            case 'j':
-                return $value === $payload;
-
-            case 'k':
-                return $value === $payload + 1;
-
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * @param ValidatorInterface $validator
-     *
-     * @return array
-     */
-    protected function getPayload(ValidatorInterface $validator): array
-    {
-        $payload = [];
-        foreach ($this->options as $option) {
-            $payload[$option] = $validator->getValue(
-                $option,
-                $validator->getContext()[$option] ?? null
-            );
-        }
-
-        return $payload;
     }
 }

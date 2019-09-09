@@ -58,7 +58,6 @@ abstract class AbstractChecker implements CheckerInterface
         $value,
         array $args = []
     ): bool {
-
         try {
             $this->validator = $v;
             array_unshift($args, $value);

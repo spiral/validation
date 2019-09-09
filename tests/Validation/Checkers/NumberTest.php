@@ -56,6 +56,5 @@ class NumberTest extends TestCase
 
         $this->assertFalse($checker->lower(null, 9.99));
         $this->assertFalse($checker->lower([], 9.99));
-
     }
 }

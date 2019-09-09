@@ -71,7 +71,7 @@ class AddressTest extends TestCase
     public function testUri()
     {
         $checker = new AddressChecker();
-
-        $this->assertTrue($checker->uri('https://john.doe:pwd@www.example.com:123/forum/questions/?tag=networking&order=newest#top'));
+        $longUri = 'https://john.doe:pwd@www.example.com:123/forum/questions/?tag=networking&order=newest#top';
+        $this->assertTrue($checker->uri($longUri));
     }
 }

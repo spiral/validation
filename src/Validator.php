@@ -118,7 +118,6 @@ final class Validator implements ValidatorInterface
         $this->errors = [];
 
         foreach ($this->rules as $field => $rules) {
-
             $value = $this->getValue($field);
 
             foreach ($this->provider->getRules($rules) as $rule) {

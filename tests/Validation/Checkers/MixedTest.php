@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,7 +7,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests\Checkers;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checker\MixedChecker;
@@ -17,14 +20,14 @@ class MixedTest extends TestCase
     /**
      * @dataProvider cardsProvider
      */
-    public function testCardNumber($expected, $card)
+    public function testCardNumber($expected, $card): void
     {
         $checker = new MixedChecker();
 
         $this->assertEquals($expected, $checker->cardNumber($card));
     }
 
-    public function testMatch()
+    public function testMatch(): void
     {
         $checker = new MixedChecker();
 

@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation;
@@ -16,9 +18,9 @@ use Spiral\Validation\Exception\ParserException;
  */
 final class RuleParser implements ParserInterface
 {
-    const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
-    const MESSAGES   = ['message', 'msg', 'error', 'err'];
-    const CONDITIONS = ['if', 'condition', 'conditions', 'where', 'when'];
+    public const ARGUMENTS  = ['args', 'params', 'arguments', 'parameters'];
+    public const MESSAGES   = ['message', 'msg', 'error', 'err'];
+    public const CONDITIONS = ['if', 'condition', 'conditions', 'where', 'when'];
 
     /**
      * @inheritdoc
@@ -46,7 +48,7 @@ final class RuleParser implements ParserInterface
             $function = str_replace('::', ':', $chunk);
         } else {
             if (!is_array($chunk) || !isset($chunk[0])) {
-                throw new ParserException("Validation rule does not define any check.");
+                throw new ParserException('Validation rule does not define any check.');
             }
 
             $function = $chunk[0];

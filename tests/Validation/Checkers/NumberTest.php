@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,14 +7,16 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests\Checkers;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checker\NumberChecker;
 
 class NumberTest extends TestCase
 {
-    public function testRange()
+    public function testRange(): void
     {
         $checker = new NumberChecker();
 
@@ -31,7 +34,7 @@ class NumberTest extends TestCase
         $this->assertFalse($checker->range([], 1, 9.99));
     }
 
-    public function testHigher()
+    public function testHigher(): void
     {
         $checker = new NumberChecker();
 
@@ -45,7 +48,7 @@ class NumberTest extends TestCase
         $this->assertFalse($checker->higher([], 11));
     }
 
-    public function testLower()
+    public function testLower(): void
     {
         $checker = new NumberChecker();
 

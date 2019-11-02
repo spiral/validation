@@ -1,13 +1,17 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation;
+
+use Spiral\Validation\Exception\ValidationException;
 
 final class Validator implements ValidatorInterface
 {
@@ -17,27 +21,51 @@ final class Validator implements ValidatorInterface
     /** @var array|\ArrayAccess */
     private $data;
 
+    /** @var array */
+    private $errors;
+
     /** @var mixed */
     private $context;
 
     /** @var array */
     private $rules;
 
-    /** @var array */
-    private $errors = [];
-
     /**
      * @param array|\ArrayAccess $data
      * @param array              $rules
      * @param mixed              $context
-     * @param RulesInterface     $provider
+     * @param RulesInterface     $ruleProvider
      */
-    public function __construct($data, array $rules, $context, RulesInterface $provider)
+    public function __construct($data, array $rules, $context, RulesInterface $ruleProvider)
     {
         $this->data = $data;
+        $this->errors = [];
         $this->rules = $rules;
         $this->context = $context;
-        $this->provider = $provider;
+        $this->provider = $ruleProvider;
+    }
+
+    /**
+     * Destruct the service.
+     */
+    public function __destruct()
+    {
+        $this->data = null;
+        $this->rules = [];
+        $this->provider = null;
+        $this->errors = [];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function withData($data): ValidatorInterface
+    {
+        $validator = clone $this;
+        $validator->data = $data;
+        $validator->errors = [];
+
+        return $validator;
     }
 
     /**
@@ -47,11 +75,23 @@ final class Validator implements ValidatorInterface
     {
         $value = isset($this->data[$field]) ? $this->data[$field] : $default;
 
-        if (is_object($value) && method_exists($value, 'packValue')) {
-            return $value->packValue();
+        if (is_object($value) && method_exists($value, 'getValue')) {
+            return $value->getValue();
         }
 
         return $value;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function withContext($context): ValidatorInterface
+    {
+        $validator = clone $this;
+        $validator->context = $context;
+        $validator->errors = [];
+
+        return $validator;
     }
 
     /**
@@ -67,7 +107,7 @@ final class Validator implements ValidatorInterface
      */
     public function isValid(): bool
     {
-        return empty($this->getErrors());
+        return $this->getErrors() === [];
     }
 
     /**
@@ -93,24 +133,13 @@ final class Validator implements ValidatorInterface
     }
 
     /**
-     * Destruct the service.
-     */
-    public function __destruct()
-    {
-        $this->data = null;
-        $this->rules = [];
-        $this->provider = null;
-        $this->errors = [];
-    }
-
-    /**
      * Validate data over given rules and context.
      *
-     * @throws \Spiral\Validation\Exception\ValidationException
+     * @throws ValidationException
      */
-    protected function validate()
+    protected function validate(): void
     {
-        if (!empty($this->errors)) {
+        if ($this->errors !== []) {
             // already validated
             return;
         }

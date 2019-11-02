@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation;
@@ -22,7 +24,7 @@ final class CallableRule extends AbstractRule implements RuleInterface
     /**
      * Default validation message for custom rules.
      */
-    const DEFAULT_MESSAGE = '[[The condition `{name}` was not met.]]';
+    public const DEFAULT_MESSAGE = '[[The condition `{name}` was not met.]]';
 
     /** @var callable */
     private $check;
@@ -81,7 +83,7 @@ final class CallableRule extends AbstractRule implements RuleInterface
         $name = $this->check;
         if (is_array($name) && isset($name[0]) && isset($name[1])) {
             $name = sprintf(
-                "%s::%s",
+                '%s::%s',
                 is_object($name[0]) ? get_class($name[0]) : $name,
                 $name[1]
             );

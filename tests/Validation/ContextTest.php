@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,11 +7,13 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 class ContextTest extends BaseTest
 {
-    public function testNoRules()
+    public function testNoRules(): void
     {
         $validator = $this->validation->validate([], [], ['context']);
         $this->assertSame(['context'], $validator->getContext());

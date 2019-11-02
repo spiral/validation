@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Spiral\Validation\Checker\Traits;
 
@@ -38,7 +39,8 @@ trait FileTrait
             return null;
         }
 
-        if (($file instanceof UploadedFileInterface && $file->getError() === 0)
+        if (
+            ($file instanceof UploadedFileInterface && $file->getError() === 0)
             || $file instanceof StreamableInterface
         ) {
             return StreamWrapper::getFilename($file->getStream());

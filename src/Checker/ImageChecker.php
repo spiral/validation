@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -26,14 +28,14 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
     /**
      * Getimagesize constants.
      */
-    const WIDTH      = 0;
-    const HEIGHT     = 1;
-    const IMAGE_TYPE = 2;
+    public const WIDTH      = 0;
+    public const HEIGHT     = 1;
+    public const IMAGE_TYPE = 2;
 
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'type'    => '[[Image does not supported.]]',
         'valid'   => '[[Image does not supported (allowed JPEG, PNG or GIF).]]',
         'smaller' => '[[Image size should not exceed {1}x{2}px.]]',
@@ -43,14 +45,14 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const ALLOW_EMPTY_VALUES = ['type', 'valid'];
+    public const ALLOW_EMPTY_VALUES = ['type', 'valid'];
 
     /**
      * Known image types.
      *
      * @var array
      */
-    const IMAGE_TYPES = [
+    public const IMAGE_TYPES = [
         'null',
         'gif',
         'jpeg',

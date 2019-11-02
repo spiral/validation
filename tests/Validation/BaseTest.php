@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,7 +7,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container;
@@ -24,7 +27,7 @@ use Spiral\Validation\ValidationProvider;
 
 abstract class BaseTest extends TestCase
 {
-    const CONFIG = [
+    public const CONFIG = [
         'checkers' => [
             'file'    => FileChecker::class,
             'image'   => ImageChecker::class,
@@ -49,7 +52,7 @@ abstract class BaseTest extends TestCase
      */
     protected $container;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = new Container();
 
@@ -62,7 +65,7 @@ abstract class BaseTest extends TestCase
         $this->validation = $this->container->get(ValidationInterface::class);
     }
 
-    protected function assertValid(array $data, array $rules)
+    protected function assertValid(array $data, array $rules): void
     {
         $this->assertTrue(
             $this->validation->validate($data, $rules)->isValid(),
@@ -70,7 +73,7 @@ abstract class BaseTest extends TestCase
         );
     }
 
-    protected function assertNotValid(string $error, array $data, array $rules)
+    protected function assertNotValid(string $error, array $data, array $rules): void
     {
         $validator = $this->validation->validate($data, $rules);
 

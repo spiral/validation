@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -20,7 +22,7 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'regexp'  => '[[Value does not match required pattern.]]',
         'shorter' => '[[Enter text shorter or equal to {1}.]]',
         'longer'  => '[[Text must be longer or equal to {1}.]]',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,13 +7,15 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 use Spiral\Validation\Validator;
 
 class ErrorsTest extends BaseTest
 {
-    public function testHasError()
+    public function testHasError(): void
     {
         /**
          * @var Validator $validator
@@ -21,7 +24,7 @@ class ErrorsTest extends BaseTest
         $this->assertTrue($validator->hasError('name'));
     }
 
-    public function testMultipleErrors()
+    public function testMultipleErrors(): void
     {
         /**
          * @var Validator $validator

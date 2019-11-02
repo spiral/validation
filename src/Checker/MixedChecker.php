@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -20,7 +22,7 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'cardNumber' => '[[Please enter valid card number.]]',
         'match'      => '[[Fields {1} and {2} do not match.]]'
     ];

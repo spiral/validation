@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,14 +7,16 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests\Checkers;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checker\StringChecker;
 
 class StringsTest extends TestCase
 {
-    public function testShorter()
+    public function testShorter(): void
     {
         $checker = new StringChecker();
 
@@ -30,7 +33,7 @@ class StringsTest extends TestCase
         $this->assertFalse($checker->shorter([], 4));
     }
 
-    public function testLonger()
+    public function testLonger(): void
     {
         $checker = new StringChecker();
 
@@ -47,7 +50,7 @@ class StringsTest extends TestCase
         $this->assertFalse($checker->longer([], 4));
     }
 
-    public function testLength()
+    public function testLength(): void
     {
         $checker = new StringChecker();
 
@@ -61,7 +64,7 @@ class StringsTest extends TestCase
         $this->assertFalse($checker->length([], 2));
     }
 
-    public function testRange()
+    public function testRange(): void
     {
         $checker = new StringChecker();
 
@@ -78,7 +81,7 @@ class StringsTest extends TestCase
         $this->assertFalse($checker->range([], 0, 2));
     }
 
-    public function testRegexp()
+    public function testRegexp(): void
     {
         $checker = new StringChecker();
 

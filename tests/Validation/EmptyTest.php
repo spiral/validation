@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,11 +7,13 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 class EmptyTest extends BaseTest
 {
-    public function testNoRules()
+    public function testNoRules(): void
     {
         $result = $this->validation->validate([], []);
         $this->assertTrue($result->isValid());
@@ -21,7 +24,7 @@ class EmptyTest extends BaseTest
         $this->assertSame([], $result->getErrors());
     }
 
-    public function testNotEmpty()
+    public function testNotEmpty(): void
     {
         $result = $this->validation->validate([], ['name' => ['type::notEmpty']]);
         $this->assertFalse($result->isValid());
@@ -37,7 +40,7 @@ class EmptyTest extends BaseTest
         $this->assertTrue($result->isValid());
     }
 
-    public function testNotEmptyShorter()
+    public function testNotEmptyShorter(): void
     {
         $result = $this->validation->validate([], ['name' => 'notEmpty']);
         $this->assertFalse($result->isValid());

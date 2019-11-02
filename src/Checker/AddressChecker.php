@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -20,7 +22,7 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'email' => '[[Must be a valid email address.]]',
         'url'   => '[[Must be a valid URL address.]]',
     ];
@@ -77,6 +79,22 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
     }
 
     /**
+     * @todo Improve the regexp pattern
+     * @link https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
+     * @link http://www.ietf.org/rfc/rfc3986.txt
+     *
+     * @param string $uri
+     *
+     * @return bool
+     */
+    public function uri(string $uri): bool
+    {
+        $pattern = "/^(([^:\/\?#]+):)?(\/\/([^\/\?#]*))?([^\?#]*)(\?([^#]*))?(#(.*))?$/";
+
+        return (bool)preg_match($pattern, $uri);
+    }
+
+    /**
      * @param string $url
      *
      * @return bool
@@ -115,21 +133,5 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
     private function trimURL(string $url): string
     {
         return preg_replace('/^\/\/(.*)$/i', '$1', $url);
-    }
-
-    /**
-     * @todo Improve the regexp pattern
-     * @link https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
-     * @link http://www.ietf.org/rfc/rfc3986.txt
-     *
-     * @param string $uri
-     *
-     * @return bool
-     */
-    public function uri(string $uri): bool
-    {
-        $pattern = "/^(([^:\/\?#]+):)?(\/\/([^\/\?#]*))?([^\?#]*)(\?([^#]*))?(#(.*))?$/";
-
-        return (bool)preg_match($pattern, $uri);
     }
 }

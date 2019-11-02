@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,19 +7,19 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
 
-use Spiral\Validation\AbstractChecker;
+namespace Spiral\Tests\Validation;
 
 class MessagesTest extends BaseTest
 {
-    public function testDefault()
+    public function testDefault(): void
     {
         $validator = $this->validation->validate([], ['name' => ['type::notEmpty']]);
         $this->assertSame(['name' => 'This value is required.'], $validator->getErrors());
     }
 
-    public function testMessage()
+    public function testMessage(): void
     {
         $validator = $this->validation->validate([], [
             'name' => [
@@ -28,7 +29,7 @@ class MessagesTest extends BaseTest
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }
 
-    public function testMsg()
+    public function testMsg(): void
     {
         $validator = $this->validation->validate([], [
             'name' => [
@@ -38,7 +39,7 @@ class MessagesTest extends BaseTest
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }
 
-    public function testError()
+    public function testError(): void
     {
         $validator = $this->validation->validate([], [
             'name' => [
@@ -48,7 +49,7 @@ class MessagesTest extends BaseTest
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }
 
-    public function testErr()
+    public function testErr(): void
     {
         $validator = $this->validation->validate([], [
             'name' => [

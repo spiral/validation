@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,9 +7,12 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
 
-use Spiral\Validation\AbstractCondition;
+namespace Spiral\Tests\Validation;
+
+use Spiral\Tests\Validation\Fixtures\PayloadCondition;
+use Spiral\Tests\Validation\Fixtures\TestCondition;
 use Spiral\Validation\Checker\AddressChecker;
 use Spiral\Validation\Checker\FileChecker;
 use Spiral\Validation\Checker\ImageChecker;
@@ -19,13 +23,10 @@ use Spiral\Validation\Condition\WithAnyCondition;
 use Spiral\Validation\Condition\WithoutAllCondition;
 use Spiral\Validation\Condition\WithoutAnyCondition;
 use Spiral\Validation\RulesInterface;
-use Spiral\Validation\Tests\Fixtures\PayloadCondition;
-use Spiral\Validation\Tests\Fixtures\TestCondition;
-use Spiral\Validation\ValidatorInterface;
 
 class ConditionsTest extends BaseTest
 {
-    const CONFIG = [
+    public const CONFIG = [
         'checkers'   => [
             'file'    => FileChecker::class,
             'image'   => ImageChecker::class,
@@ -50,10 +51,16 @@ class ConditionsTest extends BaseTest
     /** @var \Spiral\Validation\RulesInterface */
     protected $rules;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->rules = $this->container->get(RulesInterface::class);
+    }
+
     /**
      * @expectedException \Spiral\Core\Exception\Container\NotFoundException
      */
-    public function testUnknown()
+    public function testUnknown(): void
     {
         $rules = $this->rules->getRules([
             'i' => [
@@ -68,7 +75,7 @@ class ConditionsTest extends BaseTest
         }
     }
 
-    public function testString()
+    public function testString(): void
     {
         $rules = $this->rules->getRules([
             'i' => [
@@ -89,7 +96,7 @@ class ConditionsTest extends BaseTest
         }
     }
 
-    public function testPayload()
+    public function testPayload(): void
     {
         $rules = $this->rules->getRules([
             'i' => [
@@ -111,7 +118,7 @@ class ConditionsTest extends BaseTest
         }
     }
 
-    public function testWithAny()
+    public function testWithAny(): void
     {
         $this->assertValid(
             ['i' => 'a',],
@@ -131,7 +138,7 @@ class ConditionsTest extends BaseTest
         );
     }
 
-    public function testWithAll()
+    public function testWithAll(): void
     {
         $this->assertValid(
             ['i' => 'a',],
@@ -150,7 +157,7 @@ class ConditionsTest extends BaseTest
         );
     }
 
-    public function testWithoutAny()
+    public function testWithoutAny(): void
     {
         $this->assertNotValid(
             'i',
@@ -170,7 +177,7 @@ class ConditionsTest extends BaseTest
         );
     }
 
-    public function testWithoutAll()
+    public function testWithoutAll(): void
     {
         $this->assertNotValid(
             'i',
@@ -187,11 +194,5 @@ class ConditionsTest extends BaseTest
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
             ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]]
         );
-    }
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->rules = $this->container->get(RulesInterface::class);
     }
 }

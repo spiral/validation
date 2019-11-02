@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,14 +7,16 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests\Checkers;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checker\TypeChecker;
 
 class TypesTest extends TestCase
 {
-    public function testNotNull()
+    public function testNotNull(): void
     {
         $checker = new TypeChecker();
 
@@ -28,7 +31,7 @@ class TypesTest extends TestCase
         $this->assertEquals(!is_null(true), $checker->notNull(true));
     }
 
-    public function testNotEmpty()
+    public function testNotEmpty(): void
     {
         $checker = new TypeChecker();
 
@@ -43,7 +46,7 @@ class TypesTest extends TestCase
         $this->assertEquals(!empty(true), $checker->notEmpty(true));
     }
 
-    public function testNotEmptyStrings()
+    public function testNotEmptyStrings(): void
     {
         $checker = new TypeChecker();
 
@@ -54,7 +57,7 @@ class TypesTest extends TestCase
         $this->assertFalse($checker->notEmpty(' ', true));
     }
 
-    public function testBoolean()
+    public function testBoolean(): void
     {
         $checker = new TypeChecker();
 
@@ -69,7 +72,7 @@ class TypesTest extends TestCase
         $this->assertFalse($checker->boolean('1'));
     }
 
-    public function testDatetime()
+    public function testDatetime(): void
     {
         $checker = new TypeChecker();
 
@@ -85,7 +88,7 @@ class TypesTest extends TestCase
         $this->assertFalse($checker->datetime(null));
     }
 
-    public function testTimezone()
+    public function testTimezone(): void
     {
         $checker = new TypeChecker();
 

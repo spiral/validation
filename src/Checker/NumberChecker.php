@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -20,7 +22,7 @@ final class NumberChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'range'  => '[[Your value should be in range of {1}-{2}.]]',
         'higher' => '[[Your value should be higher than {1}.]]',
         'lower'  => '[[Your value should be lower than {1}.]]',

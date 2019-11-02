@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation;
@@ -17,6 +19,14 @@ use Spiral\Validation\Exception\ValidationException;
 interface ValidatorInterface
 {
     /**
+     * Create validator copy with new data set.
+     *
+     * @param iterable $data
+     * @return ValidatorInterface
+     */
+    public function withData($data): ValidatorInterface;
+
+    /**
      * Receive field from context data or return default value.
      *
      * @param string $field
@@ -25,6 +35,14 @@ interface ValidatorInterface
      * @return mixed
      */
     public function getValue(string $field, $default = null);
+
+    /**
+     * Create new validator instance with new context.
+     *
+     * @param mixed $context
+     * @return ValidatorInterface
+     */
+    public function withContext($context): ValidatorInterface;
 
     /**
      * Get context data (not validated).

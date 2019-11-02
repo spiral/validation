@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,15 +7,16 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
+declare(strict_types=1);
+
 namespace Spiral\Tests\Validation\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Core\Container;
 use Spiral\Validation\Checker\AddressChecker;
 
 class AddressTest extends TestCase
 {
-    public function testEmail()
+    public function testEmail(): void
     {
         $checker = new AddressChecker();
 
@@ -25,7 +27,7 @@ class AddressTest extends TestCase
         $this->assertFalse($checker->email('test.email.com'));
     }
 
-    public function testUrlWithSchema()
+    public function testUrlWithSchema(): void
     {
         $checker = new AddressChecker();
 
@@ -44,7 +46,7 @@ class AddressTest extends TestCase
         $this->assertFalse($checker->url('http://domain.com', ['http:/']));
     }
 
-    public function testUrlWithoutSchema()
+    public function testUrlWithoutSchema(): void
     {
         $checker = new AddressChecker();
 
@@ -68,7 +70,7 @@ class AddressTest extends TestCase
         $this->assertFalse($checker->url('domain.com'));
     }
 
-    public function testUri()
+    public function testUri(): void
     {
         $checker = new AddressChecker();
         $longUri = 'https://john.doe:pwd@www.example.com:123/forum/questions/?tag=networking&order=newest#top';

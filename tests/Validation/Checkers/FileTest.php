@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,18 +7,20 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests\Checkers;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Checkers;
 
 use Spiral\Files\Files;
 use Spiral\Files\FilesInterface;
-use Spiral\Validation\Tests\BaseTest;
+use Spiral\Tests\Validation\BaseTest;
 use Zend\Diactoros\UploadedFile;
 
 class FileTest extends BaseTest
 {
     private $files;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +28,7 @@ class FileTest extends BaseTest
         $this->container->bind(FilesInterface::class, $this->files);
     }
 
-    public function testExists()
+    public function testExists(): void
     {
         $this->assertNotValid('a', [], [
             'a' => ['file:exists']
@@ -50,7 +53,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testFakeUpload()
+    public function testFakeUpload(): void
     {
         $this->assertValid([
             'a' => ['tmp_name' => __FILE__]
@@ -71,7 +74,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testExistsStream()
+    public function testExistsStream(): void
     {
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);
 
@@ -90,7 +93,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testUploaded()
+    public function testUploaded(): void
     {
         $this->assertNotValid('a', [], [
             'a' => ['file:uploaded']
@@ -115,7 +118,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testUploadedSteam()
+    public function testUploadedSteam(): void
     {
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);
 
@@ -134,7 +137,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testSize()
+    public function testSize(): void
     {
         $this->assertNotValid('a', [], [
             'a' => [
@@ -192,7 +195,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testSizeStream()
+    public function testSizeStream(): void
     {
         $this->assertNotValid('a', [], [
             'a' => [
@@ -265,7 +268,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testExtension()
+    public function testExtension(): void
     {
         $this->assertNotValid('a', [], [
             'a' => [
@@ -293,7 +296,7 @@ class FileTest extends BaseTest
         ]);
     }
 
-    public function testExtensionUploaded()
+    public function testExtensionUploaded(): void
     {
         $this->assertNotValid('a', [], [
             'a' => [

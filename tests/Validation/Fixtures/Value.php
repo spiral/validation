@@ -1,6 +1,15 @@
 <?php
 
-namespace Spiral\Validation\Tests\Fixtures;
+/**
+ * Spiral Framework.
+ *
+ * @license   MIT
+ * @author    Anton Titov (Wolfy-J)
+ */
+
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Fixtures;
 
 class Value
 {
@@ -11,7 +20,7 @@ class Value
         $this->value = $value;
     }
 
-    public function packValue()
+    public function getValue()
     {
         return $this->value;
     }

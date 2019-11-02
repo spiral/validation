@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation;
@@ -21,17 +23,17 @@ abstract class AbstractChecker implements CheckerInterface
     /**
      * Error messages associated with checker method by name.
      */
-    const MESSAGES = [];
+    public const MESSAGES = [];
 
     /**
      * Default error message if no other messages are found.
      */
-    const DEFAULT_MESSAGE = '[[The condition `{method}` was not met.]]';
+    public const DEFAULT_MESSAGE = '[[The condition `{method}` was not met.]]';
 
     /**
      * List of methods which are allowed to handle empty values.
      */
-    const ALLOW_EMPTY_VALUES = [];
+    public const ALLOW_EMPTY_VALUES = [];
 
     /** @var ValidatorInterface */
     private $validator = null;

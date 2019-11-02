@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -23,7 +25,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'notNull'  => '[[This value is required.]]',
         'notEmpty' => '[[This value is required.]]',
         'boolean'  => '[[Not a valid boolean.]]',
@@ -34,7 +36,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const ALLOW_EMPTY_VALUES = ['notEmpty'];
+    public const ALLOW_EMPTY_VALUES = ['notEmpty'];
 
     /**
      * Value should not be null.

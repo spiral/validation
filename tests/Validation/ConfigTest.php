@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,7 +7,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container\Autowire;
@@ -14,7 +17,7 @@ use Spiral\Validation\Config\ValidatorConfig;
 
 class ConfigTest extends TestCase
 {
-    public function testHasChecker()
+    public function testHasChecker(): void
     {
         $config = new ValidatorConfig([
             'checkers' => [
@@ -26,7 +29,7 @@ class ConfigTest extends TestCase
         $this->assertFalse($config->hasChecker('other'));
     }
 
-    public function testHasCondition()
+    public function testHasCondition(): void
     {
         $config = new ValidatorConfig([
             'conditions' => [
@@ -38,7 +41,7 @@ class ConfigTest extends TestCase
         $this->assertFalse($config->hasCondition('other'));
     }
 
-    public function testGetChecker()
+    public function testGetChecker(): void
     {
         $config = new ValidatorConfig([
             'checkers' => [
@@ -49,7 +52,7 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
     }
 
-    public function testGetCondition()
+    public function testGetCondition(): void
     {
         $config = new ValidatorConfig([
             'conditions' => [
@@ -63,7 +66,7 @@ class ConfigTest extends TestCase
     /**
      * @expectedException \Spiral\Validation\Exception\ValidationException
      */
-    public function testGetCheckerException()
+    public function testGetCheckerException(): void
     {
         $config = new ValidatorConfig([
             'checkers' => [
@@ -77,7 +80,7 @@ class ConfigTest extends TestCase
     /**
      * @expectedException \Spiral\Validation\Exception\ValidationException
      */
-    public function testGetConditionException()
+    public function testGetConditionException(): void
     {
         $config = new ValidatorConfig([
             'conditions' => [
@@ -88,7 +91,7 @@ class ConfigTest extends TestCase
         $config->getCondition('other');
     }
 
-    public function testGetCheckerExtended()
+    public function testGetCheckerExtended(): void
     {
         $config = new ValidatorConfig([
             'checkers' => [
@@ -101,7 +104,7 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
     }
 
-    public function testGetConditionExtended()
+    public function testGetConditionExtended(): void
     {
         $config = new ValidatorConfig([
             'conditions' => [
@@ -114,7 +117,7 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
     }
 
-    public function testGetCheckerExtendedWithOptions()
+    public function testGetCheckerExtendedWithOptions(): void
     {
         $config = new ValidatorConfig([
             'checkers' => [
@@ -128,7 +131,7 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
     }
 
-    public function testGetConditionWithOptions()
+    public function testGetConditionWithOptions(): void
     {
         $config = new ValidatorConfig([
             'conditions' => [
@@ -145,7 +148,7 @@ class ConfigTest extends TestCase
     /**
      * @expectedException \Spiral\Validation\Exception\ValidationException
      */
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $config = new ValidatorConfig([
             'checkers' => [
@@ -159,7 +162,7 @@ class ConfigTest extends TestCase
     /**
      * @expectedException \Spiral\Validation\Exception\ValidationException
      */
-    public function testInvalidCondition()
+    public function testInvalidCondition(): void
     {
         $config = new ValidatorConfig([
             'conditions' => [

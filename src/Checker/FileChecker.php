@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
@@ -25,7 +27,7 @@ final class FileChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const MESSAGES = [
+    public const MESSAGES = [
         'exists'    => '[[File does not exists.]]',
         'uploaded'  => '[[File not received, please try again.]]',
         'size'      => '[[File exceeds the maximum file size of {2}KB.]]',
@@ -35,7 +37,7 @@ final class FileChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    const ALLOW_EMPTY_VALUES = ['exists', 'uploaded'];
+    public const ALLOW_EMPTY_VALUES = ['exists', 'uploaded'];
 
     /**
      * @param FilesInterface $files

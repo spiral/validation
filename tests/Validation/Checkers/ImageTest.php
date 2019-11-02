@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,17 +7,19 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests\Checkers;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation\Checkers;
 
 use Spiral\Files\Files;
 use Spiral\Files\FilesInterface;
-use Spiral\Validation\Tests\BaseTest;
+use Spiral\Tests\Validation\BaseTest;
 
 class ImageTest extends BaseTest
 {
     private $files;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +27,7 @@ class ImageTest extends BaseTest
         $this->container->bind(FilesInterface::class, $this->files);
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $file = __DIR__ . '/fixtures/sample-1.jpg';
 
@@ -89,7 +92,7 @@ class ImageTest extends BaseTest
         ]);
     }
 
-    public function testSmaller()
+    public function testSmaller(): void
     {
         $file = __DIR__ . '/fixtures/sample-1.jpg';
 
@@ -119,7 +122,7 @@ class ImageTest extends BaseTest
         ]);
     }
 
-    public function testBigger()
+    public function testBigger(): void
     {
         $file = __DIR__ . '/fixtures/sample-1.jpg';
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,11 +7,13 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 class ParserTest extends BaseTest
 {
-    public function testClosure()
+    public function testClosure(): void
     {
         $validator = $this->validation->validate([
             'name' => 'string'
@@ -28,7 +31,7 @@ class ParserTest extends BaseTest
     /**
      * @expectedException \Spiral\Validation\Exception\ParserException
      */
-    public function testParseError()
+    public function testParseError(): void
     {
         $validator = $this->validation->validate([
             'name' => 'string'

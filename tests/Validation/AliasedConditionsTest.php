@@ -1,11 +1,15 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
-namespace Spiral\Validation\Tests;
+
+declare(strict_types=1);
+
+namespace Spiral\Tests\Validation;
 
 use Spiral\Validation\Condition\WithAllCondition;
 use Spiral\Validation\Condition\WithAnyCondition;
@@ -14,7 +18,7 @@ use Spiral\Validation\Condition\WithoutAnyCondition;
 
 class AliasedConditionsTest extends BaseTest
 {
-    const CONFIG = [
+    public const CONFIG = [
         'checkers'   => [],
         'conditions' => [],
         'aliases'    => [
@@ -25,7 +29,7 @@ class AliasedConditionsTest extends BaseTest
         ],
     ];
 
-    public function testWithAny()
+    public function testWithAny(): void
     {
         $this->assertValid(
             ['i' => 'a',],
@@ -45,7 +49,7 @@ class AliasedConditionsTest extends BaseTest
         );
     }
 
-    public function testWithAll()
+    public function testWithAll(): void
     {
         $this->assertValid(
             ['i' => 'a',],
@@ -64,7 +68,7 @@ class AliasedConditionsTest extends BaseTest
         );
     }
 
-    public function testWithoutAny()
+    public function testWithoutAny(): void
     {
         $this->assertNotValid(
             'i',
@@ -84,7 +88,7 @@ class AliasedConditionsTest extends BaseTest
         );
     }
 
-    public function testWithoutAll()
+    public function testWithoutAll(): void
     {
         $this->assertNotValid(
             'i',

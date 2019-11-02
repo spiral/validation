@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation;
@@ -43,6 +45,18 @@ final class ValidationProvider implements ValidationInterface, RulesInterface, S
         $this->config = $config;
         $this->parser = $parser ?? new RuleParser();
         $this->factory = $factory ?? new Container();
+    }
+
+    /**
+     * Destruct the service.
+     *
+     * @codeCoverageIgnore
+     */
+    public function __destruct()
+    {
+        $this->config = null;
+        $this->factory = null;
+        $this->resetCache();
     }
 
     /**
@@ -93,21 +107,9 @@ final class ValidationProvider implements ValidationInterface, RulesInterface, S
      *
      * @codeCoverageIgnore
      */
-    public function resetCache()
+    public function resetCache(): void
     {
         $this->rules = [];
-    }
-
-    /**
-     * Destruct the service.
-     *
-     * @codeCoverageIgnore
-     */
-    public function __destruct()
-    {
-        $this->config = null;
-        $this->factory = null;
-        $this->resetCache();
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spiral Framework.
  *
@@ -6,16 +7,17 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Validation\Tests;
+declare(strict_types=1);
 
-use Spiral\Validation\AbstractChecker;
+namespace Spiral\Tests\Validation;
+
+use Spiral\Tests\Validation\Fixtures\TestChecker;
+use Spiral\Tests\Validation\Fixtures\Value;
 use Spiral\Validation\Checker\TypeChecker;
-use Spiral\Validation\Tests\Fixtures\TestChecker;
-use Spiral\Validation\Tests\Fixtures\Value;
 
 class CallableTest extends BaseTest
 {
-    const CONFIG = [
+    public const CONFIG = [
         'checkers' => [
             'type' => TypeChecker::class,
             'test' => TestChecker::class,
@@ -25,7 +27,7 @@ class CallableTest extends BaseTest
         ],
     ];
 
-    public function testInArray()
+    public function testInArray(): void
     {
         $this->assertValid([
             'i' => 'value'
@@ -44,7 +46,7 @@ class CallableTest extends BaseTest
         ]);
     }
 
-    public function testInArrayAccessor()
+    public function testInArrayAccessor(): void
     {
         $this->assertValid([
             'i' => new Value('value')
@@ -63,7 +65,7 @@ class CallableTest extends BaseTest
         ]);
     }
 
-    public function testEmptyInArray()
+    public function testEmptyInArray(): void
     {
         $this->assertValid([
             'i' => null
@@ -83,7 +85,7 @@ class CallableTest extends BaseTest
         ]);
     }
 
-    public function testDefaultMessage()
+    public function testDefaultMessage(): void
     {
         $v = $this->validation->validate([
             'i' => 'third'
@@ -96,7 +98,7 @@ class CallableTest extends BaseTest
         $this->assertSame('The condition `in_array` was not met.', $v->getErrors()['i']);
     }
 
-    public function testDefaultMessageStatic()
+    public function testDefaultMessageStatic(): void
     {
         $v = $this->validation->validate([
             'i' => 'third'
@@ -107,12 +109,12 @@ class CallableTest extends BaseTest
         ]);
 
         $this->assertSame(
-            'The condition `Spiral\Validation\Tests\CallableTest::check` was not met.',
+            'The condition `Spiral\Tests\Validation\CallableTest::check` was not met.',
             $v->getErrors()['i']
         );
     }
 
-    public function testDefaultMessageRuntime()
+    public function testDefaultMessageRuntime(): void
     {
         $v = $this->validation->validate([
             'i' => 'third'
@@ -123,12 +125,12 @@ class CallableTest extends BaseTest
         ]);
 
         $this->assertSame(
-            'The condition `Spiral\Validation\Tests\CallableTest::check` was not met.',
+            'The condition `Spiral\Tests\Validation\CallableTest::check` was not met.',
             $v->getErrors()['i']
         );
     }
 
-    public function testDefaultMethodClosure()
+    public function testDefaultMethodClosure(): void
     {
         $v = $this->validation->validate([
             'i' => 'third'
@@ -141,7 +143,7 @@ class CallableTest extends BaseTest
         $this->assertSame('The condition `~user-defined~` was not met.', $v->getErrors()['i']);
     }
 
-    public function testCustomMessage()
+    public function testCustomMessage(): void
     {
         $v = $this->validation->validate([
             'i' => 'third'
@@ -155,7 +157,7 @@ class CallableTest extends BaseTest
         $this->assertSame('error', $v->getErrors()['i']);
     }
 
-    public function testCheckerDefault()
+    public function testCheckerDefault(): void
     {
         $validator = $this->validation->validate(
             ['i' => 'value'],
@@ -165,7 +167,7 @@ class CallableTest extends BaseTest
         $this->assertSame(['i' => 'The condition `test` was not met.'], $validator->getErrors());
     }
 
-    public function testCheckerByCallableClass()
+    public function testCheckerByCallableClass(): void
     {
         $validator = $this->validation->validate(
             [
@@ -184,7 +186,7 @@ class CallableTest extends BaseTest
         $this->assertSame(['i' => 'ERROR'], $validator->getErrors());
     }
 
-    public function testCheckerByCallableObject()
+    public function testCheckerByCallableObject(): void
     {
         $checker = new TestChecker();
         $validator = $this->validation->validate(

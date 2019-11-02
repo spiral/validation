@@ -20,19 +20,13 @@ abstract class AbstractChecker implements CheckerInterface
 {
     use TranslatorTrait;
 
-    /**
-     * Error messages associated with checker method by name.
-     */
+    /** Error messages associated with checker method by name. */
     public const MESSAGES = [];
 
-    /**
-     * Default error message if no other messages are found.
-     */
+    /** Default error message if no other messages are found. */
     public const DEFAULT_MESSAGE = '[[The condition `{method}` was not met.]]';
 
-    /**
-     * List of methods which are allowed to handle empty values.
-     */
+    /** List of methods which are allowed to handle empty values. */
     public const ALLOW_EMPTY_VALUES = [];
 
     /** @var ValidatorInterface */

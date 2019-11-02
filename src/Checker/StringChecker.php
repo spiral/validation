@@ -35,7 +35,6 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
      *
      * @param mixed  $value
      * @param string $expression
-     *
      * @return bool
      */
     public function regexp($value, string $expression): bool
@@ -48,7 +47,6 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
      *
      * @param string $value
      * @param int    $length
-     *
      * @return bool
      */
     public function shorter($value, int $length): bool
@@ -61,7 +59,6 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
      *
      * @param mixed $value
      * @param int   $length
-     *
      * @return bool
      */
     public function longer($value, int $length): bool
@@ -74,7 +71,6 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
      *
      * @param mixed $value
      * @param int   $length
-     *
      * @return bool
      */
     public function length($value, int $length): bool
@@ -88,7 +84,6 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
      * @param mixed $value
      * @param int   $min
      * @param int   $max
-     *
      * @return bool
      */
     public function range($value, int $min, int $max): bool

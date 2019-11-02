@@ -85,7 +85,6 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      *
      * @param string|UploadedFileInterface|StreamableInterface $file
      * @param array|string                                     $types
-     *
      * @return bool
      */
     public function type($file, $types): bool
@@ -108,7 +107,6 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      * Shortcut to check if image has valid type (JPEG, PNG and GIF are allowed).
      *
      * @param string|UploadedFileInterface|StreamableInterface $file
-     *
      * @return bool
      */
     public function valid($file): bool
@@ -122,7 +120,6 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      * @param string|UploadedFileInterface|StreamableInterface $file
      * @param int                                              $width
      * @param int                                              $height Optional.
-     *
      * @return bool
      */
     public function smaller($file, int $width, int $height): bool
@@ -141,7 +138,6 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      * @param string|UploadedFileInterface|StreamableInterface $file
      * @param int                                              $width
      * @param int                                              $height Optional.
-     *
      * @return bool
      */
     public function bigger($file, int $width, int $height = null): bool
@@ -150,18 +146,16 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
             return false;
         }
 
-        return $image[self::WIDTH] >= $width
-            && $image[self::HEIGHT] >= $height;
+        return $image[self::WIDTH] >= $width && $image[self::HEIGHT] >= $height;
     }
 
     /**
      * Internal method, return image details fetched by getimagesize() or false.
      *
-     * @see getimagesize()
-     *
      * @param string|mixed $file
-     *
      * @return array|bool
+     *
+     * @see getimagesize()
      */
     protected function imageData($file)
     {
@@ -170,6 +164,6 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
             return false;
         }
 
-        return getimagesize($filename);
+        return @getimagesize($filename);
     }
 }

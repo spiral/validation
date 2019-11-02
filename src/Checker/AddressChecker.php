@@ -31,9 +31,7 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
      * Check if email is valid.
      *
      * @link http://www.ietf.org/rfc/rfc2822.txt
-     *
      * @param string $address
-     *
      * @return bool
      */
     public function email($address): bool
@@ -45,11 +43,9 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
      * Check if URL is valid.
      *
      * @link http://www.faqs.org/rfcs/rfc2396.html
-     *
      * @param string      $url
      * @param null|array  $schemas
      * @param null|string $defaultSchema
-     *
      * @return bool
      */
     public function url(string $url, ?array $schemas = null, ?string $defaultSchema = null): bool
@@ -79,16 +75,15 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
     }
 
     /**
-     * @todo Improve the regexp pattern
-     * @link https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
      * @link http://www.ietf.org/rfc/rfc3986.txt
-     *
+     * @link https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
      * @param string $uri
-     *
      * @return bool
      */
     public function uri(string $uri): bool
     {
+        // todo: improve the regexp pattern
+
         $pattern = "/^(([^:\/\?#]+):)?(\/\/([^\/\?#]*))?([^\?#]*)(\?([^#]*))?(#(.*))?$/";
 
         return (bool)preg_match($pattern, $uri);
@@ -96,7 +91,6 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
 
     /**
      * @param string $url
-     *
      * @return bool
      */
     private function hasSchema(string $url): bool
@@ -106,7 +100,6 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
 
     /**
      * @param string $schema
-     *
      * @return string
      */
     private function trimSchema(string $schema): string
@@ -127,7 +120,6 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
 
     /**
      * @param string $url
-     *
      * @return string
      */
     private function trimURL(string $url): string

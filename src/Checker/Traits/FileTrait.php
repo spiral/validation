@@ -21,16 +21,13 @@ use Spiral\Streams\StreamWrapper;
  */
 trait FileTrait
 {
-    /**
-     * @var FilesInterface
-     */
+    /** @var FilesInterface */
     protected $files;
 
     /**
      * Internal method to fetch filename using multiple input formats.
      *
      * @param mixed|UploadedFileInterface|StreamableInterface $file
-     *
      * @return string|null
      */
     private function resolveFilename($file)
@@ -65,7 +62,6 @@ trait FileTrait
      * Check if file being uploaded.
      *
      * @param mixed|UploadedFileInterface $file Filename or file array.
-     *
      * @return bool
      */
     private function isUploaded($file): bool

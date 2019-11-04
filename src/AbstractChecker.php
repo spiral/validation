@@ -71,7 +71,6 @@ abstract class AbstractChecker implements CheckerInterface
     {
         $messages = static::MESSAGES;
         if (isset($messages[$method])) {
-            array_unshift($arguments, $value);
             array_unshift($arguments, $field);
 
             return $this->say(static::MESSAGES[$method], $arguments);

@@ -68,9 +68,16 @@ class CallableTest extends BaseTest
     public function testEmptyInArray(): void
     {
         $this->assertValid([
-            'i' => null
         ], [
             'i' => [
+                ['in_array', ['value', 'other']]
+            ]
+        ]);
+
+        $this->assertNotValid('i', [
+        ], [
+            'i' => [
+                ['notEmpty'],
                 ['in_array', ['value', 'other']]
             ]
         ]);

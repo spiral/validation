@@ -85,6 +85,18 @@ final class Validator implements ValidatorInterface
     /**
      * @inheritdoc
      */
+    public function hasValue(string $field, $default = null)
+    {
+        if (is_array($this->data)) {
+            return array_key_exists($field, $this->data);
+        }
+
+        return isset($this->data[$field]);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function withContext($context): ValidatorInterface
     {
         $validator = clone $this;
@@ -147,10 +159,11 @@ final class Validator implements ValidatorInterface
         $this->errors = [];
 
         foreach ($this->rules as $field => $rules) {
+            $hasValue = $this->hasValue($field);
             $value = $this->getValue($field);
 
             foreach ($this->provider->getRules($rules) as $rule) {
-                if ($rule->ignoreEmpty($value) && empty($rule->hasConditions())) {
+                if (!$hasValue && $rule->ignoreEmpty($value) && !$rule->hasConditions()) {
                     continue;
                 }
 

@@ -36,8 +36,8 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      * {@inheritdoc}
      */
     public const MESSAGES = [
-        'type'    => '[[Image does not supported.]]',
-        'valid'   => '[[Image does not supported (allowed JPEG, PNG or GIF).]]',
+        'type'    => '[[Image format not supported.]]',
+        'valid'   => '[[Image format not supported (allowed JPEG, PNG or GIF).]]',
         'smaller' => '[[Image size should not exceed {1}x{2}px.]]',
         'bigger'  => '[[The image dimensions should be at least {1}x{2}px.]]',
     ];

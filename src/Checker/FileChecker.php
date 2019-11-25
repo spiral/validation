@@ -30,7 +30,7 @@ final class FileChecker extends AbstractChecker implements SingletonInterface
     public const MESSAGES = [
         'exists'    => '[[File does not exists.]]',
         'uploaded'  => '[[File not received, please try again.]]',
-        'size'      => '[[File exceeds the maximum file size of {2}KB.]]',
+        'size'      => '[[File exceeds the maximum file size of {1}KB.]]',
         'extension' => '[[File has an invalid file format.]]',
     ];
 

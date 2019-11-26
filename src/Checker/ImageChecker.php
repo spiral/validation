@@ -90,8 +90,7 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
     public function type($file, $types): bool
     {
         $image = $this->imageData($file);
-
-        if ($image === null) {
+        if ($image === false) {
             return false;
         }
 

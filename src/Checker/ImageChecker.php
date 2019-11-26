@@ -89,7 +89,9 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      */
     public function type($file, $types): bool
     {
-        if (empty($image = $this->imageData($file))) {
+        $image = $this->imageData($file);
+
+        if ($image === null) {
             return false;
         }
 
@@ -97,10 +99,11 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
             $types = array_slice(func_get_args(), 1);
         }
 
-        return in_array(
-            self::IMAGE_TYPES[$image[self::IMAGE_TYPE]],
-            $types
-        );
+        if (!isset(self::IMAGE_TYPES[$image[self::IMAGE_TYPE]])) {
+            return false;
+        }
+
+        return in_array(self::IMAGE_TYPES[$image[self::IMAGE_TYPE]], $types, true);
     }
 
     /**

@@ -35,6 +35,8 @@ class DatetimeTest extends TestCase
     {
         return [
             [time() + 10, true],
+            ['tomorrow 10am', true],
+            ['now + 10 seconds', true],
             [time() - 10, false],
             ['', false],
             [0, false],
@@ -67,6 +69,8 @@ class DatetimeTest extends TestCase
     {
         return [
             [time() - 10, true],
+            ['yesterday 10am', true],
+            ['now - 10 seconds', true],
             [time() + 10, false],
             ['', true],
             [0, true],
@@ -100,11 +104,18 @@ class DatetimeTest extends TestCase
         return [
             [time() - 10, true],
             [time(), true],
+            [date('u'), true],
             [time() + 10, true],
             ['', true],
+            ['tomorrow 10am', true],
+            ['yesterday 10am', true],
+            ['now', true],
+            ['now + 10 seconds', true],
+            ['now - 10 seconds', true],
             [0, true],
             [1.1, true],
             ['date', false],
+            ['~#@', false],
             [false, false],
             [true, false],
             [null, false],
@@ -148,5 +159,17 @@ class DatetimeTest extends TestCase
             ['-2019-12-Nov', 'Y-m-d', false],
             ['2019-12-Abc', 'Y-d-M', false],
         ];
+    }
+
+    public function testTimezone(): void
+    {
+        $checker = new DatetimeChecker();
+
+        foreach (\DateTimeZone::listIdentifiers() as $identifier) {
+            $this->assertTrue($checker->timezone($identifier));
+            $this->assertFalse($checker->timezone(str_rot13($identifier)));
+        }
+
+        $this->assertFalse($checker->timezone('Any zone'));
     }
 }

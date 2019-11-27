@@ -87,12 +87,29 @@ final class DatetimeChecker extends AbstractChecker implements SingletonInterfac
     }
 
     /**
+     * Check if date is valid. Empty values are acceptable.
+     *
      * @param int|string $value
      * @return bool
      */
     public function valid($value): bool
     {
         return $this->date($value) !== null;
+    }
+
+    /**
+     * Value has to be a valid timezone.
+     *
+     * @param mixed $value
+     * @return bool
+     */
+    public function timezone($value): bool
+    {
+        if (!is_scalar($value)) {
+            return false;
+        }
+
+        return in_array((string)$value, \DateTimeZone::listIdentifiers(), true);
     }
 
     /**
@@ -120,7 +137,7 @@ final class DatetimeChecker extends AbstractChecker implements SingletonInterfac
      */
     private function isApplicableValue($value): bool
     {
-        return is_scalar($value) && !is_bool($value);
+        return is_string($value) || is_numeric($value);
     }
 
     /**

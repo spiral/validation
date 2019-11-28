@@ -73,7 +73,7 @@ final class Validator implements ValidatorInterface
      */
     public function getValue(string $field, $default = null)
     {
-        $value = isset($this->data[$field]) ? $this->data[$field] : $default;
+        $value = $this->data[$field] ?? $default;
 
         if (is_object($value) && method_exists($value, 'getValue')) {
             return $value->getValue();

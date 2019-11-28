@@ -19,8 +19,10 @@ class MixedTest extends TestCase
 {
     /**
      * @dataProvider cardsProvider
+     * @param bool  $expected
+     * @param mixed $card
      */
-    public function testCardNumber($expected, $card): void
+    public function testCardNumber(bool $expected, $card): void
     {
         $checker = new MixedChecker();
 
@@ -32,8 +34,9 @@ class MixedTest extends TestCase
         $checker = new MixedChecker();
 
         $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
-        $mock->method('getValue')->with('abc')->will($this->returnValue(123));
+        $mock->method('getValue')->with('abc')->willReturn(123);
 
+        /** @var ValidatorInterface $mock */
         $this->assertTrue($checker->check($mock, 'match', 'field', 123, ['abc']));
         $this->assertFalse($checker->check($mock, 'match', 'field', 234, ['abc']));
 
@@ -41,7 +44,7 @@ class MixedTest extends TestCase
         $this->assertFalse($checker->check($mock, 'match', 'field', '123', ['abc', true]));
     }
 
-    public function cardsProvider()
+    public function cardsProvider(): array
     {
         return [
             [true, '122000000000003'],

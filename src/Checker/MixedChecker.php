@@ -44,7 +44,8 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
         $odd = strlen($value) % 2;
         preg_replace('/[^0-9]+/', '', $value);
 
-        for ($i = 0; $i < strlen($value); ++$i) {
+        $length = strlen($value);
+        for ($i = 0; $i < $length; ++$i) {
             $result += $odd
                 ? $value[$i]
                 : (($value[$i] * 2 > 9) ? $value[$i] * 2 - 9 : $value[$i] * 2);
@@ -53,7 +54,7 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
         }
 
         // Check validity.
-        return ($result % 10 == 0) ? true : false;
+        return $result % 10 === 0;
     }
 
     /**

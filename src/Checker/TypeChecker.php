@@ -46,7 +46,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
      */
     public function notNull($value): bool
     {
-        return !is_null($value);
+        return $value !== null;
     }
 
     /**

@@ -46,7 +46,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
      */
     public function notNull($value): bool
     {
-        return !is_null($value);
+        return $value !== null;
     }
 
     /**
@@ -65,6 +65,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
      *
      * @param mixed $value
      * @return bool
+     * @deprecated Use \Spiral\Validation\Checker\DatetimeChecker::valid(). Be aware that empty values are now valid.
      */
     public function datetime($value): bool
     {
@@ -76,7 +77,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
             return true;
         }
 
-        return (int)strtotime($value) != 0;
+        return (int)strtotime($value) !== 0;
     }
 
     /**
@@ -84,9 +85,10 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
      *
      * @param mixed $value
      * @return bool
+     * @deprecated Use \Spiral\Validation\Checker\DatetimeChecker::timezone().
      */
     public function timezone($value): bool
     {
-        return in_array($value, \DateTimeZone::listIdentifiers());
+        return in_array((string)$value, \DateTimeZone::listIdentifiers(), true);
     }
 }

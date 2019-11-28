@@ -52,6 +52,9 @@ abstract class BaseTest extends TestCase
      */
     protected $container;
 
+    /**
+     * @throws \Throwable
+     */
     public function setUp(): void
     {
         $this->container = new Container();

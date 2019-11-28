@@ -142,7 +142,7 @@ class CallableTest extends BaseTest
         $v = $this->validation->validate([
             'i' => 'third'
         ], [
-            'i' => function () {
+            'i' => static function () {
                 return false;
             }
         ]);
@@ -208,7 +208,7 @@ class CallableTest extends BaseTest
         $this->assertSame(['i' => 'ERROR'], $validator->getErrors());
     }
 
-    public static function check($value)
+    public static function check($value): bool
     {
         return false;
     }

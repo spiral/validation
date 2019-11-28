@@ -30,15 +30,15 @@ trait FileTrait
      * @param mixed|UploadedFileInterface|StreamableInterface $file
      * @return string|null
      */
-    private function resolveFilename($file)
+    private function resolveFilename($file): ?string
     {
         if (empty($file)) {
             return null;
         }
 
         if (
+            $file instanceof StreamableInterface ||
             ($file instanceof UploadedFileInterface && $file->getError() === 0)
-            || $file instanceof StreamableInterface
         ) {
             return StreamWrapper::getFilename($file->getStream());
         }

@@ -224,7 +224,11 @@ class DatetimeTest extends TestCase
 
         /** @var ValidatorInterface $mock */
         $this->assertSame($expected, $checker->check(
-            $mock, 'before', 'field', $value, ['threshold', $orEquals, $useMicroseconds]
+            $mock,
+            'before',
+            'field',
+            $value,
+            ['threshold', $orEquals, $useMicroseconds]
         ));
     }
 
@@ -281,7 +285,11 @@ class DatetimeTest extends TestCase
 
         /** @var ValidatorInterface $mock */
         $this->assertSame($expected, $checker->check(
-            $mock, 'after', 'field', $value, ['threshold', $orEquals, $useMicroseconds]
+            $mock,
+            'after',
+            'field',
+            $value,
+            ['threshold', $orEquals, $useMicroseconds]
         ));
     }
 

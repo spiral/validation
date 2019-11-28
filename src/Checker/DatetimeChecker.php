@@ -19,10 +19,6 @@ use Spiral\Validation\AbstractChecker;
  */
 final class DatetimeChecker extends AbstractChecker implements SingletonInterface
 {
-    //Possible format mapping
-    private const MAP_FORMAT = [
-        'c' => 'Y-m-d\TH:i:sT'
-    ];
 
     /**
      * {@inheritdoc}
@@ -35,6 +31,10 @@ final class DatetimeChecker extends AbstractChecker implements SingletonInterfac
         'timezone' => '[[Not a valid timezone.]]',
         'before'   => '[[Value {1} should come before value {2}.]]',
         'after'    => '[[Value {1} should come after value {2}.]]',
+    ];
+    //Possible format mapping
+    private const MAP_FORMAT = [
+        'c' => 'Y-m-d\TH:i:sT'
     ];
 
     /**

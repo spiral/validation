@@ -24,7 +24,7 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
      */
     public const MESSAGES = [
         'cardNumber' => '[[Please enter valid card number.]]',
-        'match' => '[[Fields {1} and {2} do not match.]]'
+        'match'      => '[[Fields {1} and {2} do not match.]]'
     ];
 
     /**
@@ -63,9 +63,9 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
     /**
      * Check if value matches value from another field.
      *
-     * @param mixed $value
+     * @param mixed  $value
      * @param string $field
-     * @param bool $strict
+     * @param bool   $strict
      * @return bool
      */
     public function match($value, string $field, bool $strict = false): bool

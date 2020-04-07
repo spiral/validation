@@ -36,7 +36,7 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
     /**
      * {@inheritdoc}
      */
-    public const ALLOW_EMPTY_VALUES = ['notEmpty'];
+    public const ALLOW_EMPTY_VALUES = ['notEmpty', 'notNull'];
 
     /**
      * Value should not be null.

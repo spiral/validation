@@ -37,6 +37,14 @@ interface ValidatorInterface
     public function getValue(string $field, $default = null);
 
     /**
+     * Check if field is provided in the given data.
+     *
+     * @param string $field
+     * @return bool
+     */
+    public function hasValue(string $field): bool;
+
+    /**
      * Create new validator instance with new context.
      *
      * @param mixed $context

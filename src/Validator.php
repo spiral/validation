@@ -73,7 +73,7 @@ final class Validator implements ValidatorInterface
      */
     public function getValue(string $field, $default = null)
     {
-        $value = isset($this->data[$field]) ? $this->data[$field] : $default;
+        $value = $this->data[$field] ?? $default;
 
         if (is_object($value) && method_exists($value, 'getValue')) {
             return $value->getValue();
@@ -85,7 +85,7 @@ final class Validator implements ValidatorInterface
     /**
      * @inheritdoc
      */
-    public function hasValue(string $field, $default = null)
+    public function hasValue(string $field): bool
     {
         if (is_array($this->data)) {
             return array_key_exists($field, $this->data);

@@ -20,15 +20,17 @@ class TypesTest extends TestCase
     {
         $checker = new TypeChecker();
 
-        $this->assertEquals(!is_null('value'), $checker->notNull('value'));
-        $this->assertEquals(!is_null(1), $checker->notNull(1));
-        $this->assertEquals(!is_null(0), $checker->notNull(0));
-        $this->assertEquals(!is_null('0'), $checker->notNull('0'));
-        $this->assertEquals(!is_null(''), $checker->notNull(''));
-        $this->assertEquals(!is_null([]), $checker->notNull([]));
+        $this->assertTrue($checker->notNull('value'));
+        $this->assertTrue($checker->notNull(1));
+        $this->assertTrue($checker->notNull(0));
+        $this->assertTrue($checker->notNull('0'));
+        $this->assertTrue($checker->notNull(''));
+        $this->assertTrue($checker->notNull([]));
 
-        $this->assertEquals(!is_null(false), $checker->notNull(false));
-        $this->assertEquals(!is_null(true), $checker->notNull(true));
+        $this->assertTrue($checker->notNull(false));
+        $this->assertTrue($checker->notNull(true));
+        $this->assertTrue($checker->notNull(new \stdClass()));
+        $this->assertFalse($checker->notNull(null));
     }
 
     public function testNotEmpty(): void

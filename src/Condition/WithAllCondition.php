@@ -27,8 +27,8 @@ final class WithAllCondition extends AbstractCondition
      */
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {
-        foreach ($this->options as $field) {
-            if (empty($validator->getValue($field))) {
+        foreach ($this->options as $option) {
+            if (empty($validator->getValue($option))) {
                 return false;
             }
         }

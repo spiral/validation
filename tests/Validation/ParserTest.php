@@ -19,7 +19,7 @@ class ParserTest extends BaseTest
             'name' => 'string'
         ], [
             'name' => [
-                function () {
+                static function () {
                     return false;
                 }
             ]

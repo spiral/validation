@@ -75,7 +75,7 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
      */
     public function length($value, int $length): bool
     {
-        return is_string($value) && mb_strlen(trim($value)) == $length;
+        return is_string($value) && mb_strlen(trim($value)) === $length;
     }
 
     /**

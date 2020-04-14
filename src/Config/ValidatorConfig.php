@@ -64,7 +64,7 @@ final class ValidatorConfig extends InjectableConfig
         }
 
         $instance = $this->wire('checkers', $name);
-        if (!empty($instance)) {
+        if ($instance !== null) {
             return $instance;
         }
 
@@ -91,7 +91,7 @@ final class ValidatorConfig extends InjectableConfig
         }
 
         $instance = $this->wire('conditions', $name);
-        if (!empty($instance)) {
+        if ($instance !== null) {
             return $instance;
         }
 
@@ -146,7 +146,7 @@ final class ValidatorConfig extends InjectableConfig
      */
     private function normalizeAliases(array $aliases): array
     {
-        return array_map(function ($value) {
+        return array_map(static function ($value) {
             return str_replace('::', ':', $value);
         }, $aliases);
     }

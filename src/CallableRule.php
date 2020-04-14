@@ -81,7 +81,7 @@ final class CallableRule extends AbstractRule implements RuleInterface
         }
 
         $name = $this->check;
-        if (is_array($name) && isset($name[0]) && isset($name[1])) {
+        if (is_array($name) && isset($name[0], $name[1])) {
             $name = sprintf(
                 '%s::%s',
                 is_object($name[0]) ? get_class($name[0]) : $name,

@@ -25,7 +25,7 @@ trait NotEmptyTrait
      */
     public function notEmpty($value, bool $asString = true): bool
     {
-        if ($asString && is_string($value) && strlen(trim($value)) == 0) {
+        if ($asString && is_string($value) && trim($value) === '') {
             return false;
         }
 

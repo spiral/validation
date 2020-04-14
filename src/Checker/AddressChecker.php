@@ -51,7 +51,7 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
     public function url(string $url, ?array $schemas = null, ?string $defaultSchema = null): bool
     {
         //Add default schema if not presented
-        if (!$this->hasSchema($url) && !empty($defaultSchema)) {
+        if (!empty($defaultSchema) && !$this->hasSchema($url)) {
             $defaultSchema = $this->trimSchema($defaultSchema);
             if (!empty($defaultSchema)) {
                 $url = "$defaultSchema://{$this->trimURL($url)}";

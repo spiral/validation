@@ -41,7 +41,7 @@ abstract class AbstractChecker implements CheckerInterface
             return false;
         }
 
-        return !in_array($method, static::ALLOW_EMPTY_VALUES);
+        return !in_array($method, static::ALLOW_EMPTY_VALUES, true);
     }
 
     /**

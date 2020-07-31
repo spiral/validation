@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Spiral\Tests\Validation;
 
+use Spiral\Validation\Exception\ParserException;
+
 class ParserTest extends BaseTest
 {
     public function testClosure(): void
@@ -28,11 +30,10 @@ class ParserTest extends BaseTest
         $this->assertFalse($validator->isValid());
     }
 
-    /**
-     * @expectedException \Spiral\Validation\Exception\ParserException
-     */
     public function testParseError(): void
     {
+        $this->expectException(ParserException::class);
+
         $validator = $this->validation->validate([
             'name' => 'string'
         ], [

@@ -14,6 +14,7 @@ namespace Spiral\Tests\Validation;
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container\Autowire;
 use Spiral\Validation\Config\ValidatorConfig;
+use Spiral\Validation\Exception\ValidationException;
 
 class ConfigTest extends TestCase
 {
@@ -63,11 +64,10 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
     }
 
-    /**
-     * @expectedException \Spiral\Validation\Exception\ValidationException
-     */
     public function testGetCheckerException(): void
     {
+        $this->expectException(ValidationException::class);
+
         $config = new ValidatorConfig([
             'checkers' => [
                 'checker' => self::class
@@ -77,11 +77,10 @@ class ConfigTest extends TestCase
         $config->getChecker('other');
     }
 
-    /**
-     * @expectedException \Spiral\Validation\Exception\ValidationException
-     */
     public function testGetConditionException(): void
     {
+        $this->expectException(ValidationException::class);
+
         $config = new ValidatorConfig([
             'conditions' => [
                 'condition' => self::class
@@ -145,11 +144,10 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
     }
 
-    /**
-     * @expectedException \Spiral\Validation\Exception\ValidationException
-     */
     public function testInvalid(): void
     {
+        $this->expectException(ValidationException::class);
+
         $config = new ValidatorConfig([
             'checkers' => [
                 'checker' => []
@@ -159,11 +157,10 @@ class ConfigTest extends TestCase
         $config->getChecker('checker');
     }
 
-    /**
-     * @expectedException \Spiral\Validation\Exception\ValidationException
-     */
     public function testInvalidCondition(): void
     {
+        $this->expectException(ValidationException::class);
+
         $config = new ValidatorConfig([
             'conditions' => [
                 'condition' => []

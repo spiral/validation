@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Spiral\Tests\Validation;
 
+use Spiral\Core\Exception\Container\NotFoundException;
 use Spiral\Tests\Validation\Fixtures\PayloadCondition;
 use Spiral\Tests\Validation\Fixtures\TestCondition;
 use Spiral\Validation\Checker\AddressChecker;
@@ -57,11 +58,10 @@ class ConditionsTest extends BaseTest
         $this->rules = $this->container->get(RulesInterface::class);
     }
 
-    /**
-     * @expectedException \Spiral\Core\Exception\Container\NotFoundException
-     */
     public function testUnknown(): void
     {
+        $this->expectException(NotFoundException::class);
+
         $rules = $this->rules->getRules([
             'i' => [
                 'in_array',

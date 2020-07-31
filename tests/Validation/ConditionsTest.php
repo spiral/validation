@@ -19,6 +19,8 @@ use Spiral\Validation\Checker\FileChecker;
 use Spiral\Validation\Checker\ImageChecker;
 use Spiral\Validation\Checker\StringChecker;
 use Spiral\Validation\Checker\TypeChecker;
+use Spiral\Validation\Condition\AbsentCondition;
+use Spiral\Validation\Condition\PresentCondition;
 use Spiral\Validation\Condition\WithAllCondition;
 use Spiral\Validation\Condition\WithAnyCondition;
 use Spiral\Validation\Condition\WithoutAllCondition;
@@ -36,6 +38,8 @@ class ConditionsTest extends BaseTest
             'string'  => StringChecker::class
         ],
         'conditions' => [
+            'absent'     => AbsentCondition::class,
+            'present'    => PresentCondition::class,
             'withAny'    => WithAnyCondition::class,
             'withoutAny' => WithoutAnyCondition::class,
             'withAll'    => WithAllCondition::class,
@@ -116,6 +120,50 @@ class ConditionsTest extends BaseTest
                 $this->assertFalse($condition->isMet($validator, 'l', 4));
             }
         }
+    }
+
+    public function testAbsent(): void
+    {
+        $this->assertValid(
+            ['i' => 'a',],
+            ['i' => [['notEmpty', 'if' => ['absent' => ['b', 'c']]]]]
+        );
+
+        $this->assertValid(
+            ['i' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['i' => [['is_bool', 'if' => ['absent' => ['b', 'c']]]]]
+        );
+
+        $this->assertNotValid(
+            'i',
+            ['i' => 'a'],
+            ['i' => [['is_bool', 'if' => ['absent' => ['b', 'c']]]]]
+        );
+    }
+
+    public function testPresent(): void
+    {
+        $this->assertValid(
+            ['i' => '',],
+            ['i' => [['notEmpty', 'if' => ['present' => ['b', 'c']]]]]
+        );
+
+        $this->assertValid(
+            ['b' => 'b',],
+            ['i' => [['notEmpty', 'if' => ['present' => ['i']]]]]
+        );
+
+        $this->assertNotValid(
+            'i',
+            ['i' => '',],
+            ['i' => [['notEmpty', 'if' => ['present' => ['i']]]]]
+        );
+
+        $this->assertNotValid(
+            'i',
+            ['i' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['i' => [['is_bool', 'if' => ['present' => ['b', 'c']]]]]
+        );
     }
 
     public function testWithAny(): void

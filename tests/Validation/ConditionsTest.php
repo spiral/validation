@@ -19,12 +19,7 @@ use Spiral\Validation\Checker\FileChecker;
 use Spiral\Validation\Checker\ImageChecker;
 use Spiral\Validation\Checker\StringChecker;
 use Spiral\Validation\Checker\TypeChecker;
-use Spiral\Validation\Condition\AbsentCondition;
-use Spiral\Validation\Condition\PresentCondition;
-use Spiral\Validation\Condition\WithAllCondition;
-use Spiral\Validation\Condition\WithAnyCondition;
-use Spiral\Validation\Condition\WithoutAllCondition;
-use Spiral\Validation\Condition\WithoutAnyCondition;
+use Spiral\Validation\Condition;
 use Spiral\Validation\RulesInterface;
 
 class ConditionsTest extends BaseTest
@@ -38,12 +33,15 @@ class ConditionsTest extends BaseTest
             'string'  => StringChecker::class
         ],
         'conditions' => [
-            'absent'     => AbsentCondition::class,
-            'present'    => PresentCondition::class,
-            'withAny'    => WithAnyCondition::class,
-            'withoutAny' => WithoutAnyCondition::class,
-            'withAll'    => WithAllCondition::class,
-            'withoutAll' => WithoutAllCondition::class,
+            'absent'     => Condition\AbsentCondition::class,
+            'present'    => Condition\PresentCondition::class,
+            'withAny'    => Condition\WithAnyCondition::class,
+            'withoutAny' => Condition\WithoutAnyCondition::class,
+            'withAll'    => Condition\WithAllCondition::class,
+            'withAll2'   => Condition\WithAllCondition::class,
+            'withoutAll' => Condition\WithoutAllCondition::class,
+            'anyOf'      => Condition\AnyOfCondition::class,
+            'noneOf'     => Condition\NoneOfCondition::class,
         ],
         'aliases'    => [
             'notEmpty' => 'type::notEmpty',
@@ -241,6 +239,54 @@ class ConditionsTest extends BaseTest
         $this->assertValid(
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
             ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]]
+        );
+    }
+
+    public function testAllOfConditions(): void
+    {
+        $this->assertValid(
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withoutAll' => 'c']]]]
+        );
+        $this->assertValid(
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'd']]]]
+        );
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'c']]]]
+        );
+    }
+
+    public function testAnyOfConditions(): void
+    {
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withoutAll' => 'c']]]]]
+        );
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
+        );
+    }
+
+    public function testNoneOfConditions(): void
+    {
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withoutAll' => ['b','c']]]]]]
+        );
+        $this->assertValid(
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' =>  ['noneOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
+        );
+        $this->assertValid(
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' =>  ['noneOf' => ['withAll' => 'b', 'withAll2' => 'c']]]]]
         );
     }
 }

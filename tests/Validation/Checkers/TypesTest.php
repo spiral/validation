@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 namespace Spiral\Tests\Validation\Checkers;
 
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checker\TypeChecker;
+use stdClass;
 
 class TypesTest extends TestCase
 {
@@ -29,7 +31,7 @@ class TypesTest extends TestCase
 
         $this->assertTrue($checker->notNull(false));
         $this->assertTrue($checker->notNull(true));
-        $this->assertTrue($checker->notNull(new \stdClass()));
+        $this->assertTrue($checker->notNull(new stdClass()));
         $this->assertFalse($checker->notNull(null));
     }
 
@@ -94,7 +96,7 @@ class TypesTest extends TestCase
     {
         $checker = new TypeChecker();
 
-        foreach (\DateTimeZone::listIdentifiers() as $identifier) {
+        foreach (DateTimeZone::listIdentifiers() as $identifier) {
             $this->assertTrue($checker->timezone($identifier));
             $this->assertFalse($checker->timezone(str_rot13($identifier)));
         }

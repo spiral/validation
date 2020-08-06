@@ -40,7 +40,7 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
             return false;
         }
 
-        if ($value !== preg_replace('/[^0-9]+/', '', $value)) {
+        if ($value !== preg_replace('/\D+/', '', $value)) {
             return false;
         }
 

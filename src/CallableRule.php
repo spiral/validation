@@ -17,7 +17,7 @@ use Spiral\Translator\Translator;
 /**
  * Represents options to describe singular validation rule.
  */
-final class CallableRule extends AbstractRule implements RuleInterface
+final class CallableRule extends AbstractRule
 {
     use TranslatorTrait;
 
@@ -30,7 +30,7 @@ final class CallableRule extends AbstractRule implements RuleInterface
     private $check;
 
     /** @var array */
-    private $args = [];
+    private $args;
 
     /** @var string|null */
     private $message;

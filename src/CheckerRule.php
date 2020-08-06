@@ -13,7 +13,7 @@ namespace Spiral\Validation;
 
 use Spiral\Translator\Translator;
 
-final class CheckerRule extends AbstractRule implements RuleInterface
+final class CheckerRule extends AbstractRule
 {
     /** @var CheckerInterface */
     private $checker;
@@ -22,7 +22,7 @@ final class CheckerRule extends AbstractRule implements RuleInterface
     private $method;
 
     /** @var array */
-    private $args = [];
+    private $args;
 
     /** @var string|null */
     private $message;

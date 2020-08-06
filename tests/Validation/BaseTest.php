@@ -24,6 +24,7 @@ use Spiral\Validation\RuleParser;
 use Spiral\Validation\RulesInterface;
 use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidationProvider;
+use Throwable;
 
 abstract class BaseTest extends TestCase
 {
@@ -53,7 +54,7 @@ abstract class BaseTest extends TestCase
     protected $container;
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function setUp(): void
     {

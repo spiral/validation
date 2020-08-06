@@ -30,7 +30,7 @@ abstract class AbstractChecker implements CheckerInterface
     public const ALLOW_EMPTY_VALUES = [];
 
     /** @var ValidatorInterface */
-    private $validator = null;
+    private $validator;
 
     /**
      * {@inheritdoc}

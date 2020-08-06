@@ -11,9 +11,12 @@ declare(strict_types=1);
 
 namespace Spiral\Tests\Validation\Checkers;
 
+use DateTime;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\Checker\DatetimeChecker;
 use Spiral\Validation\ValidatorInterface;
+use stdClass;
 
 class DatetimeTest extends TestCase
 {
@@ -66,7 +69,7 @@ class DatetimeTest extends TestCase
             [false, true, false, false],
             [false, null, false, false],
             [false, [], false, false],
-            [false, new \stdClass(), false, false],
+            [false, new stdClass(), false, false],
         ];
     }
 
@@ -114,7 +117,7 @@ class DatetimeTest extends TestCase
             [false, true, false, false],
             [false, null, false, false],
             [false, [], false, false],
-            [false, new \stdClass(), false, false],
+            [false, new stdClass(), false, false],
         ];
     }
 
@@ -139,8 +142,8 @@ class DatetimeTest extends TestCase
         return [
             [true, '2019-12-27T14:27:44+00:00', 'c'], //this one is converted using other format chars
             [true, '2019-12-27T14:27:44+00:00', 'Y-m-d\TH:i:sT'], //like the 'c' one
-            [true, 'Wed, 02 Oct 19 08:00:00 EST', \DateTime::RFC822],
-            [true, 'Wed, 02 Oct 19 08:00:00 +0200', \DateTime::RFC822],
+            [true, 'Wed, 02 Oct 19 08:00:00 EST', DateTime::RFC822],
+            [true, 'Wed, 02 Oct 19 08:00:00 +0200', DateTime::RFC822],
             [true, '2019-12-12', 'Y-m-d'],
             [true, '2019-12-12', 'Y-d-m'],
             [true, '2019-13-12', 'Y-m-d'],
@@ -191,7 +194,7 @@ class DatetimeTest extends TestCase
             [false, true,],
             [false, null,],
             [false, [],],
-            [false, new \stdClass(),],
+            [false, new stdClass(),],
         ];
     }
 
@@ -199,7 +202,7 @@ class DatetimeTest extends TestCase
     {
         $checker = new DatetimeChecker();
 
-        foreach (\DateTimeZone::listIdentifiers() as $identifier) {
+        foreach (DateTimeZone::listIdentifiers() as $identifier) {
             $this->assertTrue($checker->timezone($identifier));
             $this->assertFalse($checker->timezone(str_rot13($identifier)));
         }
@@ -264,7 +267,7 @@ class DatetimeTest extends TestCase
             [false, true, 'now', false, false],
             [false, null, 'now', false, false],
             [false, [], 'now', false, false],
-            [false, new \stdClass(), 'now', false, false],
+            [false, new stdClass(), 'now', false, false],
         ];
     }
 
@@ -324,7 +327,7 @@ class DatetimeTest extends TestCase
             [false, true, 'now', false, false],
             [false, null, 'now', false, false],
             [false, [], 'now', false, false],
-            [false, new \stdClass(), 'now', false, false],
+            [false, new stdClass(), 'now', false, false],
         ];
     }
 }

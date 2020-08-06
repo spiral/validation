@@ -139,7 +139,7 @@ final class ImageChecker extends AbstractChecker implements SingletonInterface
      *
      * @param string|UploadedFileInterface|StreamableInterface $file
      * @param int                                              $width
-     * @param int                                              $height Optional.
+     * @param int|null                                         $height Optional.
      * @return bool
      */
     public function bigger($file, int $width, int $height = null): bool

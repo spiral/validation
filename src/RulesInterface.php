@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 namespace Spiral\Validation;
 
+use Generator;
+use Spiral\Validation\Exception\ValidationException;
+
 /**
  * Responsible for providing validation rules based on given schema.
  */
@@ -21,9 +24,9 @@ interface RulesInterface
      *
      * @param array|string $rules
      *
-     * @return \Generator|RuleInterface[]
+     * @return Generator|RuleInterface[]
      *
-     * @throws \Spiral\Validation\Exception\ValidationException
+     * @throws ValidationException
      */
-    public function getRules($rules): \Generator;
+    public function getRules($rules): Generator;
 }

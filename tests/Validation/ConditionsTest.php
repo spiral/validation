@@ -51,7 +51,7 @@ class ConditionsTest extends BaseTest
     ];
 
 
-    /** @var \Spiral\Validation\RulesInterface */
+    /** @var RulesInterface */
     protected $rules;
 
     public function setUp(): void
@@ -72,9 +72,7 @@ class ConditionsTest extends BaseTest
             ],
         ]);
 
-        foreach ($rules as $rule) {
-            //do nothing
-        }
+        iterator_to_array($rules);
     }
 
     public function testString(): void

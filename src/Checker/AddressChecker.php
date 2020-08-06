@@ -124,6 +124,6 @@ final class AddressChecker extends AbstractChecker implements SingletonInterface
      */
     private function trimURL(string $url): string
     {
-        return preg_replace('/^\/\/(.*)$/i', '$1', $url);
+        return preg_replace('/^\/\/(.*)$/', '$1', $url);
     }
 }

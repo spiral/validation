@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Spiral\Validation\Checker;
 
-use DateTimeZone;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Validation\AbstractChecker;
 use Spiral\Validation\Checker\Traits\NotEmptyTrait;
@@ -90,6 +89,6 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
      */
     public function timezone($value): bool
     {
-        return in_array((string)$value, DateTimeZone::listIdentifiers(), true);
+        return in_array((string)$value, \DateTimeZone::listIdentifiers(), true);
     }
 }

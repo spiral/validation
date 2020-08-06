@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Spiral Framework.
+ *
+ * @license MIT
+ * @author  Valentin Vintsukevich (vvval)
+ */
+
 declare(strict_types=1);
 
 namespace Spiral\Validation\Condition;

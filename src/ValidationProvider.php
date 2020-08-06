@@ -11,16 +11,12 @@ declare(strict_types=1);
 
 namespace Spiral\Validation;
 
-use ArrayAccess;
-use Closure;
-use Generator;
 use Psr\Container\ContainerExceptionInterface;
 use Spiral\Core\Container;
 use Spiral\Core\Container\Autowire;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\FactoryInterface;
 use Spiral\Validation\Config\ValidatorConfig;
-use SplObjectStorage;
 
 final class ValidationProvider implements ValidationInterface, RulesInterface, SingletonInterface
 {
@@ -64,9 +60,9 @@ final class ValidationProvider implements ValidationInterface, RulesInterface, S
     }
 
     /**
-     * @param array|ArrayAccess $data
-     * @param array             $rules
-     * @param null              $context
+     * @param array|\ArrayAccess $data
+     * @param array              $rules
+     * @param null               $context
      *
      * @return ValidatorInterface
      */
@@ -80,10 +76,10 @@ final class ValidationProvider implements ValidationInterface, RulesInterface, S
      *
      * Attention, for performance reasons method would cache all defined rules.
      */
-    public function getRules($rules): Generator
+    public function getRules($rules): \Generator
     {
         foreach ($this->parser->split($rules) as $id => $rule) {
-            if (empty($id) || $rule instanceof Closure) {
+            if (empty($id) || $rule instanceof \Closure) {
                 yield new CallableRule($rule);
                 continue;
             }
@@ -149,17 +145,17 @@ final class ValidationProvider implements ValidationInterface, RulesInterface, S
 
     /**
      * @param array $conditions
-     * @return SplObjectStorage
+     * @return \SplObjectStorage
      *
      * @throws ContainerExceptionInterface
      */
-    protected function makeConditions(array $conditions): ?SplObjectStorage
+    protected function makeConditions(array $conditions): ?\SplObjectStorage
     {
         if (empty($conditions)) {
             return null;
         }
 
-        $storage = new SplObjectStorage();
+        $storage = new \SplObjectStorage();
         foreach ($conditions as $condition => $options) {
             $condition = $this->config->resolveAlias($condition);
 

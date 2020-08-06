@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Spiral\Validation;
 
-use ArrayAccess;
 use Spiral\Validation\Exception\ValidationException;
 
 final class Validator implements ValidatorInterface
@@ -19,7 +18,7 @@ final class Validator implements ValidatorInterface
     /** @var RulesInterface */
     private $provider;
 
-    /** @var array|ArrayAccess */
+    /** @var array|\ArrayAccess */
     private $data;
 
     /** @var array */
@@ -32,10 +31,10 @@ final class Validator implements ValidatorInterface
     private $rules;
 
     /**
-     * @param array|ArrayAccess $data
-     * @param array             $rules
-     * @param mixed             $context
-     * @param RulesInterface    $ruleProvider
+     * @param array|\ArrayAccess $data
+     * @param array              $rules
+     * @param mixed              $context
+     * @param RulesInterface     $ruleProvider
      */
     public function __construct($data, array $rules, $context, RulesInterface $ruleProvider)
     {

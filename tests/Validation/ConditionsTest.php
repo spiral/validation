@@ -255,6 +255,11 @@ class ConditionsTest extends BaseTest
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
             ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'c']]]]
         );
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => []]]]
+        );
     }
 
     public function testAnyOfConditions(): void
@@ -269,6 +274,15 @@ class ConditionsTest extends BaseTest
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
             ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
         );
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['anyOf' => []]]]]
+        );
+        $this->assertValid(
+            ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'd', 'withoutAll' => 'c']]]]]
+        );
     }
 
     public function testNoneOfConditions(): void
@@ -276,15 +290,20 @@ class ConditionsTest extends BaseTest
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['noneOf' => ['withoutAll' => ['b','c']]]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withoutAll' => ['b', 'c']]]]]]
         );
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' =>  ['noneOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
         );
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' =>  ['noneOf' => ['withAll' => 'b', 'withAll2' => 'c']]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withAll' => 'b', 'withAll2' => 'c']]]]]
+        );
+        $this->assertNotValid(
+            'a',
+            ['a' => 'a'],
+            ['a' => [['is_bool', 'if' => ['noneOf' => []]]]]
         );
     }
 }

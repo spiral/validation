@@ -25,10 +25,6 @@ class NoneOfCondition extends AbstractCondition
      */
     public function isMet(ValidatorInterface $validator, string $field, $value): bool
     {
-        if (empty($this->options)) {
-            return true;
-        }
-
         foreach ($this->compositor->makeConditions($field, $this->options) as $condition) {
             if ($condition->isMet($validator, $field, $value)) {
                 return false;

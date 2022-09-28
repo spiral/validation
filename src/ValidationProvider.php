@@ -8,9 +8,13 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\InvokerInterface;
 use Spiral\Validation\Exception\ValidationException;
 
+/**
+ * @template TValidation of ValidationInterface
+ * @template TFilterDefinition
+ */
 final class ValidationProvider implements ValidationProviderInterface, SingletonInterface
 {
-    /** @var array<non-empty-string, \Closure> */
+    /** @var array<class-string<TValidation>, \Closure> */
     private array $resolvers = [];
 
     public function __construct(
@@ -19,16 +23,13 @@ final class ValidationProvider implements ValidationProviderInterface, Singleton
     }
 
     /**
-     * @param non-empty-string $name
+     * @param class-string<TFilterDefinition> $name
      */
     public function register(string $name, \Closure $resolver): void
     {
         $this->resolvers[$name] = $resolver;
     }
 
-    /**
-     * @param non-empty-string $name
-     */
     public function getValidation(string $name, array $params = []): ValidationInterface
     {
         if (!isset($this->resolvers[$name])) {

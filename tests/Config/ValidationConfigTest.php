@@ -13,13 +13,13 @@ final class ValidationConfigTest extends TestCase
     {
         $config = new ValidationConfig();
 
-        self::assertNull($config->getDefaultValidator());
+        $this->assertNull($config->getDefaultValidator());
     }
 
     public function testDefaultValidator(): void
     {
         $config = new ValidationConfig(['defaultValidator' => 'some']);
 
-        self::assertSame('some', $config->getDefaultValidator());
+        $this->assertSame('some', $config->getDefaultValidator());
     }
 }

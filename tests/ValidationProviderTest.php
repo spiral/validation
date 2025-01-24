@@ -14,14 +14,6 @@ final class ValidationProviderTest extends TestCase
     private m\MockInterface|InvokerInterface $invoker;
     private ValidationProvider $provider;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->invoker = m::mock(InvokerInterface::class);
-        $this->provider = new ValidationProvider($this->invoker);
-    }
-
     public function testRegisterValidator(): void
     {
         $validation = m::mock(ValidationInterface::class);
@@ -35,9 +27,14 @@ final class ValidationProviderTest extends TestCase
             ->with($resolver, $params)
             ->andReturn($validation);
 
-        $this->assertSame(
-            $validation,
-            $this->provider->getValidation('foo', $params)
-        );
+        self::assertSame($validation, $this->provider->getValidation('foo', $params));
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->invoker = m::mock(InvokerInterface::class);
+        $this->provider = new ValidationProvider($this->invoker);
     }
 }

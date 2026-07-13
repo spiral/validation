@@ -23,8 +23,9 @@ final class ValidationBootloader extends Bootloader
     ];
 
     public function __construct(
-        private readonly ConfiguratorInterface $config,
-    ) {}
+        private readonly ConfiguratorInterface $config
+    ) {
+    }
 
     public function init(): void
     {
@@ -45,7 +46,7 @@ final class ValidationBootloader extends Bootloader
 
     private function initDefaultValidator(
         ValidationConfig $config,
-        ValidationProviderInterface $provider,
+        ValidationProviderInterface $provider
     ): ValidationInterface {
         if ($config->getDefaultValidator() === null) {
             throw new ValidationException('Default Validator is not configured.');
